@@ -176,6 +176,30 @@ export default function Register() {
                     }}
                 >El uso de NewYou está sugeto a nuestros Términos y a la Política de privacidad </Text>
             </ScrollView>
+            <View
+                style={{
+                    position: "absolute", top: Dimensions.get("window").height * 0.91, display: "flex", flexDirection: "row",
+                    justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
+                }}
+            >
+                <Icon
+                    name='arrow-left'
+                    type='evilicon'
+                    color='#7C8499'
+                    size={50}
+                    onPress={() => navigation.goBack()}
+                    tvParallaxProperties={undefined}
+                />
+                {/* <Icon
+                    name='arrow-right'
+                    type='evilicon'
+                    color='#7C8499'
+                    size={50}
+                    //@ts-ignore
+                    onPress={() => navigation.navigate('IntroScreen')}
+                    tvParallaxProperties={undefined}
+                /> */}
+            </View>
         </View>
     );
 

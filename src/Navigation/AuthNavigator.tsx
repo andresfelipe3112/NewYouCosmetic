@@ -14,6 +14,8 @@ import { Animated, Easing } from 'react-native';
 import Register from '../Screens/Auth/Register';
 import Seasons from '../Screens/Seasons';
 import Start from '../Screens/Start';
+import Gender from '../Screens/Gender';
+import VeganOption from '../Screens/VeganOption';
 
 const Stack = createStackNavigator();
 
@@ -61,13 +63,13 @@ export const AuthNavigator = () => {
         />
       <Stack.Screen name="RecoveryPassword" component={RecoveryPasswordScreen}
        options={{
-        transitionSpec: {
-          open: config,
-          close: closeConfig,
-        },
-        gestureDirection:"vertical-inverted",
-        cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-      }}
+         transitionSpec: {
+           open: config,
+           close: closeConfig,
+          },
+          gestureDirection:"vertical-inverted",
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+        }}
        />
        {/* <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} /> */}
       <Stack.Screen name="IntroScreen" component={IntroScreen} 
@@ -83,30 +85,50 @@ export const AuthNavigator = () => {
       />
         <Stack.Screen name="Start" component={Start}
          options={{
+           transitionSpec: {
+             open: config,
+             close: closeConfig,
+            },
+            gestureDirection:"vertical-inverted",
+            cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+          }}
+        />
+        <Stack.Screen name="Seasons" component={Seasons}
+       options={{
+         transitionSpec: {
+           open: config,
+           close: closeConfig,
+          },
+          gestureDirection:"horizontal",
+          gestureVelocityImpact:1000,
+          cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+        }}      
+        />
+        <Stack.Screen name="Gender" component={Gender} 
+        options={{
           transitionSpec: {
             open: config,
             close: closeConfig,
           },
           gestureDirection:"vertical-inverted",
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
-        />
-        <Stack.Screen name="Seasons" component={Seasons}
-       options={{
+        }}  
+          />
+      <Stack.Screen name="VeganOption" component={VeganOption} 
+      options={{
         transitionSpec: {
           open: config,
           close: closeConfig,
         },
-        gestureDirection:"horizontal",
-        gestureVelocityImpact:1000,
-        cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
-      }}      
-        />
+        gestureDirection:"vertical-inverted",
+        cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+      }}  
+      />
       {/* <Stack.Screen name="FormIntroOne" component={FormIntroOne} />
       <Stack.Screen name="GenderOption" component={GenderOption} />
       <Stack.Screen name="LoadingHome" component={LoadingHome} />
       <Stack.Screen name="Recomendaciones" component={Recomendaciones} />
-      <Stack.Screen name="Home" component={Home} />  */}
+    <Stack.Screen name="Home" component={Home} />  */}
     </Stack.Navigator>
   );
 }

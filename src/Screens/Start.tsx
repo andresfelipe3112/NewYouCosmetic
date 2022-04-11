@@ -9,58 +9,60 @@ import LinearGradient from 'react-native-linear-gradient';
 
 export default function Start() {
     const navigation = useNavigation();
-   
+
     useEffect(() => {
 
         setTimeout(() => {
             //@ts-ignore
             navigation.navigate("Seasons")
-        },5000)
-    },[])
-   
+        }, 5000)
+    }, [])
+
     return (
         <View>
-                        <LinearGradient  opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
-                        <View
-                    style={{
-                        width: Dimensions.get("window").width * 0.8,
-                        height: Dimensions.get("window").height,
-                        alignSelf: "center",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Text
-                        style={{color: 'white', fontSize:30}}
-                    >¡Hola!</Text>
-                    <Text
-                        style={styles.textTitle}
-                    >Con tan solo 4 preguntas te brindaremos algunas recomendaciones .</Text>
-                </View>
-                <View
-    style={{position: "absolute", top: Dimensions.get("window").height *0.91 , display: "flex", flexDirection: "row",
-            justifyContent: "space-between", width: Dimensions.get("window").width*0.9, alignSelf: "center",}}
-    >
-    <Icon
-        name='arrow-left'
-        type='evilicon'
-        color='#7C8499'
-        size={50}
-        onPress={()=> navigation.goBack()}
-        tvParallaxProperties={undefined}
-      />
-    <Icon
-        name='arrow-right'
-        type='evilicon'
-        color='#7C8499'
-        size={50}
-            //@ts-ignore
-        onPress={()=> navigation.navigate("Seasons")}
-        tvParallaxProperties={undefined}
-      />
-    </View>
+            <LinearGradient opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+            <View
+                style={{
+                    width: Dimensions.get("window").width * 0.8,
+                    height: Dimensions.get("window").height,
+                    alignSelf: "center",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <Text
+                    style={{ color: 'white', fontSize: 30 }}
+                >¡Hola!</Text>
+                <Text
+                    style={styles.textTitle}
+                >Con tan solo 4 preguntas te brindaremos algunas recomendaciones .</Text>
+            </View>
+            <View
+                style={{
+                    position: "absolute", top: Dimensions.get("window").height * 0.91, display: "flex", flexDirection: "row",
+                    justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
+                }}
+            >
+                <Icon
+                    name='arrow-left'
+                    type='evilicon'
+                    color='#7C8499'
+                    size={50}
+                    onPress={() => navigation.goBack()}
+                    tvParallaxProperties={undefined}
+                />
+                <Icon
+                    name='arrow-right'
+                    type='evilicon'
+                    color='#7C8499'
+                    size={50}
+                    //@ts-ignore
+                    onPress={() => navigation.navigate("Seasons")}
+                    tvParallaxProperties={undefined}
+                />
+            </View>
         </View>
     );
 
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
         alignItems: "stretch",
         bottom: 0,
         right: 0
-        },
+    },
 
     containerInput: {
         width: Dimensions.get("window").width * 0.90,
@@ -143,7 +145,7 @@ const styles = StyleSheet.create({
         marginBottom: 50
     },
     textTitle: {
-        marginTop:10,
+        marginTop: 10,
         color: "white",
         fontSize: 23,
         textAlign: "center",
