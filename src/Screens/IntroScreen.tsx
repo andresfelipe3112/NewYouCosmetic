@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { Dimensions, SafeAreaView, View } from 'react-native'
-import { Image, Text } from 'react-native-elements'
+import { Dimensions, SafeAreaView, StyleSheet, TouchableOpacity, View, Image } from 'react-native'
+import { Text } from 'react-native-elements'
 import { Button } from 'react-native-elements/dist/buttons/Button'
 
 
@@ -9,25 +9,25 @@ const array = [
     {
         title:"CREA TU PERFIL",
         subTitle:"Puedes crear tu perfil, con esto te podre conocer y recomendar lo que necesitas",
-        img:require("../assets/Img/pruebaA.jpg"),
+        img:require("../Assets/Img/pruebaA.jpg"),
         color:"#911757"
     },
     {
         title:"RECIBE ASESORÍA",
         subTitle:"Siempre estaré pendiente de recomendarte lo que a ti te hace brillar",
-        img:require("../assets/Img/pruebaB.jpg"),
+        img:require("../Assets/Img/pruebaB.jpg"),
         color:"#672183"
     },
     {
         title:"ARMA TU OUTFIT",
         subTitle:"Crear tu mejor outfit para aquella ocasión o sino simplemente deja sorprenderte",
-        img:require("../assets/Img/pruebaC.jpg"),
+        img:require("../Assets/Img/pruebaC.jpg"),
         color:"#3c188c"
     },
     {
         title:"CONSIGUE TU ESTILO",
         subTitle:"Ya tienes tu personal shopper, nunca más volverás a no saber qué comprar",
-        img:require("../assets/Img/pruebaD.jpg"),
+        img:require("../Assets/Img/pruebaD.jpg"),
         color:"#1336aa"
     },
 ]
@@ -80,30 +80,45 @@ export const IntroScreen = () => {
               
             </View>
         <Image
-        style={{width: Dimensions.get("window").width *0.68, height:Dimensions.get("window").height* 0.75,}}
+        style={{width: Dimensions.get("window").width *0.68, height:Dimensions.get("window").height* 0.65,}}
         source={array[first].img}
         ></Image>
         </View>
-        <Button
-                title="Siguiente   ->"
-                buttonStyle={{ backgroundColor: 'rgba(39, 39, 39, 1)', }}
-                type={"clear"}
-                containerStyle={{
-                  width: 200,
-                  marginTop:"-15%",
-                  marginHorizontal:"26%",
-                  borderRadius:10  
-                }}
-                titleStyle={{ color: 'white', marginHorizontal: 20, fontSize: 20,}}
-                onPress={() =>{ 
-                    setfirst((prev:any) =>{ return prev < 3 ? prev = prev + 1 : prev });
-                    setstatusNumber((prev:any) =>{ return prev < 3 ? prev = prev + 1 : prev  })
+        <TouchableOpacity
+                    style={styles.button}
                     //@ts-ignore
-                    first === 3 && navigation.navigate('FormIntroOne')
-                    
+                    onPress={() =>{ 
+                        setfirst((prev:any) =>{ return prev < 3 ? prev = prev + 1 : prev });
+                        setstatusNumber((prev:any) =>{ return prev < 3 ? prev = prev + 1 : prev  })
+                        //@ts-ignore
+                        first === 3 && navigation.navigate('FormIntroOne')
+                        
+                    }
                 }
-            }
-              />
+                >
+                    <Text
+                        style={styles.text}
+                    >siguiente</Text>
+                </TouchableOpacity>
     </View>
     )
 }
+
+const styles = StyleSheet.create({
+    text: {
+        fontSize: 15,
+        color: "white",
+        fontWeight: 'bold',
+    },
+    button: {
+        marginTop:-30,
+        color: 'white',
+        height: 45,
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: 100,
+        borderColor: "white",
+        borderWidth: 1
+    },
+})

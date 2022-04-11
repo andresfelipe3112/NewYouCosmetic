@@ -4,12 +4,11 @@ import { useForm, Controller } from "react-hook-form";
 import { Icon, Image } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient'
-import WellCome from '../../Components/WellCome';
-import Video from "react-native-video";
-import VideoPlayer from 'react-native-video-controls';
 
 
-export default function LoginScreen() {
+
+
+export default function Register() {
     const navigation = useNavigation();
     const [colorBordefocusUser, setcolorBordefocusUser] = useState<string>('white')
     const [colorBordefocusPass, setcolorBordefocusPass] = useState<string>('white')
@@ -36,50 +35,30 @@ export default function LoginScreen() {
         navigation.navigate('RecoveryPassword');
     }
 
+
     return (
-        <>
-            <Video  
-                        // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
-                        source={require("../../Assets/video/intro2.mp4")}
-                        resizeMode={"stretch"}
-                        opacity={0.5}
-                        controls={false}
-                        paused={false}
-                        mute={true}
-                        disableBack
-                        disableVolume
-                        toggleResizeModeOnFullscreen   
-                        repeat={true}
-                        bufferConfig={{
-                            minBufferMs: 15000,
-                            maxBufferMs: 50000,
-                            bufferForPlaybackMs: 2500,
-                            bufferForPlaybackAfterRebufferMs: 5000
-                        }}
-                        
-                        style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            bottom: 0,
-                            right: 0,
-                        }}
-                    /> 
-                        <LinearGradient  opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+        <View
+        style={{display: 'flex', flexDirection:"column", justifyContent: 'center', alignItems:"center", flex:1}}
+        >
+            <LinearGradient  opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: "100%" }} />
             <ScrollView
             // style={{backgroundColor:"black"}}
             >
                 <View
                     style={{
                         width: Dimensions.get("window").width * 0.8,
+                        display: "flex",
+                        flexDirection: "row",
                         alignSelf: "center",
-                        marginBottom: 20,
-                        marginTop: 110
+                        marginTop: 170,
+                        height: 80,
+                        justifyContent:"center",
+                        alignItems: "center",
                     }}
                 >
                     <Text
                         style={styles.textTitle}
-                    >Inicia sesión en tu cuenta de NewYou</Text>
+                    >Crea una cuenta para guardar tu progreso</Text>
                 </View>
                 {errors.Usuario && <Text style={styles.textError} >El usuario es requerido.</Text>}
                 <Controller
@@ -92,13 +71,44 @@ export default function LoginScreen() {
                                 size={35}
                                 name='envelope'
                                 type='evilicon'
-                                color='#9bafc7'
+                                color='white'
+                                style={{ marginLeft: 13 }} tvParallaxProperties={undefined} />
+                            <TextInput
+                                placeholder="Nombre"
+                                style={[styles.input, { borderColor: colorBordefocusUser }]}
+                                onBlur={onBlur}
+                                placeholderTextColor="white"
+                                onChangeText={value => onChange(value)}
+                                value={value}
+                                onFocus={({ nativeEvent: LayoutEvent }) => {
+                                    setcolorBordefocusUser('#9933FF');
+                                    setcolorBordefocusPass('white')
+                                }}
+                            >
+                            </TextInput>
+                        </View>
+                    )}
+                    name="Usuario"
+                    rules={{ required: true }}
+                />
+                {errors.Usuario && <Text style={styles.textError} >El usuario es requerido.</Text>}
+                <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <View
+                            style={styles.containerInput}
+                        >
+                            <Icon
+                                size={35}
+                                name='envelope'
+                                type='evilicon'
+                                color='white'
                                 style={{ marginLeft: 13 }} tvParallaxProperties={undefined} />
                             <TextInput
                                 placeholder="Correo electrónico"
                                 style={[styles.input, { borderColor: colorBordefocusUser }]}
                                 onBlur={onBlur}
-                                placeholderTextColor="#8e9bb7"
+                                placeholderTextColor="white"
                                 onChangeText={value => onChange(value)}
                                 value={value}
                                 onFocus={({ nativeEvent: LayoutEvent }) => {
@@ -123,13 +133,13 @@ export default function LoginScreen() {
                                 size={35}
                                 name='lock'
                                 type='evilicon'
-                                color='#9bafc7'
+                                color='white'
                                 style={{ marginLeft: 13 }} tvParallaxProperties={undefined} />
                             <TextInput
                                 placeholder="Constraseña"
                                 style={[styles.input, { borderColor: colorBordefocusUser }]}
                                 onBlur={onBlur}
-                                placeholderTextColor="#8e9bb7"
+                                placeholderTextColor="white"
                                 onChangeText={value => onChange(value)}
                                 value={value}
                                 onFocus={({ nativeEvent: LayoutEvent }) => {
@@ -143,15 +153,6 @@ export default function LoginScreen() {
                     name="Constraseña"
                     rules={{ required: true }}
                 />
-
-                <TouchableOpacity
-                    style={styles.buttonConstraseñaOlvido}
-                    onPress={goForgotPassword}
-                >
-                    <Text
-                        style={styles.textOlvidoContraseña}
-                    >¿Olvidaste tu contraseña?</Text>
-                </TouchableOpacity>
                 <View style={{ marginHorizontal: 10, display: 'flex', flexDirection: "row", alignSelf: "center", alignItems: 'center' }}>
                     <View style={{ width: "42%", backgroundColor: "white", height: 1 }} ></View>
                     <View style={{ height: 10, width: 10, borderRadius: 5, borderColor: "white", borderWidth: 1, marginHorizontal: 10 }}  ></View>
@@ -166,54 +167,17 @@ export default function LoginScreen() {
                 >
                     <Text
                         style={styles.text}
-                    >Iniciar Sesión</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.buttonGoogle}
-                    onPress={handleSubmit(onSubmit)}
-                >
-                    <Icon
-                        size={40}
-                        name='social-facebook'
-                        type='foundation'
-                        color='#3559ae'
-                        style={{ marginHorizontal: 13 }} tvParallaxProperties={undefined} />
-                    <Text
-                        style={styles.textGoogle}
-                    >Iniciar sesión con Facebook</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.buttonGoogle}
-                    onPress={handleSubmit(onSubmit)}
-                >
-                    <Icon
-                        size={26}
-                        name='google'
-                        type='fontisto'
-                        color='#ad7704'
-                        style={{ marginHorizontal: 13 }} tvParallaxProperties={undefined} />
-                    <Text
-                        style={styles.textGoogle}
-                    >Iniciar sesión con Google</Text>
+                    >Continuar</Text>
                 </TouchableOpacity>
                 <Text
                     style={{
                         alignSelf: 'center', width: Dimensions.get("window").width * 0.7, fontSize: 14,
-                        color: "#c0bfe7", fontFamily: "EvilIcons", textAlign: 'center', marginTop: 25,
-                        height:55,
+                        color: "white", fontFamily: "EvilIcons", textAlign: 'center', marginTop: 25, 
+                        height:55
                     }}
                 >El uso de NewYou está sugeto a nuestros Términos y a la Política de privacidad </Text>
-                <TouchableOpacity
-                    style={styles.buttonConstraseñaOlvido}
-                    //@ts-ignore
-                    onPress={() => navigation.navigate('Register')}
-                >
-                    <Text
-                        style={{ ...styles.textOlvidoContraseña, textDecorationLine: "none", fontSize: 14, marginTop: -5 }}
-                    >¿Necesitas una cuenta? <Text style={{ textDecorationLine: 'underline', }}>Registrate</Text></Text>
-                </TouchableOpacity>
             </ScrollView>
-        </>
+        </View>
     );
 
 };
@@ -232,7 +196,7 @@ const styles = StyleSheet.create({
     containerInput: {
         width: Dimensions.get("window").width * 0.90,
         height: 55,
-        backgroundColor: '#2d507a',
+        backgroundColor: 'black',
         display: "flex",
         flexDirection: "row",
         justifyContent: "flex-start",
@@ -241,18 +205,19 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 8,
         borderColor: "#9bafc7",
-        marginBottom: 10
+        marginBottom: 10,
+        opacity: 0.5
     },
 
     button: {
         marginTop: 25,
         color: 'white',
         height: 45,
-        // backgroundColor: "#4245a0",
+        // backgroundColor: "#EED4F3",
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        marginHorizontal: 18,
+        marginHorizontal: 100,
         borderColor: "white",
         borderWidth: 1
     },
@@ -298,7 +263,9 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 25,
         textAlign: "center",
-        fontFamily: "Dosis"
+        fontFamily: "Dosis",
+        height:85,
+        marginBottom:20
     },
     buttonConstraseñaOlvido: {
         marginVertical: 10,
@@ -316,7 +283,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 15,
-        color: "white",
+        color: 'white',
         fontWeight: 'bold',
     },
     textFacebook: {

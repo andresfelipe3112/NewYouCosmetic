@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Modal, Dimensions } from 'react-native';
-
+import LinearGradient from 'react-native-linear-gradient'
 import { useNavigation } from '@react-navigation/native'
 import { Input, Overlay, Icon } from 'react-native-elements';
 import { Controller, useForm } from 'react-hook-form';
@@ -46,6 +46,7 @@ export const RecoveryPasswordScreen = () => {
 
     return (
         <>
+        <LinearGradient  colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             <ArrowBackButton route={navigation}></ArrowBackButton>
             <ScrollView>
                 <View style={styles.container}>

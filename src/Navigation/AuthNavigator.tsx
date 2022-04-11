@@ -11,6 +11,7 @@ import { LoadingHome } from '../Components/LoadingHome';
 import { Home } from '../Screens/Home';
 import WellCome from '../Components/WellCome';
 import { Animated, Easing } from 'react-native';
+import Register from '../Screens/Auth/Register';
 
 const Stack = createStackNavigator();
 
@@ -48,14 +49,43 @@ export const AuthNavigator = () => {
         gestureDirection:"vertical-inverted",
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
       }}/>
-      <Stack.Screen name="RecoveryPassword" component={RecoveryPasswordScreen} />
-       <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
-      {/*<Stack.Screen name="IntroScreen" component={IntroScreen} />
-      <Stack.Screen name="FormIntroOne" component={FormIntroOne} />
+        <Stack.Screen name="Register" component={Register} 
+        options={{
+          transitionSpec: {
+            open: config,
+            close: closeConfig,
+          },
+          gestureDirection:"vertical-inverted",
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+        }}
+        />
+      <Stack.Screen name="RecoveryPassword" component={RecoveryPasswordScreen}
+       options={{
+        transitionSpec: {
+          open: config,
+          close: closeConfig,
+        },
+        gestureDirection:"vertical-inverted",
+        cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+      }}
+       />
+       {/* <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} /> */}
+      <Stack.Screen name="IntroScreen" component={IntroScreen} 
+        options={{
+          transitionSpec: {
+            open: config,
+            close: closeConfig,
+          },
+          gestureDirection:"horizontal",
+          gestureVelocityImpact:1000,
+          cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+        }}      
+      />
+      {/* <Stack.Screen name="FormIntroOne" component={FormIntroOne} />
       <Stack.Screen name="GenderOption" component={GenderOption} />
       <Stack.Screen name="LoadingHome" component={LoadingHome} />
       <Stack.Screen name="Recomendaciones" component={Recomendaciones} />
-      <Stack.Screen name="Home" component={Home} /> */}
+      <Stack.Screen name="Home" component={Home} />  */}
     </Stack.Navigator>
   );
 }
