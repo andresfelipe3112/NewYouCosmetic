@@ -91,7 +91,7 @@ export const IntroScreen = () => {
                         setfirst((prev:any) =>{ return prev < 3 ? prev = prev + 1 : prev });
                         setstatusNumber((prev:any) =>{ return prev < 3 ? prev = prev + 1 : prev  })
                         //@ts-ignore
-                        first === 3 && navigation.navigate('FormIntroOne')
+                        first === 3 && navigation.navigate('Start')
                         
                     }
                 }

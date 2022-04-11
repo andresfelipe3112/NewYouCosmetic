@@ -3,9 +3,7 @@ import { Text, View, TextInput, Button, ScrollView, Alert, Dimensions, StyleShee
 import { useForm, Controller } from "react-hook-form";
 import { Icon, Image } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import LinearGradient from 'react-native-linear-gradient'
-
-
+import LinearGradient from 'react-native-linear-gradient';
 
 
 export default function Register() {
@@ -40,10 +38,11 @@ export default function Register() {
         <View
         style={{display: 'flex', flexDirection:"column", justifyContent: 'center', alignItems:"center", flex:1}}
         >
-            <LinearGradient  opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: "100%" }} />
+            <LinearGradient  opacity={0.9} colors={['#4847a2', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: "100%" }} />
             <ScrollView
             // style={{backgroundColor:"black"}}
             >
+                
                 <View
                     style={{
                         width: Dimensions.get("window").width * 0.8,
@@ -208,7 +207,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         opacity: 0.5
     },
-
     button: {
         marginTop: 25,
         color: 'white',

@@ -12,6 +12,8 @@ import { Home } from '../Screens/Home';
 import WellCome from '../Components/WellCome';
 import { Animated, Easing } from 'react-native';
 import Register from '../Screens/Auth/Register';
+import Seasons from '../Screens/Seasons';
+import Start from '../Screens/Start';
 
 const Stack = createStackNavigator();
 
@@ -31,8 +33,6 @@ export const AuthNavigator = () => {
     }
   }
   
-
-
   return (
     <Stack.Navigator
       screenOptions={{
@@ -81,6 +81,27 @@ export const AuthNavigator = () => {
           cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
         }}      
       />
+        <Stack.Screen name="Start" component={Start}
+         options={{
+          transitionSpec: {
+            open: config,
+            close: closeConfig,
+          },
+          gestureDirection:"vertical-inverted",
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+        }}
+        />
+        <Stack.Screen name="Seasons" component={Seasons}
+       options={{
+        transitionSpec: {
+          open: config,
+          close: closeConfig,
+        },
+        gestureDirection:"horizontal",
+        gestureVelocityImpact:1000,
+        cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+      }}      
+        />
       {/* <Stack.Screen name="FormIntroOne" component={FormIntroOne} />
       <Stack.Screen name="GenderOption" component={GenderOption} />
       <Stack.Screen name="LoadingHome" component={LoadingHome} />
