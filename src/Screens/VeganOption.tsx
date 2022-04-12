@@ -141,7 +141,7 @@ const Seasons = () => {
                         size={50}
                         tvParallaxProperties={undefined}
                         //@ts-ignore
-                        // onPress={() => navigation.navigate("Gender")}
+                        onPress={() => navigation.navigate("StyleOption")}
                     />
                 </TouchableOpacity>
             </View>

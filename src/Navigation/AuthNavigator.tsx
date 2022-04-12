@@ -6,9 +6,9 @@ import { ChangePasswordScreen } from '../Screens/Auth/ChangePasswordScreen';
 import { IntroScreen } from '../Screens/IntroScreen';
 import { GenderOption } from '../Screens/GenderOption';
 import FormIntroOne from '../Screens/FormIntroOne';
-import { Recomendaciones } from '../Screens/Recomendaciones';
+import { Recomendaciones } from '../Screens/Home';
 import { LoadingHome } from '../Components/LoadingHome';
-import { Home } from '../Screens/Home';
+import { Home } from '../Screens/HomeB';
 import WellCome from '../Components/WellCome';
 import { Animated, Easing } from 'react-native';
 import Register from '../Screens/Auth/Register';
@@ -16,15 +16,18 @@ import Seasons from '../Screens/Seasons';
 import Start from '../Screens/Start';
 import Gender from '../Screens/Gender';
 import VeganOption from '../Screens/VeganOption';
+import StyleOption from '../Screens/StyleOption';
+import Photo from '../Screens/Photo';
+import { RootTabsNavigator } from './RootTabsNavigator';
 
 const Stack = createStackNavigator();
 
 export const AuthNavigator = () => {
   const config = {
     animation: "timing",
-     config: {
+    config: {
       duration: 1000,
-     }
+    }
   }
   
   const closeConfig = {
@@ -37,10 +40,11 @@ export const AuthNavigator = () => {
   
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        cardStyle: { backgroundColor: undefined }
-      }}>
+    screenOptions={{
+      headerShown: false,
+      cardStyle: { backgroundColor: undefined }
+    }}>
+        <Stack.Screen name="Root" component={RootTabsNavigator} />
       <Stack.Screen name="Wellcome" component={WellCome} />
       <Stack.Screen name="LoginScreen" component={LoginScreen}
       options={{
@@ -124,11 +128,40 @@ export const AuthNavigator = () => {
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
       }}  
       />
-      {/* <Stack.Screen name="FormIntroOne" component={FormIntroOne} />
-      <Stack.Screen name="GenderOption" component={GenderOption} />
-      <Stack.Screen name="LoadingHome" component={LoadingHome} />
-      <Stack.Screen name="Recomendaciones" component={Recomendaciones} />
-    <Stack.Screen name="Home" component={Home} />  */}
-    </Stack.Navigator>
+          <Stack.Screen name="StyleOption" component={StyleOption}
+           options={{
+             transitionSpec: {
+               open: config,
+               close: closeConfig,
+              },
+              gestureDirection:"vertical-inverted",
+              cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+            }}
+          />
+          <Stack.Screen name="Photo" component={Photo}
+           options={{
+            transitionSpec: {
+              open: config,
+              close: closeConfig,
+             },
+             gestureDirection:"vertical-inverted",
+             cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+           }}
+          />
+      <Stack.Screen name="LoadingHome" component={LoadingHome}
+        options={{
+          transitionSpec: {
+            open: config,
+            close: closeConfig,
+          },
+          gestureDirection:"vertical-inverted",
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+        }}
+      />
+       {/* <Stack.Screen name="FormIntroOne" component={FormIntroOne} />
+    <Stack.Screen name="Home" component={Home} /> 
+    <Stack.Screen name="GenderOption" component={GenderOption} />
+  */}
+        </Stack.Navigator> 
   );
 }

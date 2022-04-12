@@ -19,7 +19,7 @@ export const LoadingHome = (props: any) => {
  useEffect(() => {
           setTimeout(() => {
               //@ts-ignore
-          navigation.navigate("Recomendaciones")
+          navigation.navigate("Root")
      },3000)
  },[])
 
@@ -97,7 +97,7 @@ export const LoadingHome = (props: any) => {
                   style={{width:"100%", alignItems: 'center', height:"60%", justifyContent: 'center'}}                
                 >
                 <Image
-                source={require("../assets/Img/logo_NewYou.png")}
+                source={require("../Assets/Img/logo_NewYou.png")}
                 style={{width:70, height: 60,}}
                 ></Image>
                 </View>

@@ -5852,6 +5852,11 @@ react-native-elements@^3.4.2:
     react-native-ratings "8.0.4"
     react-native-size-matters "^0.3.1"
 
+react-native-fast-toast@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-fast-toast/-/react-native-fast-toast-3.0.1.tgz#087a30c0fe77a5b3bd30bfea43edcd8928c7fd8e"
+  integrity sha512-ugCcVQ2C09ZUlxPZSG0f89Mb8wzvbgOyVHIbUxIbAr01jr77DWFOEgiG1Z4v9FH/O/mm6mZjmJPEIAqvN0ck0Q==
+
 react-native-gesture-handler@^2.2.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.3.2.tgz#65ce3b145bd96242c2200abbb9730c94bc73386c"
@@ -5870,6 +5875,11 @@ react-native-gradle-plugin@^0.0.5:
   dependencies:
     react-native-codegen "*"
 
+react-native-image-picker@^4.7.3:
+  version "4.7.3"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.7.3.tgz#f5863b27bf2e76c83649dd8efea4598426bd04e8"
+  integrity sha512-eRKm4wlsmZHmsWFyv77kYc2F+ZyEVqe0m7mqhsMzWk6TQT4FBDtEDxmRDDFq+ivCu/1QD+EPhmYcAIpeGr7Ekg==
+
 react-native-linear-gradient@^2.5.6:
   version "2.5.6"
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
@@ -5881,6 +5891,11 @@ react-native-ratings@8.0.4:
   integrity sha512-Xczu5lskIIRD6BEdz9A0jDRpEck/SFxRqiglkXi0u67yAtI1/pcJC76P4MukCbT8K4BPVl+42w83YqXBoBRl7A==
   dependencies:
     lodash "^4.17.15"
+
+react-native-rbs@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-rbs/-/react-native-rbs-0.0.1.tgz#6bfbf7465bf0552ea32bc2e03c94259de74fe5b7"
+  integrity sha512-SKbMcaDjdZ89pzrBuBv/hF1tDVYk+SsxKr4NGCcdmgI1ECXAbCUxFdqcwNZuxQldLD0bedX2Hx8eb4bguBIWuw==
 
 react-native-safe-area-context@^3.4.1:
   version "3.4.1"

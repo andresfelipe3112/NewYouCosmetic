@@ -1,77 +1,100 @@
-import React, { Component, useEffect, useState } from 'react';
-import { ActivityIndicator, Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { Component, useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Animated, Dimensions, Easing, ScrollView, StyleSheet, Text, TouchableOpacity, View, Pressable } from 'react-native';
 //@ts-ignore
 import Video from "react-native-video";
 import LinearGradient from 'react-native-linear-gradient'
 import { Image } from 'react-native-elements/dist/image/Image';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import DawnLogo from '../Components/DawnLogo';
 
 
-const invierno = require('../Assets/video/invierno.mp4');
-const otono = require('../Assets/video/otono.mp4');
-const primavera = require('../Assets/video/primavera.mp4');
-const verano = require('../Assets/video/verano.mp4');
+const videoA = require('../Assets/video/casual.mp4');
+const VideoB = require('../Assets/video/formal.mp4');
+const VideoC = require('../Assets/video/cocktail.mp4');
+const VideoD = require('../Assets/video/blackTie.mp4');
+const VideoE = require('../Assets/video/white.mp4');
+
+const imagenA = require('../Assets/Img/casual.jpeg')
+const ImagenB = require('../Assets/Img/formal.jpeg')
+const imagenC = require('../Assets/Img/cocktail.jpeg')
+const imagenD = require('../Assets/Img/blackTie.jpeg')
+const imagenE = require('../Assets/Img/whiteTie.jpeg')
 
 
 const Seasons = () => {
     const navigation = useNavigation();
-    const [season, setSeason] = useState(otono);
-    const [active, setActive] = useState(false);
-    const [colorCheckVerano, setcolorCheckVerano] = useState(false);
-    const [colorCheckInvierno, setcolorCheckInvierno] = useState(false);
-    const [colorCheckOtono, setcolorCheckOtono] = useState(false);
-    const [colorCheckPrimavera, setcolorCheckPrimavera] = useState(false);
+    const [season, setSeason] = useState(videoA);
+    const [statusInfo, setstatusInfo] = useState(true);
+    const [colorCheckA, setcolorCheckA] = useState(false);
+    const [colorCheckB, setsetcolorCheckB] = useState(false);
+    const [colorCheckC, setcolorCheckC] = useState(false);
+    const [colorCheckD, setcolorCheckD] = useState(false);
+    const [colorCheckE, setcolorCheckE] = useState(false);
 
-    const colorVerano = () => {
-        if (colorCheckVerano) {
-           return setcolorCheckVerano(false)
+    const colorA = () => {
+        if (colorCheckA) {
+            return setcolorCheckA(false)
         }
-        setSeason(verano)
-        setcolorCheckVerano(true);
-        setcolorCheckInvierno(false)
-        setcolorCheckOtono(false)
-        setcolorCheckPrimavera(false)
+        setSeason(videoA)
+        setcolorCheckE(false)
+        setcolorCheckA(true);
+        setsetcolorCheckB(false)
+        setcolorCheckC(false)
+        setcolorCheckD(false)
+    }
+    const colorB = () => {
+        if (colorCheckB) {
+            return setsetcolorCheckB(false)
+        }
+        setSeason(VideoB)
+        setcolorCheckE(false)
+        setcolorCheckA(false);
+        setsetcolorCheckB(true);
+        setcolorCheckC(false)
+        setcolorCheckD(false)
+    }
+    const colorC = () => {
+        if (colorCheckC) {
+            return setcolorCheckC(false)
+        }
+        setSeason(VideoC)
+        setcolorCheckE(false)
+        setcolorCheckA(false);
+        setsetcolorCheckB(false);
+        setcolorCheckC(true);
+        setcolorCheckD(false)
+    }
+    const colorD = () => {
+        if (colorCheckD) {
+            return setcolorCheckD(false)
+        }
+        setSeason(VideoD)
+        setcolorCheckE(false)
+        setcolorCheckA(false);
+        setsetcolorCheckB(false);
+        setcolorCheckC(false);
+        setcolorCheckD(true);
+    }
 
-    }
-    const colorInvierno = () => {
-        if (colorCheckInvierno) {
-            return setcolorCheckInvierno(false)
-         }
-         setSeason(invierno)
-         setcolorCheckVerano(false);
-         setcolorCheckInvierno(true);
-         setcolorCheckOtono(false)
-         setcolorCheckPrimavera(false)
-    }
-    const colorOtono = () => {
-        if (colorCheckOtono) {
-            return setcolorCheckOtono(false)
-         }
-         setSeason(otono)
-         setcolorCheckVerano(false);
-         setcolorCheckInvierno(false);
-         setcolorCheckOtono(true);
-         setcolorCheckPrimavera(false)
-    }
-    const colorPrimavera  = () => {
-        if (colorCheckPrimavera) {
-            return setcolorCheckPrimavera(false)
-         }
-         setSeason(primavera)
-         setcolorCheckVerano(false);
-         setcolorCheckInvierno(false);
-         setcolorCheckOtono(false);
-         setcolorCheckPrimavera(true);
+    const colorE = () => {
+        if (colorCheckE) {
+            return setcolorCheckE(false)
+        }
+        setSeason(VideoE)
+        setcolorCheckA(false);
+        setsetcolorCheckB(false);
+        setcolorCheckC(false);
+        setcolorCheckD(false);
+        setcolorCheckE(true)
     }
 
     useEffect(() => {
-        colorOtono()
+        colorA()
     },[])
 
     return (
         <View
-        style={{ width: '100%', height:Dimensions.get("screen").height}}
         >
             <LinearGradient colors={['#544D60', '#19181C', '#19181C']} style={{ position: "absolute", width: "100%", height: "100%" }} />
             <Video
@@ -100,107 +123,138 @@ const Seasons = () => {
                     bottom: 0,
                     right: 0,
                 }}
-            /> 
-        <ScrollView>
-        <Text
-                        style={styles.textTitle}
-                    >Selecciona la estación del año. </Text>
-            <View
-            style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                    flexWrap:"wrap", width: Dimensions.get("window").width }}
-            >
-    
-                <Image
-                    source={require("../Assets/Img/imgVerano.jpeg")}
-                    containerStyle={styles.containerStyle}
-                    PlaceholderContent={<ActivityIndicator />}
-                />
+            />
+            <ScrollView>
+                <Text
+                    style={styles.textTitle}
+                >Selecciona tú Dress Code. </Text>
+                <View
+                    style={{
+                        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                        width: Dimensions.get("window").width, marginBottom:40
+                    }}
+                >
 
-                <TouchableOpacity
-                    style={[styles.button, { backgroundColor: colorCheckVerano ? 'white' : "transparent" }]}
-                    //@ts-ignore
-                    onPress={colorVerano}
-                >
-                    <Text
-                        style={[styles.text, { color: colorCheckVerano ?  "black" : 'white' }]}
-                    >Verano</Text>
-                </TouchableOpacity>
-                <Image
-                    source={require("../Assets/Img/oto.jpeg")}
-                    containerStyle={styles.containerStyle}
-                    PlaceholderContent={<ActivityIndicator />}
+
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: colorCheckA ? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={()=>{
+                            colorA();
+                        }}
+                    >
+                        <Image
+                            source={imagenA}
+                            containerStyle={styles.containerStyle}
+                            PlaceholderContent={<ActivityIndicator />}
+                        />
+                        <Text
+                            style={[styles.text, { color: colorCheckA ? "black" : 'white' }]}
+                        >Casual</Text>
+                        </TouchableOpacity>
+                           <DawnLogo  render={statusInfo} text="En el caso del look casual no hay demasiadas reglas, debiendo primar el sentido común. Para ello hay que fijarse en dónde y cuándo es la celebración. Tanto en el caso de los hombres como de las mujeres se pueden admitir unos jeans, que ellas combinarían con accesorios que reflejen su personalidad, y ellos con una camisa de mangas cortas o un polo, por ejemplo." />
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={colorB}
+                    >
+                        <Image
+                            source={ImagenB}
+                            containerStyle={styles.containerStyle}
+                            PlaceholderContent={<ActivityIndicator />}
+                        />
+                        <Text
+                            style={[styles.text, { color: colorCheckB ? "black" : 'white' }]}
+                        >Formal</Text>
+                    </TouchableOpacity>
+                    <DawnLogo  render={statusInfo} text="Para eventos de noche y elegantes, sin llegar a la etiqueta. Un look femenino apropiado pasaría por un vestido largo de tela fina, zapatillas altas y algún accesorio como un clutch. El hombre tiene que optar por un traje y corbata, con acabados distintos a los que utilizaría de día." />
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={colorC}
+                    >
+                        <Image
+                            source={imagenC}
+                            containerStyle={styles.containerStyle}
+                            PlaceholderContent={<ActivityIndicator />}
+                        />
+                        <Text
+                            style={[styles.text, { color: colorCheckC ? "black" : 'white' }]}
+                        >Cocktail</Text>
+                    </TouchableOpacity>
+                    <DawnLogo text="Es el dress code adecuado para un evento formal de día, de tarde o incluso en algunos casos, de noche. Para la mujer, lo más recomendable es un vestido por las rodillas y zapatillas, aunque también se puede optar por una falda en combinación con una blusa que aporte distinción. El hombre tendría que ir de traje, siendo opcional ponerse corbata."/>
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: colorCheckD ? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={colorD}
+                    >
+                        <Image
+                            source={imagenD}
+                            containerStyle={styles.containerStyle}
+                            PlaceholderContent={<ActivityIndicator />}
+                        />
+                        <Text
+                            style={[styles.text, { color: colorCheckD ? "black" : 'white' }]}
+                        >Black Tie</Text>
+                    </TouchableOpacity>
+                    <DawnLogo text="Etiqueta simple. La idea es vestir elegante, para un evento también de noche. La mujer debe ir con vestido largo y con estilo, tacones y accesorios que añadan un plus de elegancia. Los hombres tienen que decantarse por el esmoquin."/>
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: colorCheckE ? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={colorE}
+                    >
+                        <Image
+                            source={imagenE}
+                            containerStyle={styles.containerStyle}
+                            PlaceholderContent={<ActivityIndicator />}
+                        />
+                        <Text
+                            style={[styles.text, { color: colorCheckE ? "black" : 'white' }]}
+                        >White Tie</Text>
+                    </TouchableOpacity>
+                    <DawnLogo text="Etiqueta 100%. Exige lucir tus mejores galas para un look de noche. Las mujeres deben optar por vestido largo combinado con zapatos muy elegantes (siempre altos). En el caso del hombre, las opciones permitidas son el frac, o el traje combinado con chaleco y corbata de moño."/>
+                </View>
+            </ScrollView>
+            <View
+                style={{
+                    position: "absolute", top: Dimensions.get("window").height * 0.015, display: "flex", flexDirection: "row",
+                    justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
+                }}
+            >
+                 <LinearGradient opacity={0.7} colors={['#19181C', '#19181C']} 
+                 style={{ position: "absolute", width: Dimensions.get("window").width * 1.5 ,
+                  height: 65,
+                  marginHorizontal:-100,
+                  marginTop:-13
+                  }} />
+                <Icon
+                    name='arrow-left'
+                    type='evilicon'
+                    color='#7C8499'
+                    size={50}
+                    tvParallaxProperties={undefined}
+                    onPress={() => navigation.goBack()}
                 />
-                <TouchableOpacity
-                     style={[styles.button, { backgroundColor: colorCheckOtono ? 'white' : "transparent" }]}
-                    //@ts-ignore
-                    onPress={colorOtono}
-                >
+                <TouchableOpacity style={{
+                    width: 100,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                }}>
                     <Text
-                        style={[styles.text, { color: colorCheckOtono ?  "black" : 'white' }]}
-                    >Otoño</Text>
-                </TouchableOpacity>
-                <Image
-                    source={require("../Assets/Img/imgPrimavera.jpeg")}
-                    containerStyle={styles.containerStyle}
-                    PlaceholderContent={<ActivityIndicator />}
-                />
-                <TouchableOpacity
-                     style={[styles.button, { backgroundColor: colorCheckPrimavera ? 'white' : "transparent" }]}
-                    //@ts-ignore
-                    onPress={colorPrimavera}
-                >
-                    <Text
-                        style={[styles.text, { color: colorCheckPrimavera ?  "black" : 'white' }]}
-                    >Primavera</Text>
-                </TouchableOpacity>
-                <Image
-                    source={require("../Assets/Img/imgInvierno.jpeg")}
-                    containerStyle={styles.containerStyle}
-                    PlaceholderContent={<ActivityIndicator />}
-                />
-                <TouchableOpacity
-                     style={[styles.button, { backgroundColor: colorCheckInvierno ? 'white' : "transparent" }]}
-                    //@ts-ignore
-                    onPress={colorInvierno}
-                >
-                    <Text
-                        style={[styles.text, { color: colorCheckInvierno ?  "black" : 'white' }]}
-                    >Invierno</Text>
+                        style={{ color: 'white', }}
+                    >Siguiente</Text>
+                    <Icon
+                        name='arrow-right'
+                        type='evilicon'
+                        color='#7C8499'
+                        size={50}
+                        tvParallaxProperties={undefined}
+                        //@ts-ignore
+                        onPress={() => navigation.navigate("Photo")}
+                    />
                 </TouchableOpacity>
             </View>
-        </ScrollView>
-    <View
-    style={{position: "absolute", top: Dimensions.get("window").height *0.91 , display: "flex", flexDirection: "row",
-            justifyContent: "space-between", width: Dimensions.get("window").width*0.9, alignSelf: "center",}}
-    >
-    <Icon
-        name='arrow-left'
-        type='evilicon'
-        color='#7C8499'
-        size={50}
-        tvParallaxProperties={undefined}
-        onPress={()=> navigation.goBack()}
-      />
-      <TouchableOpacity style={{
-          width:100,
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-      }}>
-          <Text
-          style={{ color: 'white',}}
-          >Siguiente</Text>
-    <Icon
-        name='arrow-right'
-        type='evilicon'
-        color='#7C8499'
-        size={50}
-        tvParallaxProperties={undefined}
-        //@ts-ignore
-        onPress={()=> navigation.navigate("Gender")}
-        />
-        </TouchableOpacity>
-    </View>
         </View>
 
     )
@@ -214,9 +268,10 @@ const styles = StyleSheet.create({
         fontSize: 25,
         textAlign: "center",
         fontFamily: "Dosis",
-        marginVertical:20,
-        borderRadius:25,
-        opacity:0.6
+        marginVertical: 20,
+        borderRadius: 25,
+        opacity: 0.6, display: "flex",
+        marginTop: 70
     },
     text: {
         fontSize: 15,
@@ -224,19 +279,20 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     button: {
-        width:100,
+        width: 170,
         color: 'white',
-        height: 45,
+        height: 200,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
         borderColor: "white",
         borderWidth: 1,
+        margin: 10
     },
     containerStyle: {
-        width: 120,
-        height: 120,
-        margin:15,
+        width: 110,
+        height: 110,
+        margin: 15,
         borderRadius: 15,
         shadowColor: "#000",
         shadowOffset: {
@@ -245,7 +301,14 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        
+
         elevation: 5,
+    },
+    textInput:{
+        color: 'white',
+        paddingHorizontal:25,
+    },
+    inputOptions:{
+ 
     }
 })
