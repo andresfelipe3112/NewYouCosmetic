@@ -1,0 +1,106 @@
+import React, { useEffect, useState } from "react";
+import { Tab } from "../Components/Tab";
+import { useNavigation } from '@react-navigation/native';
+import { DetailComponentVertical } from "../Components/DetailComponentVertical";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { FlatList, ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import Video from "react-native-video";
+import VideoPlayer from "react-native-video-controls";
+import { Icon } from "react-native-elements";
+import LinearGradient from "react-native-linear-gradient";
+import { Title } from "../Components/Title";
+
+
+export const AllProductsPerfil = ({route}:any) => {
+
+  
+  const otono = require('../Assets/video/otono.mp4');
+  const promo = require('../Assets/video/promo.mp4');
+  const imageA = require('../Assets/Img/ropaA.jpg');
+  const imageB = require('../Assets/Img/ropaB.jpg');
+  const imageC = require('../Assets/Img/ropaC.jpg');
+  const imageD = require('../Assets/Img/ropaD.jpg');
+  const data = [
+    {
+      nombre: "Vestido Galo",
+      marca:"Zara",
+      image: imageA
+    },
+    {
+      nombre: "Chaqueta Polar",
+      marca:"Polo",
+      image: imageB
+    },
+    {
+      nombre: "Camisa Corta",
+      marca:"Farabella",
+      image: imageC
+    },
+    {
+      nombre: "Falda Corta",
+      marca:"Sugar Top",
+      image: imageD
+    },
+    {
+      nombre: "Vestido Galo",
+      marca:"Zara",
+      image: imageA
+    },
+    {
+      nombre: "Chaqueta Polar",
+      marca:"Polo",
+      image: imageB
+    },
+    {
+      nombre: "Camisa Corta",
+      marca:"Farabella",
+      image: imageC
+    },
+    {
+      nombre: "Falda Corta",
+      marca:"Sugar Top",
+      image: imageD
+    },
+  ]
+
+  const navigation = useNavigation();
+
+  return (
+    <>
+      <LinearGradient opacity={1} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+            
+        <FlatList
+        contentContainerStyle={{ 
+            flexDirection: 'column',
+            display: "flex",
+            alignItems: "center",
+            paddingBottom: 60
+        }}
+        numColumns={2}
+        data={data}
+        renderItem={({ item }:any) => (
+            <>
+            <DetailComponentVertical productoObj={item} />
+            </>
+          )}
+        keyExtractor={item => item.id}
+      />
+</>
+  )
+}
+
+const styles = StyleSheet.create({
+  category: {
+    borderColor: "white",
+    backgroundColor: "#1F366C",
+    borderWidth: 0.8,
+    borderRadius: 10,
+    margin: 5,
+  },
+  textCategory: {
+    padding: 5,
+    paddingHorizontal: 10,
+    color: "white",
+    fontWeight: "bold"
+  }
+})

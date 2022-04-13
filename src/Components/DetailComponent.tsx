@@ -1,65 +1,77 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react'
-import { Dimensions, ScrollView, View } from 'react-native'
+import { Dimensions, ScrollView, TouchableOpacity, View } from 'react-native'
 import { Button, Image, Text } from 'react-native-elements'
 
-export const DetailComponent = (props: any) => {
-    console.log(props);
-    
-    return(
-        <View
-        style={{backgroundColor:'#0d0a1e', marginVertical:20}}
-        >
-        <ScrollView
-        style={{width: Dimensions.get("window").width, }}
-        >
+export const DetailComponent = ({ productoObj, title, status="" }: any) => {
+    const navigation = useNavigation();
 
+    return (
         <View
-        style={{ width: "93%", alignSelf: "center",
-    }}
-    >
-            <View
-            style={{width:"100%",marginVertical:0, display: "flex", marginBottom:20,
-             flexDirection: "row", justifyContent: "space-between", alignSelf:"center",}}
-            >
-
-            <Text
-            style={{fontSize:25, color: "white", marginLeft: 20, fontWeight: "bold"}}
-            >{props.title}</Text>
-            <Button
-            style={{alignSelf: "center", justifyContent: "center"}}
-            containerStyle={{
-                width:100, height:35, borderRadius:20
-            }}
-            buttonStyle={{
-                backgroundColor: 'rgba(78, 116, 289, 1)',
-                justifyContent: "center", display: "flex",
-                flexDirection: "column",
-            }}
-            title="Ver mas"
-            titleStyle={{
-                color: 'white',
-                fontSize: 14, 
-            }}
-            ></Button>
-            </View>
-            
+            style={{ marginVertical: 15 }}
+        >
             <ScrollView
-            horizontal={true}
-            style={{ backgroundColor:'#0d0a1e'}}
+            showsHorizontalScrollIndicator={false}
+                style={{ width: Dimensions.get("window").width, }}
             >
-            {props.productoObj.map((producto:any, index:any)=>{
-                return(
-                    
-                    <Image
-                    style={{width: 105, height: 105, borderRadius:16, marginRight:22,}}
-                    source={producto}
-                    ></Image>
-                    )
-                })}
-            </ScrollView>
 
-        </View>
-            </ScrollView>
+                <View
+                    style={{
+                        width: "93%", alignSelf: "center",
+                    }}
+                >
+                    <View
+                        style={{
+                            width: "100%", marginVertical: 0, display: "flex", marginBottom: 10, paddingHorizontal: 5,
+                            flexDirection: "row", justifyContent: "space-between", alignSelf: "center",
+                        }}
+                    >
+                        <Text
+                            // style={{fontSize:20, color: "white",fontFamily: "JosefinSans-Italic-VariableFont_wght",}}
+                            style={{ fontSize: 20, color: "white", fontFamily: "Dosis", }}
+                        >{title} {status !== "" && <Text style={{ fontSize:15,color :"yellow", fontWeight: "bold"}}  >{status}</Text>} 
+                        </Text>
+                        <TouchableOpacity
+                            style={{ alignSelf: "flex-end", justifyContent: "flex-end" }}
+                            onPress={() => navigation.navigate("AllProducts", {
+                                data: productoObj,
+                                title: title,
+                            })}
+                        >
+                            <Text
+                                style={{ color: "#C8D3E5" }}
+                            >{`Ver todos >`}</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <ScrollView
+                        style={{ width: Dimensions.get("window").width, }}
+                        horizontal={true}
+                    >
+                        {productoObj.map((producto: any, index: any) => {
+                            return (
+                                <View style={{ 
+                                    display: "flex",
+                                     flexDirection: "column",
+                                     }}>
+                                    <Image
+                                        key={index}
+                                        style={{ width: 130, height: 130, borderRadius: 16, marginRight: 22, }}
+                                        source={producto.image}
+                                    ></Image>
+                                    <Text
+                                        style={{ color: "#C8D3E5", fontWeight: "bold" }}
+                                    >{producto.marca}</Text>
+                                    <Text
+                                        style={{ color: "#99ABC8", fontSize: 12 }}
+                                    >{producto.nombre}</Text>
+                                </View>
+                            )
+                        })}
+                    </ScrollView>
+
                 </View>
+            </ScrollView>
+        </View>
     )
 }

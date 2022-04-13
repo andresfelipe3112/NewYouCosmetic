@@ -22,7 +22,7 @@ const imagenD = require('../Assets/Img/blackTie.jpeg')
 const imagenE = require('../Assets/Img/whiteTie.jpeg')
 
 
-const Seasons = () => {
+const StyleOption = () => {
     const navigation = useNavigation();
     const [season, setSeason] = useState(videoA);
     const [statusInfo, setstatusInfo] = useState(true);
@@ -127,7 +127,7 @@ const Seasons = () => {
             <ScrollView>
                 <Text
                     style={styles.textTitle}
-                >Selecciona tú Dress Code. </Text>
+                >Selecciona tú estilo. </Text>
                 <View
                     style={{
                         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -235,7 +235,10 @@ const Seasons = () => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                <TouchableOpacity style={{
+                <TouchableOpacity 
+                     //@ts-ignore
+                     onPress={() => navigation.navigate("ColorHearOption")}
+                style={{
                     width: 100,
                     display: "flex",
                     flexDirection: "row",
@@ -250,8 +253,7 @@ const Seasons = () => {
                         color='#7C8499'
                         size={50}
                         tvParallaxProperties={undefined}
-                        //@ts-ignore
-                        onPress={() => navigation.navigate("Photo")}
+                   
                     />
                 </TouchableOpacity>
             </View>
@@ -260,7 +262,7 @@ const Seasons = () => {
     )
 }
 
-export default Seasons;
+export default StyleOption;
 
 const styles = StyleSheet.create({
     textTitle: {

@@ -219,16 +219,16 @@ const Gender = () => {
                         title="Siguiente"
                         type={"clear"}
                         containerStyle={{
-                            width: 130,
+                            width: 150,
                             marginHorizontal: "26%",
                             borderRadius: 10,
                             marginTop: 20,
                             borderWidth: 1,
                             borderColor: "white"
                         }}
-                        titleStyle={{ color: 'white', marginHorizontal: 20, fontSize: 16 }}
+                        titleStyle={{ color: 'white', marginHorizontal: 20, fontSize: 15 }}
                         //@ts-ignore
-                        onPress={() => navigation.navigate('VeganOption')}
+                        onPress={() => navigation.navigate('Age')}
                     />
                      <View
                 style={{

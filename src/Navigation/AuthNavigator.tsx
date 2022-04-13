@@ -6,9 +6,7 @@ import { ChangePasswordScreen } from '../Screens/Auth/ChangePasswordScreen';
 import { IntroScreen } from '../Screens/IntroScreen';
 import { GenderOption } from '../Screens/GenderOption';
 import FormIntroOne from '../Screens/FormIntroOne';
-import { Recomendaciones } from '../Screens/Home';
 import { LoadingHome } from '../Components/LoadingHome';
-import { Home } from '../Screens/HomeB';
 import WellCome from '../Components/WellCome';
 import { Animated, Easing } from 'react-native';
 import Register from '../Screens/Auth/Register';
@@ -16,9 +14,15 @@ import Seasons from '../Screens/Seasons';
 import Start from '../Screens/Start';
 import Gender from '../Screens/Gender';
 import VeganOption from '../Screens/VeganOption';
+import Age from '../Screens/Age';
 import StyleOption from '../Screens/StyleOption';
-import Photo from '../Screens/Photo';
+import ColorHearOption from '../Screens/ColorHearOption';
 import { RootTabsNavigator } from './RootTabsNavigator';
+import { AllProducts } from '../Screens/AllProducts';
+import CategoriesPush from '../Screens/CategoriesPush';
+import Altura from '../Screens/Altura';
+import LargoDeCuello from '../Screens/LargoDeCuello';
+import TipoDeCuerpo from '../Screens/TipoDeCuerpo';
 
 const Stack = createStackNavigator();
 
@@ -40,11 +44,11 @@ export const AuthNavigator = () => {
   
   return (
     <Stack.Navigator
+    initialRouteName='Wellcome'
     screenOptions={{
       headerShown: false,
       cardStyle: { backgroundColor: undefined }
     }}>
-        <Stack.Screen name="Root" component={RootTabsNavigator} />
       <Stack.Screen name="Wellcome" component={WellCome} />
       <Stack.Screen name="LoginScreen" component={LoginScreen}
       options={{
@@ -118,6 +122,16 @@ export const AuthNavigator = () => {
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         }}  
           />
+           <Stack.Screen name="Age" component={Age}
+           options={{
+            transitionSpec: {
+              open: config,
+              close: closeConfig,
+             },
+             gestureDirection:"vertical-inverted",
+             cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+           }}
+          />
       <Stack.Screen name="VeganOption" component={VeganOption} 
       options={{
         transitionSpec: {
@@ -138,16 +152,17 @@ export const AuthNavigator = () => {
               cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
             }}
           />
-          <Stack.Screen name="Photo" component={Photo}
+           <Stack.Screen name="ColorHearOption" component={ColorHearOption}
            options={{
-            transitionSpec: {
-              open: config,
-              close: closeConfig,
-             },
-             gestureDirection:"vertical-inverted",
-             cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-           }}
+             transitionSpec: {
+               open: config,
+               close: closeConfig,
+              },
+              gestureDirection:"vertical-inverted",
+              cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+            }}
           />
+          
       <Stack.Screen name="LoadingHome" component={LoadingHome}
         options={{
           transitionSpec: {
@@ -158,6 +173,66 @@ export const AuthNavigator = () => {
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         }}
       />
+      <Stack.Screen name="Root" component={RootTabsNavigator}
+       options={{
+        transitionSpec: {
+          open: config,
+          close: closeConfig,
+         },
+         gestureDirection:"vertical-inverted",
+         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+       }}
+      />
+       <Stack.Screen name="AllProducts" component={AllProducts} 
+       options={{
+        transitionSpec: {
+          open: config,
+          close: closeConfig,
+         },
+         gestureDirection:"vertical-inverted",
+         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+       }}
+       />
+       <Stack.Screen name="CategoriesPush" component={CategoriesPush} 
+       options={{
+        transitionSpec: {
+          open: config,
+          close: closeConfig,
+         },
+         gestureDirection:"vertical-inverted",
+         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+       }}
+       />
+       <Stack.Screen name="Altura" component={Altura} 
+       options={{
+        transitionSpec: {
+          open: config,
+          close: closeConfig,
+         },
+         gestureDirection:"vertical-inverted",
+         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+       }}
+       />
+       <Stack.Screen name="LargoDeCuello" component={LargoDeCuello} 
+       options={{
+        transitionSpec: {
+          open: config,
+          close: closeConfig,
+         },
+         gestureDirection:"vertical-inverted",
+         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+       }}
+       />
+       <Stack.Screen name="TipoDeCuerpo" component={TipoDeCuerpo} 
+       options={{
+        transitionSpec: {
+          open: config,
+          close: closeConfig,
+         },
+         gestureDirection:"vertical-inverted",
+         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+       }}
+       />
        {/* <Stack.Screen name="FormIntroOne" component={FormIntroOne} />
     <Stack.Screen name="Home" component={Home} /> 
     <Stack.Screen name="GenderOption" component={GenderOption} />

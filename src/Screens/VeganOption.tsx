@@ -107,7 +107,7 @@ const Seasons = () => {
                     >
                         <Text
                             style={[styles.text, { color: colorCheckPrimavera ? "black" : 'white' }]}
-                        >No quiero decir</Text>
+                        >No lo quiero decir</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -125,7 +125,10 @@ const Seasons = () => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                <TouchableOpacity style={{
+                <TouchableOpacity 
+                  //@ts-ignore
+                  onPress={() => navigation.navigate("StyleOption")}
+                style={{
                     width: 100,
                     display: "flex",
                     flexDirection: "row",
@@ -140,8 +143,7 @@ const Seasons = () => {
                         color='#7C8499'
                         size={50}
                         tvParallaxProperties={undefined}
-                        //@ts-ignore
-                        onPress={() => navigation.navigate("StyleOption")}
+                      
                     />
                 </TouchableOpacity>
             </View>

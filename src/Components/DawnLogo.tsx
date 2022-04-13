@@ -69,7 +69,7 @@ const DawnLogo = ({ text, render }: any) => {
 
     const maxHeightInput = heightInput.interpolate({
         inputRange: [0, 100],
-        outputRange: [0, 270]  // <-- value that larger than your content's height
+        outputRange: [0, 410]  // <-- value that larger than your content's height
     });
 
     const maxHeightInput2 = heightInput2.interpolate({

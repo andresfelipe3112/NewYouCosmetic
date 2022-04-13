@@ -4,15 +4,18 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-elements';
 import Start from '../Screens/Start';
 import { Home } from '../Screens/Home';
-import { HomeB } from '../Screens/HomeB';
+import { Perfil } from '../Screens/Perfil';
+import  StyleOption  from '../Screens/StyleOption';
 import LinearGradient from 'react-native-linear-gradient';
+import { AllProducts } from '../Screens/AllProducts';
+import { AllProductsPerfil } from '../Screens/AllProductsPerfil';
 
 const Tab = createBottomTabNavigator();
 
 export const RootTabsNavigator = () => {
     const [currentIcon, setCurrentIcon] = useState("Home");
     return (
-        <Tab.Navigator initialRouteName="Home"
+        <Tab.Navigator initialRouteName="Para tí"
             screenOptions={({ route }) => (
                 Platform.OS === 'ios' ?
 
@@ -61,16 +64,11 @@ export const RootTabsNavigator = () => {
                         headerShown: false,
                     }
             )}>
-            <Tab.Screen name="Home" component={Home} listeners={{
-                tabPress: () => setCurrentIcon("Home")
-            }} />
-            <Tab.Screen name="Mi Perfil" component={HomeB} listeners={{ tabPress: () => setCurrentIcon("Person") }} />
-            {/* 
-             <Tab.Screen name="Buscar" component={Start} />
-            <Tab.Screen name="Lista Deseos" component={Start} />
+            <Tab.Screen name="Mi Perfil" component={Perfil} listeners={{ tabPress: () => setCurrentIcon("Person") }} />
+            <Tab.Screen name="Para tí" component={Home} listeners={{tabPress: () => setCurrentIcon("Home")}} />
+            <Tab.Screen name="Placard" component={AllProductsPerfil} listeners={{ tabPress: () => setCurrentIcon("Outfit") }} />
+             {/* <Tab.Screen name="Lista Deseos" component={Start} />
             <Tab.Screen name="Mi Carro" component={Start} />   */}
-
-
 
         </Tab.Navigator>
 
@@ -84,10 +82,10 @@ export const RootTabsNavigator = () => {
             case "Mi Perfil":
                 currentIcon === "Person" ? iconName = "person" : iconName = "person-outline";
                 break;
-            case "Buscar":
-                iconName = "search";
+            case "Placard":
+                currentIcon === "Outfit" ? iconName = "albums" : iconName = "albums-outline";
                 break;
-            case "Home":
+            case "Para tí":
                 currentIcon === "Home" ? iconName = "home" : iconName = "home-outline";
                 break;
             case "Lista Deseos":

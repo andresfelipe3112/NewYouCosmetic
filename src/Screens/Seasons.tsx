@@ -181,11 +181,15 @@ const Seasons = () => {
         tvParallaxProperties={undefined}
         onPress={()=> navigation.goBack()}
       />
-      <TouchableOpacity style={{
+      <TouchableOpacity 
+       //@ts-ignore
+      onPress={()=> navigation.navigate("Gender")}
+      style={{
           width:100,
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
+          
       }}>
           <Text
           style={{ color: 'white',}}
@@ -196,8 +200,8 @@ const Seasons = () => {
         color='#7C8499'
         size={50}
         tvParallaxProperties={undefined}
-        //@ts-ignore
-        onPress={()=> navigation.navigate("Gender")}
+       
+        
         />
         </TouchableOpacity>
     </View>
@@ -234,7 +238,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     containerStyle: {
-        width: 120,
+        width: 140,
         height: 120,
         margin:15,
         borderRadius: 15,
