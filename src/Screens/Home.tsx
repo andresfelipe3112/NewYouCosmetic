@@ -166,6 +166,38 @@ const productoObj = [
     image: imageD
   },
 ]
+const productoObjReloj = [
+  {
+    nombre: "Vestido Galo",
+    marca:"Zara",
+    image: require('../Assets/Img/reloj1.jpg')
+  },
+  {
+    nombre: "Chaqueta Polar",
+    marca:"Polo",
+    image: require('../Assets/Img/reloj2.jpg')
+  },
+  {
+    nombre: "Camisa Corta",
+    marca:"Farabella",
+    image: require('../Assets/Img/reloj3.jpg')
+  },
+  {
+    nombre: "Falda Corta",
+    marca:"Sugar Top",
+    image: require('../Assets/Img/reloj4.jpg')
+  },
+  {
+    nombre: "Vestido Galo",
+    marca:"Zara",
+    image: require('../Assets/Img/reloj5.jpg')
+  },
+  {
+    nombre: "Chaqueta Polar",
+    marca:"Polo",
+    image: require('../Assets/Img/reloj6.jpg')
+  },
+]
 const productoObjPulseras = [
   {
     nombre: "Vestido Galo",
@@ -242,7 +274,7 @@ let array:any = [
   },
   {
     categoria:"Relojes",
-    dataProduct:productoObj
+    dataProduct:productoObjReloj
   },
 
 ];
@@ -255,7 +287,7 @@ export const Home = ({route}:any) => {
    array.unshift( {
     categoria:"Camisas",
     dataProduct:productoObjCamisa,
-    status:route.params?.current
+    status:"new"
   })
 
   },[])

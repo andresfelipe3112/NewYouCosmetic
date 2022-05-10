@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react'
-import { Dimensions, ScrollView, TouchableOpacity, View } from 'react-native'
-import { Button, Image, Text } from 'react-native-elements'
+import { Dimensions, ScrollView, TouchableOpacity, View, Image } from 'react-native'
+import { Button, Text } from 'react-native-elements'
 
 export const DetailComponentVertical = ({ productoObj, index }: any) => {
     const navigation = useNavigation();

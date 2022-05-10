@@ -44,7 +44,7 @@ export const AuthNavigator = () => {
   
   return (
     <Stack.Navigator
-    initialRouteName='Wellcome'
+    initialRouteName='Root'
     screenOptions={{
       headerShown: false,
       cardStyle: { backgroundColor: undefined }
@@ -69,6 +69,16 @@ export const AuthNavigator = () => {
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         }}
         />
+        {/* <Stack.Screen name="Producto" component={Register} 
+        options={{
+          transitionSpec: {
+            open: config,
+            close: closeConfig,
+          },
+          gestureDirection:"vertical-inverted",
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+        }}
+        /> */}
       <Stack.Screen name="RecoveryPassword" component={RecoveryPasswordScreen}
        options={{
          transitionSpec: {

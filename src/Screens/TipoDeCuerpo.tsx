@@ -15,10 +15,10 @@ const VideoC = require('../Assets/video/cocktail.mp4');
 const VideoD = require('../Assets/video/blackTie.mp4');
 const VideoE = require('../Assets/video/white.mp4');
 
-const imagenA = require('../Assets/Img/endomorfo.webp')
-const ImagenB = require('../Assets/Img/ectomorfo.webp')
-const imagenC = require('../Assets/Img/mesomorfo.webp')
-const imagenD = require('../Assets/Img/tipo4.jpg')
+const imagenA = require('../Assets/Img/Linfatico.jpg')
+const ImagenB = require('../Assets/Img/Sanguineo.jpg')
+const imagenC = require('../Assets/Img/Biloso.jpg')
+const imagenD = require('../Assets/Img/Nervioso.jpg')
 const imagenE = require('../Assets/Img/tipo5.jpg')
 const imagenF = require('../Assets/Img/tipo6.jpg')
 
@@ -119,7 +119,7 @@ const TipoDeCuerpo = () => {
             <ScrollView>
                 <Text
                     style={styles.textTitle}
-                >Selecciona tú tipo de cuerpo </Text>
+                >Selecciona el tipo de cuerpo que tienes </Text>
                 <View
                     style={{
                         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -129,7 +129,7 @@ const TipoDeCuerpo = () => {
 
 
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckA ?  "#19181C" : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckA ? 'white' : "transparent" }]}
                         //@ts-ignore
                         onPress={()=>{
                             colorA();
@@ -140,11 +140,13 @@ const TipoDeCuerpo = () => {
                             containerStyle={styles.containerStyle}
                             PlaceholderContent={<ActivityIndicator />}
                         />
+                        <Text
+                            style={[styles.text, { color: colorCheckA ? "black" : 'white' }]}
+                        >Linfático</Text>
                         </TouchableOpacity>
-                           <DawnLogo  render={statusInfo} text="El cuerpo endomorfo se caracteriza por tener un metabolismo lento y por ello, suele acumular más grasa. Normalmente se encuentran arriba del promedio de peso en la población, especialmente si no tienen un estilo de vida balanceado.
-El endomorfo es a lo que llamamos “ser de complexión ancha” y necesita rutinas de ejercicio mayormente aeróbicas y una dieta muy estricta para reducir la cantidad de grasa y su acumulación. En el lado positivo, el endomorfo es más propenso a ganar masa y fuerza tras un entrenamiento físico." />
+                           <DawnLogo  render={statusInfo} text="Este tipo de cuerpo se caracteriza por tener hombros más angostos que las caderas, volumen  concentrado en caderas, muslos, cola y abdomen bajo. Son de cintura pronunciada y busto pequeño. Si hay más peso se concentra en los brazos" />
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckB ?  "#19181C" : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
                         //@ts-ignore
                         onPress={colorB}
                     >
@@ -153,12 +155,13 @@ El endomorfo es a lo que llamamos “ser de complexión ancha” y necesita ruti
                             containerStyle={styles.containerStyle}
                             PlaceholderContent={<ActivityIndicator />}
                         />
-                    
+                        <Text
+                            style={[styles.text, { color: colorCheckB ? "black" : 'white' }]}
+                        >Sanguíneo</Text>
                     </TouchableOpacity>
-                    <DawnLogo  render={statusInfo} text="Estas personas son de complexión más delgada y suelen estar debajo del promedio de peso de la población. Tienen una estructura ósea más alargada y un metabolismo acelerado que casi siempre los previene de ganar mucho peso, pero igualmente aprovecha pocos nutrientes.
-El cuerpo ectomorfo requiere muy poco ejercicio aeróbico y son más libres en su dieta, ya que difícilmente acumularán grasa; sin embargo, necesitan mucho más esfuerzo en conseguir masa muscular y seguramente requieran una dieta abundante en proteínas y calorías para lograrlo." />
+                    <DawnLogo  render={statusInfo} text="Volumen o grasa se concentra de forma pareja en el cuerpo, en caso de mujer tiene busto y cola, cuerpo curvilíneo, hombros a la misma altura que caderas, en caso de los hombres son cuerpos corpulentos." />
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckC ?  "#19181C" : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
                         //@ts-ignore
                         onPress={colorC}
                     >
@@ -167,9 +170,26 @@ El cuerpo ectomorfo requiere muy poco ejercicio aeróbico y son más libres en s
                             containerStyle={styles.containerStyle}
                             PlaceholderContent={<ActivityIndicator />}
                         />
-                    
+                        <Text
+                            style={[styles.text, { color: colorCheckC ? "black" : 'white' }]}
+                        >Biloso</Text>
                     </TouchableOpacity>
-                    <DawnLogo text="Un punto medio entre los otros dos cuerpos somáticos. Más propensos a desarrollar una masa muscular media y una figura atlética. Cuando entrenan el cuerpo y recurren al fisicoculturismo, suelen ser individuos con cuerpo en forma de V (hombres) o de reloj de arena (mujeres). No requieren una dieta excesivamente fija, pero deben balancearla adecuadamente para no acumular grasa."/>
+                    <DawnLogo text="Espalda más ancha que las caderas, de mucho busto y poca cintura, el volumen se concentra en la zona superior manteniendo caderas mas estrechas, piernas delgadas y poca cola.."/>
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: colorCheckD ? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={colorD}
+                    >
+                        <Image
+                            source={imagenD}
+                            containerStyle={styles.containerStyle}
+                            PlaceholderContent={<ActivityIndicator />}
+                        />
+                        <Text
+                            style={[styles.text, { color: colorCheckD ? "black" : 'white' }]}
+                        >Nervioso</Text>
+                    </TouchableOpacity>
+                    <DawnLogo text="Hombros más anchos que las caderas, de poco busto, pelvis estrecha, cola media, piernas y brazos delgados y largos, poca hay cintura y la concentración de grasa es en el abdomen."/>
                 </View>
             </ScrollView>
             <View
@@ -192,13 +212,13 @@ El cuerpo ectomorfo requiere muy poco ejercicio aeróbico y son más libres en s
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                <TouchableOpacity
+                <TouchableOpacity 
                  //@ts-ignore
-            onPress={() => navigation.navigate("Para tí", {
-                current:"new",
-            })}
+                 onPress={() => navigation.navigate("Para tí", {
+                    current:"new",
+                })}
                 style={{
-          width: 190,
+          width: 200,
           display: "flex",
           flexDirection: "row",
           alignSelf: "flex-end",
@@ -225,6 +245,8 @@ El cuerpo ectomorfo requiere muy poco ejercicio aeróbico y son más libres en s
             color='#D4D7EE'
             size={40}
             tvParallaxProperties={undefined}
+
+
           />
         </TouchableOpacity>
             </View>
@@ -256,7 +278,7 @@ const styles = StyleSheet.create({
     button: {
         width: 230,
         color: 'white',
-        height:230,
+        height:270,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',

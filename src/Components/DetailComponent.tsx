@@ -29,7 +29,7 @@ export const DetailComponent = ({ productoObj, title, status="" }: any) => {
                         <Text
                             // style={{fontSize:20, color: "white",fontFamily: "JosefinSans-Italic-VariableFont_wght",}}
                             style={{ fontSize: 20, color: "white", fontFamily: "Dosis", }}
-                        >{title} {status !== "" && <Text style={{ fontSize:15,color :"yellow", fontWeight: "bold"}}  >{status}</Text>} 
+                        >{title} {<Text style={{ fontSize:15,color :"yellow", fontWeight: "bold"}}>{status}</Text>} 
                         </Text>
                         <TouchableOpacity
                             style={{ alignSelf: "flex-end", justifyContent: "flex-end" }}
