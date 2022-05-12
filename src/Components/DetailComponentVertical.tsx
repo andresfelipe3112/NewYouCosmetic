@@ -8,7 +8,9 @@ export const DetailComponentVertical = ({ productoObj, index }: any) => {
 
     const { nombre, marca, image } = productoObj;
     return (
-            <TouchableOpacity style={{
+            <TouchableOpacity
+                onPress={()=> navigation.navigate('DetailProduct') }
+                style={{
                 display: "flex",
                 flexDirection: "column",
                 alignSelf: "center",

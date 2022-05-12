@@ -23,6 +23,8 @@ import CategoriesPush from '../Screens/CategoriesPush';
 import Altura from '../Screens/Altura';
 import LargoDeCuello from '../Screens/LargoDeCuello';
 import TipoDeCuerpo from '../Screens/TipoDeCuerpo';
+import { DetailProduct } from '../Screens/DetailProduct';
+import { DetailProductStore } from '../Screens/DetailProductStore';
 
 const Stack = createStackNavigator();
 
@@ -44,7 +46,7 @@ export const AuthNavigator = () => {
   
   return (
     <Stack.Navigator
-    initialRouteName='Root'
+    initialRouteName='Wellcome'
     screenOptions={{
       headerShown: false,
       cardStyle: { backgroundColor: undefined }
@@ -69,7 +71,7 @@ export const AuthNavigator = () => {
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         }}
         />
-        {/* <Stack.Screen name="Producto" component={Register} 
+        <Stack.Screen name="DetailProduct" component={DetailProduct} 
         options={{
           transitionSpec: {
             open: config,
@@ -78,7 +80,17 @@ export const AuthNavigator = () => {
           gestureDirection:"vertical-inverted",
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         }}
-        /> */}
+        /> 
+        <Stack.Screen name="DetailProductStore" component={DetailProductStore} 
+        options={{
+          transitionSpec: {
+            open: config,
+            close: closeConfig,
+          },
+          gestureDirection:"vertical-inverted",
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+        }}
+        /> 
       <Stack.Screen name="RecoveryPassword" component={RecoveryPasswordScreen}
        options={{
          transitionSpec: {
