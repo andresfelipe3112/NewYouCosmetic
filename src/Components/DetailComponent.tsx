@@ -8,13 +8,12 @@ export const DetailComponent = ({ productoObj, title, status="" }: any) => {
 
     return (
         <View
-            style={{ marginVertical: 15 }}
+            style={{ marginVertical: 5 }}
         >
             <ScrollView
             showsHorizontalScrollIndicator={false}
                 style={{ width: Dimensions.get("window").width, }}
             >
-
                 <View
                     style={{
                         width: "93%", alignSelf: "center",
@@ -43,7 +42,6 @@ export const DetailComponent = ({ productoObj, title, status="" }: any) => {
                             >{`Ver todos >`}</Text>
                         </TouchableOpacity>
                     </View>
-
                     <ScrollView
                         style={{ width: Dimensions.get("window").width, }}
                         horizontal={true}
@@ -57,7 +55,7 @@ export const DetailComponent = ({ productoObj, title, status="" }: any) => {
                                     <Image
                                         key={index}
                                         style={{ width: 130, height: 130, borderRadius: 16, marginRight: 22, }}
-                                        source={producto.image}
+                                        source={{ uri:producto.media[0].url}}
                                     ></Image>
                                     <Text
                                         style={{ color: "#C8D3E5", fontWeight: "bold" }}
@@ -69,7 +67,6 @@ export const DetailComponent = ({ productoObj, title, status="" }: any) => {
                             )
                         })}
                     </ScrollView>
-
                 </View>
             </ScrollView>
         </View>

@@ -4,6 +4,7 @@ import { Button, Icon, Text } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import newApi from "../Services/LoginApiValues";
 
 const Gender = () => {
     const navigation = useNavigation();
@@ -20,6 +21,19 @@ const Gender = () => {
     const [open2, setopen2] = useState(false)
     const [valueInput, setvalueInput] = useState("")
     const [valueInput2, setvalueInput2] = useState("")
+    const [dataLogin, setdataLogin] = useState<any>('')
+
+    const genderApi = async (valueInput: string,) => {
+        try {
+            const resp = await newApi.post('users/gender', { "gender": valueInput === "Mujer"? "F" : "M" })
+            console.log("genderApi", resp.data);
+            if (resp) {
+                navigation.navigate('Age')
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     //start animation select
     const dawnPosition = () => {
@@ -228,7 +242,9 @@ const Gender = () => {
                         }}
                         titleStyle={{ color: 'white', marginHorizontal: 20, fontSize: 15 }}
                         //@ts-ignore
-                        onPress={() => navigation.navigate('Age')}
+                        onPress={() =>{
+                            genderApi(valueInput)
+                        }}
                     />
                      <View
                 style={{

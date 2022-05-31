@@ -16,14 +16,14 @@ const VideoC = require('../Assets/video/cocktail.mp4');
 const VideoD = require('../Assets/video/blackTie.mp4');
 const VideoE = require('../Assets/video/white.mp4');
 
-const imagenA = require('../Assets/Img/casual.jpeg')
-const ImagenB = require('../Assets/Img/formal.jpeg')
-const imagenC = require('../Assets/Img/cocktail.jpeg')
-const imagenD = require('../Assets/Img/blackTie.jpeg')
-const imagenE = require('../Assets/Img/whiteTie.jpeg')
+const imagenA = require('../Assets/Img/ovalado.jpg');
+const ImagenB = require('../Assets/Img/rectangular.jpg');
+const imagenC = require('../Assets/Img/redondo.jpg');
+const imagenD = require('../Assets/Img/alargado.jpg');
+const imagenE = require('../Assets/Img/triangular.jpg');
 
 
-const StyleOption = () => {
+const TipoDeRostro = () => {
     const navigation = useNavigation();
     const [season, setSeason] = useState(videoA);
     const [statusInfo, setstatusInfo] = useState(true);
@@ -33,19 +33,19 @@ const StyleOption = () => {
     const [colorCheckD, setcolorCheckD] = useState(false);
     const [colorCheckE, setcolorCheckE] = useState(false);
 
-    const [response, setResponse] = useState(false);
 
-    const idDressApi = async (response: Boolean,) => {
+    const TipoRostroApi = async (season: string,) => {
         try {
-            const resp = await newApi.post('users/dressCode', { "dressCode": 1234})
-            console.log("idDressApi", resp.data);
+            const resp = await newApi.post('users/typeFace', { "typeFace": "tipeFace123" })
+            console.log("respSeaso", resp.data);
             if (resp) {
-                navigation.navigate("colorOjos")
+                navigation.navigate("ColorHearOption")
             }
         } catch (error) {
             console.log(error);
         }
     }
+
 
     const colorA = () => {
         if (colorCheckA) {
@@ -71,21 +71,21 @@ const StyleOption = () => {
     }
     const colorC = () => {
         if (colorCheckC) {
-            return setcolorCheckC(false)
+            return setcolorCheckC(false);
         }
         setSeason(VideoC)
-        setcolorCheckE(false)
+        setcolorCheckE(false);
         setcolorCheckA(false);
         setsetcolorCheckB(false);
         setcolorCheckC(true);
-        setcolorCheckD(false)
+        setcolorCheckD(false);
     }
     const colorD = () => {
         if (colorCheckD) {
-            return setcolorCheckD(false)
+            return setcolorCheckD(false);
         }
         setSeason(VideoD)
-        setcolorCheckE(false)
+        setcolorCheckE(false);
         setcolorCheckA(false);
         setsetcolorCheckB(false);
         setcolorCheckC(false);
@@ -94,59 +94,32 @@ const StyleOption = () => {
 
     const colorE = () => {
         if (colorCheckE) {
-            return setcolorCheckE(false)
+            return setcolorCheckE(false);
         }
         setSeason(VideoE)
         setcolorCheckA(false);
         setsetcolorCheckB(false);
         setcolorCheckC(false);
         setcolorCheckD(false);
-        setcolorCheckE(true)
+        setcolorCheckE(true);
     }
 
     useEffect(() => {
         colorA()
-    },[])
+    }, [])
 
     return (
         <View
         >
-            <LinearGradient colors={['#544D60', '#19181C', '#19181C']} style={{ position: "absolute", width: "100%", height: "100%" }} />
-            <Video
-                // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
-                source={season}
-                resizeMode={"stretch"}
-                opacity={0.3}
-                controls={false}
-                paused={false}
-                volume={0}
-                muted={false}
-                disableBack
-                disableVolume
-                toggleResizeModeOnFullscreen
-                repeat={true}
-                bufferConfig={{
-                    minBufferMs: 15000,
-                    maxBufferMs: 50000,
-                    bufferForPlaybackMs: 2500,
-                    bufferForPlaybackAfterRebufferMs: 5000
-                }}
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                }}
-            />
+            <LinearGradient opacity={1} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             <ScrollView>
                 <Text
                     style={styles.textTitle}
-                >Selecciona tú estilo. </Text>
+                >Selecciona tú tipo de rostro.</Text>
                 <View
                     style={{
                         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                        width: Dimensions.get("window").width, marginBottom:40
+                        width: Dimensions.get("window").width, marginBottom: 40
                     }}
                 >
 
@@ -154,7 +127,7 @@ const StyleOption = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckA ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={()=>{
+                        onPress={() => {
                             colorA();
                         }}
                     >
@@ -165,9 +138,9 @@ const StyleOption = () => {
                         />
                         <Text
                             style={[styles.text, { color: colorCheckA ? "black" : 'white' }]}
-                        >Casual</Text>
-                        </TouchableOpacity>
-                           <DawnLogo  render={statusInfo} text="En el caso del look casual no hay demasiadas reglas, debiendo primar el sentido común. Para ello hay que fijarse en dónde y cuándo es la celebración. Tanto en el caso de los hombres como de las mujeres se pueden admitir unos jeans, que ellas combinarían con accesorios que reflejen su personalidad, y ellos con una camisa de mangas cortas o un polo, por ejemplo." />
+                        >Ovalado</Text>
+                    </TouchableOpacity>
+                    <DawnLogo render={statusInfo} text="Al igual que el rostro redondo, nos encontramos con una forma de cara en la que prevalecen las curvas, si bien el rostro es más alargado que ancho. La barbilla tiende a ser más corta que la frente y suelen marcarse mucho las mejillas." />
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
                         //@ts-ignore
@@ -180,9 +153,9 @@ const StyleOption = () => {
                         />
                         <Text
                             style={[styles.text, { color: colorCheckB ? "black" : 'white' }]}
-                        >Formal</Text>
+                        >Rectangular</Text>
                     </TouchableOpacity>
-                    <DawnLogo  render={statusInfo} text="Para eventos de noche y elegantes, sin llegar a la etiqueta. Un look femenino apropiado pasaría por un vestido largo de tela fina, zapatillas altas y algún accesorio como un clutch. El hombre tiene que optar por un traje y corbata, con acabados distintos a los que utilizaría de día." />
+                    <DawnLogo render={statusInfo} text=" A menudo es difícil de distinguir del cuadrado (aunque su barbilla suele ser más redondeada) y del ovalado." />
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
                         //@ts-ignore
@@ -195,9 +168,9 @@ const StyleOption = () => {
                         />
                         <Text
                             style={[styles.text, { color: colorCheckC ? "black" : 'white' }]}
-                        >Cocktail</Text>
+                        >Redondo</Text>
                     </TouchableOpacity>
-                    <DawnLogo text="Es el dress code adecuado para un evento formal de día, de tarde o incluso en algunos casos, de noche. Para la mujer, lo más recomendable es un vestido por las rodillas y zapatillas, aunque también se puede optar por una falda en combinación con una blusa que aporte distinción. El hombre tendría que ir de traje, siendo opcional ponerse corbata."/>
+                    <DawnLogo text="Este tipo de rostro se caracteriza por tener aproximadamente la misma altura que anchura, generando una figura circular en la que no se observan formas angulosas sino curvas y en la que las mejillas se acercan al mentón, además de pómulos anchos." />
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckD ? 'white' : "transparent" }]}
                         //@ts-ignore
@@ -210,9 +183,9 @@ const StyleOption = () => {
                         />
                         <Text
                             style={[styles.text, { color: colorCheckD ? "black" : 'white' }]}
-                        >Black Tie</Text>
+                        >Alargado</Text>
                     </TouchableOpacity>
-                    <DawnLogo text="Etiqueta simple. La idea es vestir elegante, para un evento también de noche. La mujer debe ir con vestido largo y con estilo, tacones y accesorios que añadan un plus de elegancia. Los hombres tienen que decantarse por el esmoquin."/>
+                    <DawnLogo text="En él vemos una frente por lo general larga, pómulos altos y rasgos no muy marcados. " />
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckE ? 'white' : "transparent" }]}
                         //@ts-ignore
@@ -225,9 +198,9 @@ const StyleOption = () => {
                         />
                         <Text
                             style={[styles.text, { color: colorCheckE ? "black" : 'white' }]}
-                        >White Tie</Text>
+                        >Triangular</Text>
                     </TouchableOpacity>
-                    <DawnLogo text="Etiqueta 100%. Exige lucir tus mejores galas para un look de noche. Las mujeres deben optar por vestido largo combinado con zapatos muy elegantes (siempre altos). En el caso del hombre, las opciones permitidas son el frac, o el traje combinado con chaleco y corbata de moño."/>
+                    <DawnLogo text="El rostro triangular se caracteriza por una mandíbula amplia y una frente estrecha en comparación, con los pómulos en una situación intermedia." />
                 </View>
             </ScrollView>
             <View
@@ -236,12 +209,13 @@ const StyleOption = () => {
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
                 }}
             >
-                 <LinearGradient opacity={0.7} colors={['#19181C', '#19181C']} 
-                 style={{ position: "absolute", width: Dimensions.get("window").width * 1.5 ,
-                  height: 65,
-                  marginHorizontal:-100,
-                  marginTop:-13
-                  }} />
+                <LinearGradient opacity={0.7} colors={['#19181C', '#19181C']}
+                    style={{
+                        position: "absolute", width: Dimensions.get("window").width * 1.5,
+                        height: 65,
+                        marginHorizontal: -100,
+                        marginTop: -13
+                    }} />
                 <Icon
                     name='arrow-left'
                     type='evilicon'
@@ -250,15 +224,15 @@ const StyleOption = () => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                <TouchableOpacity 
-                     //@ts-ignore
-                     onPress={() => idDressApi()}
-                style={{
-                    width: 100,
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                }}>
+                <TouchableOpacity
+                    //@ts-ignore
+                    onPress={() => TipoRostroApi()}
+                    style={{
+                        width: 100,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                    }}>
                     <Text
                         style={{ color: 'white', }}
                     >Siguiente</Text>
@@ -268,7 +242,6 @@ const StyleOption = () => {
                         color='#7C8499'
                         size={50}
                         tvParallaxProperties={undefined}
-                   
                     />
                 </TouchableOpacity>
             </View>
@@ -277,7 +250,7 @@ const StyleOption = () => {
     )
 }
 
-export default StyleOption;
+export default TipoDeRostro;
 
 const styles = StyleSheet.create({
     textTitle: {
@@ -318,14 +291,13 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 5,
     },
-    textInput:{
+    textInput: {
         color: 'white',
-        paddingHorizontal:25,
+        paddingHorizontal: 25,
     },
-    inputOptions:{
- 
+    inputOptions: {
+
     }
 })

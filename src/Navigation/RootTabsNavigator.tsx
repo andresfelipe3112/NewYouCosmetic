@@ -9,11 +9,40 @@ import  StyleOption  from '../Screens/StyleOption';
 import LinearGradient from 'react-native-linear-gradient';
 import { AllProducts } from '../Screens/AllProducts';
 import { AllProductsPerfil } from '../Screens/AllProductsPerfil';
+import { LoadingHome } from '../Components/LoadingHome';
+import newApi from '../Services/LoginApiValues';
 
 const Tab = createBottomTabNavigator();
 
 export const RootTabsNavigator = () => {
     const [currentIcon, setCurrentIcon] = useState("Home");
+    const [stateCurrent, setStateCurrent] = useState(true);
+    const [firtsData, setFirtsData] = useState([]);
+
+    const colorHearOptionApi = async () => {
+        try {
+            const resp = await newApi.get('products/first-category')
+            console.log("colorHearOptionApi", resp.data);
+            if (resp) {
+                setFirtsData(resp.data)
+                setStateCurrent(false)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        colorHearOptionApi()
+    },[])
+
+    if (stateCurrent) {
+        return(
+        <>
+        <LoadingHome></LoadingHome>
+        </>
+        )
+    }
     return (
         <Tab.Navigator initialRouteName="Para tí"
             screenOptions={({ route }) => (
@@ -65,7 +94,7 @@ export const RootTabsNavigator = () => {
                     }
             )}>
             <Tab.Screen name="Mi Perfil" component={Perfil} listeners={{ tabPress: () => setCurrentIcon("Person") }} />
-            <Tab.Screen name="Para tí" component={Home} listeners={{tabPress: () => setCurrentIcon("Home")}} />
+            <Tab.Screen name="Para tí" component={Home} listeners={{tabPress: () => setCurrentIcon("Home")}} initialParams={{ firtsData: firtsData }} />
             <Tab.Screen name="Placard" component={AllProductsPerfil} listeners={{ tabPress: () => setCurrentIcon("Outfit") }} />
              {/* <Tab.Screen name="Lista Deseos" component={Start} />
             <Tab.Screen name="Mi Carro" component={Start} />   */}

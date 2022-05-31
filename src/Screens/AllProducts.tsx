@@ -190,3 +190,259 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   }
 })
+
+
+
+// import React, {useState} from 'react';
+// import {NativeStackScreenProps} from 'react-native-screens/native-stack';
+// import {RootStackParamList} from '../../../navigation/RootStackParams';
+// import styled from 'styled-components/native';
+// import NavHeader from '../../../components/NavHeader';
+// import strings from '../../../localization';
+// import {Dimensions, ScrollView, StyleSheet, View} from 'react-native';
+// import AutoSuggest from '../../../components/AutoSuggest';
+// import Input from '../../../components/Input';
+// import InputSlectScreen from '../../../components/SelectInput/InputSlectScreen';
+
+// type Address1Props = NativeStackScreenProps<RootStackParamList, 'Address1'>;
+
+// const Address1 = ({navigation}: Address1Props) => {
+//   const [val, setVal] = useState('');
+//   const [valCity, setValCity] = useState('');
+
+//   return (
+//     <MainContainer>
+//       <NavHeader backIcon={true} center={strings.onboarding} /> 
+//       <View style={styles.viewContainer}>
+//         <AutoSuggest
+//           label={strings.address}
+//           value={val}
+//           onChange={setVal}
+//           onSearch={async () => {
+//             return [
+//               {title: 'Test', subtitle: 'test'},
+//               {title: 'Test1', subtitle: 'test1'},
+//               {title: 'Test2', subtitle: 'test2'},
+//               {title: 'Test3', subtitle: 'test3'},
+//             ];
+//           }}
+//           onOptionSelect={opt => setVal(opt.title)}
+//           />
+//       </View>
+//       <View style={styles.viewContainer}>
+//         <AutoSuggest
+//           label={strings.city}
+//           value={valCity}
+//           onChange={setValCity}
+//           onSearch={async () => {
+//             return [
+//               {title: 'Test', subtitle: 'test'},
+//               {title: 'Test1', subtitle: 'test1'},
+//               {title: 'Test2', subtitle: 'test2'},
+//               {title: 'Test3', subtitle: 'test3'},
+//             ];
+//           }}
+//           onOptionSelect={opt => setVal(opt.title)}
+//           />
+//       </View>
+//       <View style={styles.viewContainer}>
+//         <InputSlectScreen
+//           label={strings.state}
+//           onSearch={ [
+//             {item: 'Test'},
+//             {item: 'Test1'},
+//             {item: 'Test2'},
+//             {item: 'Test3'},
+//           ]
+//           }
+//           />
+//       </View>
+//       <View style={styles.viewContainer}>
+//         <Input
+//         label={strings.zipCode}
+//         />
+//       </View>
+//     </MainContainer>
+//   );
+// };
+
+// const MainContainer = styled.SafeAreaView`
+//   flex: 1;
+// `;
+
+// const styles = StyleSheet.create({
+//   viewContainer:{
+//     width: Dimensions.get("window").width * 0.8, 
+//     alignSelf:"center",
+//     marginTop:30,
+//   }
+// })
+
+// export default Address1;
+
+
+
+// import React, { useState } from 'react';
+// import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+// import SelectBox from 'react-native-multi-selectbox'
+// import styled from 'styled-components/native';
+// import DownIcon from '../../assets/icons/down.svg';
+// import ErrorIcon from '../../assets/icons/error.svg';
+// import { mainTheme } from '../../styles/theme';
+// import { designPxToScreenPx } from '../../utils/dimensions';
+// import Header from '../CustomText/header';
+
+// interface Input {
+//     inputProps?: any,
+//     label?: string,
+//   helpText?: string,
+//   errorText?: string,
+//   error?: any,
+//   leadingIcon?: any,
+//   value?: string,
+//   onChange?: () => void,
+//   onSearch?: object[]
+// }
+
+// interface ItemI {
+//   title: string;
+//   subtitle?: string;
+//   item?: any;
+//   onPress?: () => void
+// }
+
+// const InputSlectScreen = ({
+//   inputProps = {},
+//   label,
+//   onSearch,
+//   helpText,
+//   errorText,
+//   error,
+//   leadingIcon,
+//   onChange,
+// }: Input) => {
+ 
+//   const [selectedTeam, setSelectedTeam] = useState({})
+//   const [selectedTeams, setSelectedTeams] = useState([])
+
+//   return (
+//     <View>
+//       <Label>{label}</Label>
+//       <SelectBox
+//         label={false}
+//         inputPlaceholder=""
+//         options={onSearch}
+//         value={selectedTeam}
+//         selectIcon={<DownIcon/>}
+//         onChange={ (val:string) => setSelectedTeam(val)}
+//         hideInputFilter={true}
+//         optionsLabelStyle={styles.selectedItemStyle}//textoOptions
+//         containerStyle={styles.containerStyle}//textoOptions
+//         selectedItemStyle={styles.selectedItemStyle} // labelInput
+//         arrowIconColor={"black"}
+//       />
+//       {error && errorText && <ErrorText>{errorText}</ErrorText>}
+//     </View>
+//   );
+// }
+
+// const SuggestionContainer = styled.TouchableOpacity`
+//   padding: ${designPxToScreenPx(12)}px ${designPxToScreenPx(8)}px
+//     ${designPxToScreenPx(12)}px ${designPxToScreenPx(8)}px;
+//   border-bottom-width: 2px;
+//   border-bottom-color: ${props => props.theme.NEUTRAL_200};
+// `;
+
+// const IconContainer = styled.View`
+//   position: absolute;
+//   right: 22px;
+//   top: 18px;
+// `;
+
+// const StyledInput = styled.TextInput`
+//   font-family: 'Montserrat';
+//   font-style: normal;
+//   font-weight: 500;
+//   font-size: 15px;
+//   line-height: 21px;
+//   color: ${(props) => props.theme.NEUTRAL_900};
+//   flex-grow: 1;
+//   padding: 14.5px ${props => (props.leadingIcon ? '48px' : '20px')} 14.5px 20px;
+//   width:90%
+//   border-width: 1px;
+//   border-style: solid;
+//   border-color: ${props => props.theme.SECONDARY_100};
+//   border-radius: 6px;
+// `;
+// const Label = styled.Text`
+//   font-family: 'Montserrat';
+//   font-style: normal;
+//   font-weight: 600;
+//   font-size: 12px;
+//   line-height: 14.4;
+//   margin-bottom: 6px;
+//   color: ${props => props.theme.NEUTRAL_900};
+// `;
+
+// const BottomText = styled.Text`
+//   font-family: 'Montserrat';
+//   font-style: normal;
+//   font-weight: 500;
+//   font-size: 13px;
+//   line-height: 15.6px;
+// `;
+
+// const HelpText = styled(BottomText)`
+//   color: ${props => props.theme.NEUTRAL_700};
+//   margin-top: 6px;
+// `;
+
+// const ErrorText = styled.Text`
+//   color: ${props => props.theme.ERROR_700};
+//   margin-top: 6px;
+// `;
+
+// const InputContainer = styled.View`
+//   display:flex;
+//   flex-direction:row;
+//   align-items:center;
+//   justify-content:space-around;
+//   padding: 1px;
+//   border-width: 2px;
+//   border-style: solid;
+//   border-color: ${props =>
+//     props.error ? props.theme.ERROR_300 : 'transparent'};
+//   border-radius: 6px;
+//   width: 100%;
+//   background-color: ${props =>
+//     props.error ? props.theme.WHITE : props.theme.SECONDARY_100};
+// `;
+// const InputContainerSelectItem = styled.TouchableOpacity`
+//   position: relative;
+//   borderBottom-width: 0.2px;
+//   border-style: solid;
+//   border-radius: 1px;
+//   width: 80%;
+//   padding:10px;
+//   margin-vertical:1;
+//   margin-horizontal:5%;
+// `;
+
+// const styles = StyleSheet.create({
+//   containerStyle:{
+//     backgroundColor:'#fffaff',
+//     borderColor:'trasnparent',
+//     height:55,
+//     display:"flex",
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   selectedItemStyle:{
+//     fontFamily:'Montserrat',
+//     fontSize:12,
+//     color:"#4b4656"
+//   }
+
+// })
+
+// export default InputSlectScreen;

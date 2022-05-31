@@ -214,8 +214,9 @@ const TipoDeCuerpo = () => {
                 />
                 <TouchableOpacity 
                  //@ts-ignore
-                 onPress={() => navigation.navigate("Para tí", {
-                    current:"new",
+                 onPress={() => navigation.navigate("Root", {
+                    screen:"Para tí",
+                    params:{current:"Camisas"}
                 })}
                 style={{
           width: 200,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { createStackNavigator, TransitionSpecs, HeaderStyleInterpolators, CardStyleInterpolators } from "@react-navigation/stack";
 import LoginScreen from '../Screens/Auth/LoginScreen';
 import { RecoveryPasswordScreen } from '../Screens/Auth/RecoveryPasswordScreen';
@@ -25,10 +25,16 @@ import LargoDeCuello from '../Screens/LargoDeCuello';
 import TipoDeCuerpo from '../Screens/TipoDeCuerpo';
 import { DetailProduct } from '../Screens/DetailProduct';
 import { DetailProductStore } from '../Screens/DetailProductStore';
+import ColorOjos from '../Screens/ColorOjos';
+import TipoDeRostro from '../Screens/TipoDeRostro';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import newApi from '../Services/LoginApiValues';
 
 const Stack = createStackNavigator();
 
 export const AuthNavigator = () => {
+
   const config = {
     animation: "timing",
     config: {
@@ -43,10 +49,13 @@ export const AuthNavigator = () => {
       easing: Easing.linear,
     }
   }
+
+  
+
   
   return (
     <Stack.Navigator
-    initialRouteName='Wellcome'
+    initialRouteName={"Wellcome"}
     screenOptions={{
       headerShown: false,
       cardStyle: { backgroundColor: undefined }
@@ -164,7 +173,7 @@ export const AuthNavigator = () => {
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
       }}  
       />
-          <Stack.Screen name="StyleOption" component={StyleOption}
+          <Stack.Screen name="StyleOption" component={StyleOption} //
            options={{
              transitionSpec: {
                open: config,
@@ -174,6 +183,26 @@ export const AuthNavigator = () => {
               cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
             }}
           />
+           <Stack.Screen name="colorOjos" component={ColorOjos} 
+       options={{
+        transitionSpec: {
+          open: config,
+          close: closeConfig,
+         },
+         gestureDirection:"vertical-inverted",
+         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+       }}
+       />
+           <Stack.Screen name="TipoDeRostro" component={TipoDeRostro}
+           options={{
+             transitionSpec: {
+               open: config,
+               close: closeConfig,
+              },
+              gestureDirection:"vertical-inverted",
+              cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+            }}
+          /> 
            <Stack.Screen name="ColorHearOption" component={ColorHearOption}
            options={{
              transitionSpec: {

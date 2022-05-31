@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, TextInput, Button, ScrollView, Alert, Dimensions, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
+import { Text, View, TextInput, Button, ScrollView, Alert, Dimensions, StyleSheet, TouchableOpacity, ImageBackground, ActivityIndicator } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { Icon, Image } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
@@ -7,20 +7,40 @@ import LinearGradient from 'react-native-linear-gradient'
 import WellCome from '../../Components/WellCome';
 import Video from "react-native-video";
 import VideoPlayer from 'react-native-video-controls';
+import newApi, { valueHttps } from '../../Services/LoginApiValues';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function LoginScreen() {
     const navigation = useNavigation();
     const [colorBordefocusUser, setcolorBordefocusUser] = useState<string>('white')
     const [colorBordefocusPass, setcolorBordefocusPass] = useState<string>('white')
+    const [loadingLogin, setloadingLogin] = useState<Boolean>(false)
+    const [dataLogin, setdataLogin] = useState<any>('')
+
+    const login = async (email:string, password:string) => {
+  try {
+    setloadingLogin(false)
+      const resp = await newApi.post('auth/login-user',{"email": email,
+      "password": password})
+       await AsyncStorage.setItem('tokenNew', resp.data.accessToken);
+      setdataLogin(resp.data)
+      setloadingLogin(true)
+      console.log("resp.data)",resp.data.accessToken);
+  } catch (error) {
+
+  }
+    }
 
     const { register, setValue, handleSubmit, control, reset, formState: { errors } } = useForm({
         defaultValues: {
-            Usuario: '',
+            Gmail: '',
             Constraseña: ''
         }
     });
     const onSubmit = (data: any) => {
+        login(data.Gmail,data.Constraseña)
         console.log(data);
         console.log('errors', errors);
     };
@@ -36,9 +56,13 @@ export default function LoginScreen() {
         navigation.navigate('RecoveryPassword');
     }
 
+    useEffect(() => {
+        dataLogin && navigation.navigate('IntroScreen')
+    },[])
+
     return (
         <>
-            <Video  
+            <Video
                         // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
                         source={require("../../Assets/video/intro2.mp4")}
                         resizeMode={"stretch"}
@@ -48,7 +72,7 @@ export default function LoginScreen() {
                         mute={true}
                         disableBack
                         disableVolume
-                        toggleResizeModeOnFullscreen   
+                        toggleResizeModeOnFullscreen
                         repeat={true}
                         bufferConfig={{
                             minBufferMs: 15000,
@@ -56,7 +80,7 @@ export default function LoginScreen() {
                             bufferForPlaybackMs: 2500,
                             bufferForPlaybackAfterRebufferMs: 5000
                         }}
-                        
+
                         style={{
                             position: 'absolute',
                             top: 0,
@@ -64,7 +88,7 @@ export default function LoginScreen() {
                             bottom: 0,
                             right: 0,
                         }}
-                    /> 
+                    />
                         <LinearGradient  opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             <ScrollView
             // style={{backgroundColor:"black"}}
@@ -99,7 +123,7 @@ export default function LoginScreen() {
                                 style={[styles.input, { borderColor: colorBordefocusUser }]}
                                 onBlur={onBlur}
                                 placeholderTextColor="#8e9bb7"
-                                onChangeText={value => onChange(value)}
+                                onChangeText={onChange}
                                 value={value}
                                 onFocus={({ nativeEvent: LayoutEvent }) => {
                                     setcolorBordefocusUser('#9933FF');
@@ -109,10 +133,10 @@ export default function LoginScreen() {
                             </TextInput>
                         </View>
                     )}
-                    name="Usuario"
+                    name="Gmail"
                     rules={{ required: true }}
                 />
-                {errors.Usuario && <Text style={styles.textError} >La constraseña es requerida.</Text>}
+                {errors.Gmail && <Text style={styles.textError} >La constraseña es requerida.</Text>}
                 <Controller
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
@@ -130,7 +154,7 @@ export default function LoginScreen() {
                                 style={[styles.input, { borderColor: colorBordefocusUser }]}
                                 onBlur={onBlur}
                                 placeholderTextColor="#8e9bb7"
-                                onChangeText={value => onChange(value)}
+                                onChangeText={onChange}
                                 value={value}
                                 onFocus={({ nativeEvent: LayoutEvent }) => {
                                     setcolorBordefocusUser('#9933FF');
@@ -158,7 +182,7 @@ export default function LoginScreen() {
                     <View style={{ width: "42%", backgroundColor: "white", height: 1}} ></View>
 
                 </View>
-
+               {loadingLogin && <ActivityIndicator/>}
                 <TouchableOpacity
                     style={styles.button}
                     //@ts-ignore
@@ -170,8 +194,7 @@ export default function LoginScreen() {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonGoogle}
-                    onPress={handleSubmit(onSubmit)}
-                >
+                    onPress={handleSubmit(onSubmit)} >
                     <Icon
                         size={40}
                         name='social-facebook'

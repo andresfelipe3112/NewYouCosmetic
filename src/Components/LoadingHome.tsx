@@ -17,12 +17,12 @@ export const LoadingHome = (props: any) => {
     const [visible, setVisible] = React.useState(true);
     const navigation = useNavigation();
 
-       useEffect(() => {
-                setTimeout(() => {
-                    //@ts-ignore
-                navigation.navigate("Root")
-           },3000)
-       },[])
+    //    useEffect(() => {
+    //             setTimeout(() => {
+    //                 //@ts-ignore
+    //             navigation.navigate("Root")
+    //        },3000)
+    //    },[])
 
     return (
         <View

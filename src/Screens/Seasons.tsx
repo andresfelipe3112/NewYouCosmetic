@@ -6,6 +6,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { Image } from 'react-native-elements/dist/image/Image';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import newApi from '../Services/LoginApiValues';
 
 
 const invierno = require('../Assets/video/invierno.mp4');
@@ -22,10 +23,25 @@ const Seasons = () => {
     const [colorCheckInvierno, setcolorCheckInvierno] = useState(false);
     const [colorCheckOtono, setcolorCheckOtono] = useState(false);
     const [colorCheckPrimavera, setcolorCheckPrimavera] = useState(false);
+    const [loadingLogin, setloadingLogin] = useState<Boolean>(false)
+    const [dataLogin, setdataLogin] = useState<any>('')
+
+    const seasonsApi = async (season: string,) => {
+        try {
+            setloadingLogin(false)
+            const resp = await newApi.post('users/season', { "season": dataLogin })
+            console.log("respSeaso", resp.data);
+            if (resp) {
+                navigation.navigate("Gender")
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const colorVerano = () => {
         if (colorCheckVerano) {
-           return setcolorCheckVerano(false)
+            return setcolorCheckVerano(false)
         }
         setSeason(verano)
         setcolorCheckVerano(true);
@@ -37,41 +53,41 @@ const Seasons = () => {
     const colorInvierno = () => {
         if (colorCheckInvierno) {
             return setcolorCheckInvierno(false)
-         }
-         setSeason(invierno)
-         setcolorCheckVerano(false);
-         setcolorCheckInvierno(true);
-         setcolorCheckOtono(false)
-         setcolorCheckPrimavera(false)
+        }
+        setSeason(invierno)
+        setcolorCheckVerano(false);
+        setcolorCheckInvierno(true);
+        setcolorCheckOtono(false)
+        setcolorCheckPrimavera(false)
     }
     const colorOtono = () => {
         if (colorCheckOtono) {
             return setcolorCheckOtono(false)
-         }
-         setSeason(otono)
-         setcolorCheckVerano(false);
-         setcolorCheckInvierno(false);
-         setcolorCheckOtono(true);
-         setcolorCheckPrimavera(false)
+        }
+        setSeason(otono)
+        setcolorCheckVerano(false);
+        setcolorCheckInvierno(false);
+        setcolorCheckOtono(true);
+        setcolorCheckPrimavera(false)
     }
-    const colorPrimavera  = () => {
+    const colorPrimavera = () => {
         if (colorCheckPrimavera) {
             return setcolorCheckPrimavera(false)
-         }
-         setSeason(primavera)
-         setcolorCheckVerano(false);
-         setcolorCheckInvierno(false);
-         setcolorCheckOtono(false);
-         setcolorCheckPrimavera(true);
+        }
+        setSeason(primavera)
+        setcolorCheckVerano(false);
+        setcolorCheckInvierno(false);
+        setcolorCheckOtono(false);
+        setcolorCheckPrimavera(true);
     }
 
     useEffect(() => {
         colorOtono()
-    },[])
+    }, [])
 
     return (
         <View
-        style={{ width: '100%', height:Dimensions.get("screen").height}}
+            style={{ width: '100%', height: Dimensions.get("screen").height }}
         >
             <LinearGradient colors={['#544D60', '#19181C', '#19181C']} style={{ position: "absolute", width: "100%", height: "100%" }} />
             <Video
@@ -100,111 +116,130 @@ const Seasons = () => {
                     bottom: 0,
                     right: 0,
                 }}
-            /> 
-        <ScrollView>
-        <Text
-                        style={styles.textTitle}
-                    >Selecciona la estación del año. </Text>
-            <View
-            style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                    flexWrap:"wrap", width: Dimensions.get("window").width }}
-            >
-    
-                <Image
-                    source={require("../Assets/Img/imgVerano.jpeg")}
-                    containerStyle={styles.containerStyle}
-                    PlaceholderContent={<ActivityIndicator />}
-                />
+            />
+            <ScrollView>
+                <Text
+                    style={styles.textTitle}
+                >Selecciona la estación del año. </Text>
+                <View
+                    style={{
+                        display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+                        flexWrap: "wrap", width: Dimensions.get("window").width
+                    }}
+                >
 
-                <TouchableOpacity
-                    style={[styles.button, { backgroundColor: colorCheckVerano ? 'white' : "transparent" }]}
-                    //@ts-ignore
-                    onPress={colorVerano}
-                >
-                    <Text
-                        style={[styles.text, { color: colorCheckVerano ?  "black" : 'white' }]}
-                    >Verano</Text>
-                </TouchableOpacity>
-                <Image
-                    source={require("../Assets/Img/oto.jpeg")}
-                    containerStyle={styles.containerStyle}
-                    PlaceholderContent={<ActivityIndicator />}
+                    <Image
+                        source={require("../Assets/Img/imgVerano.jpeg")}
+                        containerStyle={styles.containerStyle}
+                        PlaceholderContent={<ActivityIndicator />}
+                    />
+
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: colorCheckVerano ? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={() => {
+                            colorVerano();
+                            setdataLogin("verano")
+                        }}
+                    >
+                        <Text
+                            style={[styles.text, { color: colorCheckVerano ? "black" : 'white' }]}
+                        >Verano</Text>
+                    </TouchableOpacity>
+                    <Image
+                        source={require("../Assets/Img/oto.jpeg")}
+                        containerStyle={styles.containerStyle}
+                        PlaceholderContent={<ActivityIndicator />}
+                    />
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: colorCheckOtono ? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={() => {
+                            colorOtono();
+                            setdataLogin("otoño")
+                        }}
+                    >
+                        <Text
+                            style={[styles.text, { color: colorCheckOtono ? "black" : 'white' }]}
+                        >Otoño</Text>
+                    </TouchableOpacity>
+                    <Image
+                        source={require("../Assets/Img/imgPrimavera.jpeg")}
+                        containerStyle={styles.containerStyle}
+                        PlaceholderContent={<ActivityIndicator />}
+                    />
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: colorCheckPrimavera ? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={() => {
+                            colorPrimavera();
+                            setdataLogin("primavera")
+
+                        }}
+                    >
+                        <Text
+                            style={[styles.text, { color: colorCheckPrimavera ? "black" : 'white' }]}
+                        >Primavera</Text>
+                    </TouchableOpacity>
+                    <Image
+                        source={require("../Assets/Img/imgInvierno.jpeg")}
+                        containerStyle={styles.containerStyle}
+                        PlaceholderContent={<ActivityIndicator />}
+                    />
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: colorCheckInvierno ? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={() => {
+                            colorInvierno();
+                            setdataLogin("invierno")
+                        }}
+                    >
+                        <Text
+                            style={[styles.text, { color: colorCheckInvierno ? "black" : 'white' }]}
+                        >Invierno</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+            <View
+                style={{
+                    position: "absolute", top: Dimensions.get("window").height * 0.91, display: "flex", flexDirection: "row",
+                    justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
+                }}
+            >
+                <Icon
+                    name='arrow-left'
+                    type='evilicon'
+                    color='#7C8499'
+                    size={50}
+                    tvParallaxProperties={undefined}
+                    onPress={() => navigation.goBack()}
                 />
                 <TouchableOpacity
-                     style={[styles.button, { backgroundColor: colorCheckOtono ? 'white' : "transparent" }]}
                     //@ts-ignore
-                    onPress={colorOtono}
-                >
+                    onPress={() =>
+                        seasonsApi(dataLogin)
+                    }
+                    style={{
+                        width: 100,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+
+                    }}>
                     <Text
-                        style={[styles.text, { color: colorCheckOtono ?  "black" : 'white' }]}
-                    >Otoño</Text>
-                </TouchableOpacity>
-                <Image
-                    source={require("../Assets/Img/imgPrimavera.jpeg")}
-                    containerStyle={styles.containerStyle}
-                    PlaceholderContent={<ActivityIndicator />}
-                />
-                <TouchableOpacity
-                     style={[styles.button, { backgroundColor: colorCheckPrimavera ? 'white' : "transparent" }]}
-                    //@ts-ignore
-                    onPress={colorPrimavera}
-                >
-                    <Text
-                        style={[styles.text, { color: colorCheckPrimavera ?  "black" : 'white' }]}
-                    >Primavera</Text>
-                </TouchableOpacity>
-                <Image
-                    source={require("../Assets/Img/imgInvierno.jpeg")}
-                    containerStyle={styles.containerStyle}
-                    PlaceholderContent={<ActivityIndicator />}
-                />
-                <TouchableOpacity
-                     style={[styles.button, { backgroundColor: colorCheckInvierno ? 'white' : "transparent" }]}
-                    //@ts-ignore
-                    onPress={colorInvierno}
-                >
-                    <Text
-                        style={[styles.text, { color: colorCheckInvierno ?  "black" : 'white' }]}
-                    >Invierno</Text>
+                        style={{ color: 'white', }}
+                    >Siguiente</Text>
+                    <Icon
+                        name='arrow-right'
+                        type='evilicon'
+                        color='#7C8499'
+                        size={50}
+                        tvParallaxProperties={undefined}
+
+
+                    />
                 </TouchableOpacity>
             </View>
-        </ScrollView>
-    <View
-    style={{position: "absolute", top: Dimensions.get("window").height *0.91 , display: "flex", flexDirection: "row",
-            justifyContent: "space-between", width: Dimensions.get("window").width*0.9, alignSelf: "center",}}
-    >
-    <Icon
-        name='arrow-left'
-        type='evilicon'
-        color='#7C8499'
-        size={50}
-        tvParallaxProperties={undefined}
-        onPress={()=> navigation.goBack()}
-      />
-      <TouchableOpacity 
-       //@ts-ignore
-      onPress={()=> navigation.navigate("Gender")}
-      style={{
-          width:100,
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          
-      }}>
-          <Text
-          style={{ color: 'white',}}
-          >Siguiente</Text>
-    <Icon
-        name='arrow-right'
-        type='evilicon'
-        color='#7C8499'
-        size={50}
-        tvParallaxProperties={undefined}
-       
-        
-        />
-        </TouchableOpacity>
-    </View>
         </View>
 
     )
@@ -218,9 +253,9 @@ const styles = StyleSheet.create({
         fontSize: 25,
         textAlign: "center",
         fontFamily: "Dosis",
-        marginVertical:20,
-        borderRadius:25,
-        opacity:0.6
+        marginVertical: 20,
+        borderRadius: 25,
+        opacity: 0.6
     },
     text: {
         fontSize: 15,
@@ -228,7 +263,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     button: {
-        width:100,
+        width: 100,
         color: 'white',
         height: 45,
         borderRadius: 20,
@@ -240,7 +275,7 @@ const styles = StyleSheet.create({
     containerStyle: {
         width: 140,
         height: 120,
-        margin:15,
+        margin: 15,
         borderRadius: 15,
         shadowColor: "#000",
         shadowOffset: {
@@ -249,7 +284,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        
+
         elevation: 5,
     }
 })

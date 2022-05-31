@@ -14,8 +14,9 @@ import { Title } from "../Components/Title";
 
 export const DetailProduct = ({ route }: any) => {
 
-  const [indexPagination, setIndexPagination] = React.useState(0)
-  const isCarousel = React.useRef<any>(null)
+  const [indexPagination, setIndexPagination] = React.useState(0);
+  const isCarousel = React.useRef<any>(null);
+  const [iconHeart, setIconHeart] = useState(false);
 
   const otono = require('../Assets/video/otono.mp4');
   const promo = require('../Assets/video/promo.mp4');
@@ -181,6 +182,14 @@ export const DetailProduct = ({ route }: any) => {
             <Text
               style={{ padding: 15, width: Dimensions.get("window").width * 0.6, textAlign: "center", fontSize: 17 }}
             >Nombre del Producto</Text>
+            <Icon
+                                    name='heart'
+                                    size={30}
+                                    color={!iconHeart ? 'gray' : 'red'}
+                                    type='feather'
+                                    tvParallaxProperties={false}
+                                    onPress={()=>setIconHeart(!iconHeart )}
+                                />
           </View>
 
 

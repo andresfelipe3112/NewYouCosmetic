@@ -7,6 +7,7 @@ import { Image } from 'react-native-elements/dist/image/Image';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import DawnLogo from '../Components/DawnLogo';
+import newApi from '../Services/LoginApiValues';
 
 
 const videoA = require('../Assets/video/casual.mp4');
@@ -25,7 +26,6 @@ const imagenF = require('../Assets/Img/tipo6.jpg')
 
 const ColorHearOption = () => {
     const navigation = useNavigation();
-    const [season, setSeason] = useState("");
     const [statusInfo, setstatusInfo] = useState(true);
     const [colorCheckA, setcolorCheckA] = useState(false);
     const [colorCheckB, setsetcolorCheckB] = useState(false);
@@ -33,6 +33,21 @@ const ColorHearOption = () => {
     const [colorCheckD, setcolorCheckD] = useState(false);
     const [colorCheckE, setcolorCheckE] = useState(false);
     const [colorCheckF, setcolorCheckF] = useState(false);
+    const [response, setResponse] = useState("");
+    
+
+
+    const colorHearOptionApi = async (season: string,) => {
+        try {
+            const resp = await newApi.post('users/skinColor', { "skinColor": response })
+            console.log("colorHearOptionApi", resp.data);
+            if (resp) {
+                navigation.navigate("Root")
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const colorA = () => {
         if (colorCheckA) {
@@ -133,6 +148,7 @@ const ColorHearOption = () => {
                         //@ts-ignore
                         onPress={()=>{
                             colorA();
+                            setResponse("tipo1")
                         }}
                     >
                         <Image
@@ -148,7 +164,10 @@ const ColorHearOption = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorB}
+                        onPress={()=> {
+                            colorB();
+                            setResponse("tipo2")                        
+                        }}
                     >
                         <Image
                             source={ImagenB}
@@ -163,7 +182,10 @@ const ColorHearOption = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorC}
+                        onPress={()=> {
+                            colorC();
+                            setResponse("tipo3");
+                        }}
                     >
                         <Image
                             source={imagenC}
@@ -258,7 +280,7 @@ const ColorHearOption = () => {
                         size={50}
                         tvParallaxProperties={undefined}
                         //@ts-ignore
-                        onPress={() => navigation.navigate("LoadingHome")}
+                        onPress={() => colorHearOptionApi()}
                     />
                 </TouchableOpacity>
             </View>

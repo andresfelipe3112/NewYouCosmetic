@@ -17,7 +17,7 @@ interface Action {
 
 const includeExtra = true;
 
-export default function LargoDeCuello() {
+export default function ColorOjos() {
     const navigation = useNavigation();
     const [itemFoto, setItemFoto] = useState('');
     const bottomSheetModalRef = useRef<RBSheet>(null);
@@ -25,26 +25,12 @@ export default function LargoDeCuello() {
     const [response, setResponse] = React.useState<any>(null);
     const [age, setAge] = React.useState<any>([]);
     const [state, setState] = React.useState<any>({
-        age: ""
+        colorOjos: ""
     });
 
-    const updateAge = (age: number) => {
-        setState({ age: age })
+    const updateAge = (n: number) => {
+        setState({ colorOjos: n })
     }
-
-    const render = () => {
-        let age = []
-        {
-            for (let i = 1; i <= 50; i++) {
-                age[i] = "" + i + " centímetros";
-            }
-            setAge(age)
-        }
-    }
-
-    useEffect(() => {
-        render()
-    }, [])
 
     return (
         <View>
@@ -62,7 +48,7 @@ export default function LargoDeCuello() {
             >
                 <Text
                     style={{ color: 'white', fontSize: 25 , fontFamily: "Dosis",}}
-                >¿Cuál es el largo de tu cuello?</Text>
+                >¿Cúal es tu color de ojos?</Text>
                 <View
                     opacity={0.7}
                     style={{
@@ -75,14 +61,15 @@ export default function LargoDeCuello() {
                     }}
                 >
                     <View style={styles.Container} >
-                        <Picker selectedValue={state.age}
+                        <Picker selectedValue={state.colorOjos}
                             onValueChange={updateAge}
                             style={{backgroundColor:"white", borderRadius:20, fontWeight:"bold", fontSize:40,}}
-                        >
-                                    <Picker.Item  label={"corto"} value={"corto"} />
-                                    <Picker.Item  label={"medio"} value={"medio"} />
-                                    <Picker.Item  label={'largo'} value={'largo'} />
-                          
+                        >  
+                                    <Picker.Item label={"azules"} value={"azules"} />
+                                    <Picker.Item label={"verdes"} value={"verdes"} />
+                                    <Picker.Item label={"castaños"} value={"castaños"} />
+                                    <Picker.Item label={"gris"} value={"gris"} />
+                                    <Picker.Item label={"ámbar"} value={"ámbar"} />
                         </Picker>
                     </View>
                 </View>
@@ -104,7 +91,7 @@ export default function LargoDeCuello() {
                 />
               <TouchableOpacity 
        //@ts-ignore
-      onPress={()=> navigation.navigate("TipoDeCuerpo")}
+      onPress={()=> navigation.navigate("TipoDeRostro")}
       style={{
           width:100,
           display: "flex",

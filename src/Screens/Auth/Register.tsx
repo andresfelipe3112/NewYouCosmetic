@@ -4,21 +4,27 @@ import { useForm, Controller } from "react-hook-form";
 import { Icon, Image } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import newApi from '../../Services/LoginApiValues';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function Register() {
     const navigation = useNavigation();
     const [colorBordefocusUser, setcolorBordefocusUser] = useState<string>('white')
     const [colorBordefocusPass, setcolorBordefocusPass] = useState<string>('white')
+    const [loadingLogin, setloadingLogin] = useState<Boolean>(false)
 
-    const { register, setValue, handleSubmit, control, reset, formState: { errors } } = useForm({
+    const { handleSubmit, control, formState: { errors } } = useForm({
         defaultValues: {
-            Usuario: '',
-            Constraseña: ''
+            usuario:'',
+            email: '',
+            Constraseña: '',
+
         }
     });
     const onSubmit = (data: any) => {
-        console.log(data);
+        console.log("onSubmit",data);
+        Register(data.email, data.Constraseña, data.usuario);
         console.log('errors', errors);
     };
 
@@ -32,6 +38,18 @@ export default function Register() {
         //@ts-ignore
         navigation.navigate('RecoveryPassword');
     }
+
+    const Register = async (email:string, password:string, username:string) => {
+        try {
+            setloadingLogin(false)
+            const resp = await newApi.post('auth/register-user',{"email": email,
+            "password": password, "repetirPassword":password,"username":username  })
+            console.log("Register",resp);
+            setloadingLogin(true)
+        } catch (error) {
+      
+        }
+          }
 
 
     return (
@@ -59,7 +77,7 @@ export default function Register() {
                         style={styles.textTitle}
                     >Crea una cuenta para guardar tu progreso</Text>
                 </View>
-                {errors.Usuario && <Text style={styles.textError} >El usuario es requerido.</Text>}
+                {/* {errors.Usuario && <Text style={styles.textError} >El usuario es requerido.</Text>} */}
                 <Controller
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
@@ -77,7 +95,7 @@ export default function Register() {
                                 style={[styles.input, { borderColor: colorBordefocusUser }]}
                                 onBlur={onBlur}
                                 placeholderTextColor="white"
-                                onChangeText={value => onChange(value)}
+                                onChangeText={onChange}
                                 value={value}
                                 onFocus={({ nativeEvent: LayoutEvent }) => {
                                     setcolorBordefocusUser('#9933FF');
@@ -87,10 +105,10 @@ export default function Register() {
                             </TextInput>
                         </View>
                     )}
-                    name="Usuario"
+                    name="usuario"
                     rules={{ required: true }}
                 />
-                {errors.Usuario && <Text style={styles.textError} >El usuario es requerido.</Text>}
+                {/* {errors.Usuario && <Text style={styles.textError} >El usuario es requerido.</Text>} */}
                 <Controller
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
@@ -108,7 +126,7 @@ export default function Register() {
                                 style={[styles.input, { borderColor: colorBordefocusUser }]}
                                 onBlur={onBlur}
                                 placeholderTextColor="white"
-                                onChangeText={value => onChange(value)}
+                                onChangeText={onChange}
                                 value={value}
                                 onFocus={({ nativeEvent: LayoutEvent }) => {
                                     setcolorBordefocusUser('#9933FF');
@@ -118,10 +136,10 @@ export default function Register() {
                             </TextInput>
                         </View>
                     )}
-                    name="Usuario"
+                    name="email"
                     rules={{ required: true }}
                 />
-                {errors.Usuario && <Text style={styles.textError} >La constraseña es requerida.</Text>}
+                {errors.email && <Text style={styles.textError} >La constraseña es requerida.</Text>}
                 <Controller
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
@@ -139,7 +157,7 @@ export default function Register() {
                                 style={[styles.input, { borderColor: colorBordefocusUser }]}
                                 onBlur={onBlur}
                                 placeholderTextColor="white"
-                                onChangeText={value => onChange(value)}
+                                onChangeText={onChange}
                                 value={value}
                                 onFocus={({ nativeEvent: LayoutEvent }) => {
                                     setcolorBordefocusUser('#9933FF');
@@ -162,7 +180,7 @@ export default function Register() {
                 <TouchableOpacity
                     style={styles.button}
                     //@ts-ignore
-                    onPress={() => navigation.navigate('IntroScreen')}
+                    onPress={handleSubmit(onSubmit)}
                 >
                     <Text
                         style={styles.text}

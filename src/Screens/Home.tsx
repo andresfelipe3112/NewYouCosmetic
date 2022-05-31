@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Tab } from "../Components/Tab";
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { DetailComponent } from "../Components/DetailComponent";
@@ -20,6 +20,10 @@ const imageD = require('../Assets/Img/ropaD.jpg');
 
 //Camisas
 
+
+export const Home = ({route,firtsData}:any) => {
+
+ 
 
 const data = [
   {
@@ -258,8 +262,35 @@ const productoObjCamisa = [
     image: imageC
   },
 ]
+const productoObjPantalon = [
+  {
+    nombre: "Pantalon Galo",
+    marca:"Zara",
+    image: require('../Assets/Img/pantalon1.jpg')
+  },
+  {
+    nombre: "Pantalon Polar",
+    marca:"Polo",
+    image: require('../Assets/Img/pantalon2.jpg')
+  },
+  {
+    nombre: "Pantalon geek",
+    marca:"Farabella",
+    image: require('../Assets/Img/pantalon3.jpg')
+  },
+  {
+    nombre: "Pantalon Fashion",
+    marca:"Sugar Top",
+    image: require('../Assets/Img/pantalon4.jpg')
+  },
+  {
+    nombre: "patanlon foody",
+    marca:"Falabella",
+    image: require('../Assets/Img/pantalon5.jpg')
+  },
+]
 
-let array:any = [
+const array:any = [
   {
     categoria:"Pulseras",
     dataProduct:productoObjPulseras
@@ -278,22 +309,53 @@ let array:any = [
   },
 
 ];
-export const Home = ({route}:any) => {
 
+const  [dataProduct, setData]=useState<any>([])
+
+useEffect(() => {
+  console.log(route?.params?.firtsData?.productos);
+  let array = []
+for (const key in route?.params?.firtsData?.productos) {
+  if (Object.prototype.hasOwnProperty.call(route?.params?.firtsData?.productos, key)) {
+    const element = route?.params?.firtsData?.productos[key];
+    array.push(element)   
+    console.log("element",element);
+  }
+}
+
+  setData(array)
+  console.log("dataProduct",dataProduct);
+},[route?.params?.firtsData])
   
-  var focus = useIsFocused();
-  useEffect(() => {
-   focus === true && route.params?.current === "new";
-   array.unshift( {
-    categoria:"Camisas",
-    dataProduct:productoObjCamisa,
-    status:"new"
-  })
-
-  },[])
-
-
   const navigation = useNavigation();
+  var focus = useIsFocused();
+  const dato = route.params?.current;
+
+//   useEffect(() => {
+//     if (focus === true && dato === "Camisas") {
+//       console.log(true,dato);
+//       setData([{
+//         categoria:"Camisas",
+//         dataProduct:productoObjCamisa,
+//         status:"new"
+//       }, ...array,])
+//       focus=false
+//     }   
+// },[focus, dato])
+
+// useEffect(() => {
+//   if (focus === true && dato === "Pantalones") {
+//     console.log(true,dato);
+//     setData([{
+//       categoria:"Pantalones",
+//       dataProduct:productoObjPantalon,
+//       status:"new"
+//     }, ...dataProduct,])
+//     focus=false
+//   }
+//   },[focus,dato])
+
+
 
   return (
     <>
@@ -435,9 +497,9 @@ export const Home = ({route}:any) => {
           }
         </View>
         {
-          array.map((item, index) =>{
+          dataProduct?.map((item, index) =>{
             return (
-              <DetailComponent title={item.categoria} productoObj={item.dataProduct} status={item.status} />
+              <DetailComponent title={item[0].type} productoObj={item} status={item.status}  />
             )
           })
         }

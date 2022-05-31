@@ -6,6 +6,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { Image } from 'react-native-elements/dist/image/Image';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import newApi from '../Services/LoginApiValues';
 
 
 const invierno = require('../Assets/video/invierno.mp4');
@@ -22,8 +23,19 @@ const Seasons = () => {
     const [colorCheckInvierno, setcolorCheckInvierno] = useState(false);
     const [colorCheckOtono, setcolorCheckOtono] = useState(false);
     const [colorCheckPrimavera, setcolorCheckPrimavera] = useState(false);
+    const [response, setResponse] = useState(false);
 
-
+    const veganApi = async (response: Boolean,) => {
+        try {
+            const resp = await newApi.post('users/vegan', { "vegan": response })
+            console.log("genderApi", resp.data);
+            if (resp) {
+                navigation.navigate("StyleOption")
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     
     const colorVerano = () => {
         if (colorCheckVerano) {
@@ -85,7 +97,10 @@ const Seasons = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckVerano ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorVerano}
+                        onPress={()=> {
+                            colorVerano();
+                            setResponse(true)
+                        }}
                     >
                         <Text
                             style={[styles.text, { color: colorCheckVerano ? "black" : 'white' }]}
@@ -94,13 +109,16 @@ const Seasons = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckOtono ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorOtono}
+                        onPress={()=> {
+                            colorOtono();
+                            setResponse(false)
+                        }}
                     >
                         <Text
                             style={[styles.text, { color: colorCheckOtono ? "black" : 'white' }]}
                         >No</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckPrimavera ? 'white' : "transparent" }]}
                         //@ts-ignore
                         onPress={colorPrimavera}
@@ -108,7 +126,7 @@ const Seasons = () => {
                         <Text
                             style={[styles.text, { color: colorCheckPrimavera ? "black" : 'white' }]}
                         >No lo quiero decir</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </ScrollView>
             <View
@@ -127,7 +145,10 @@ const Seasons = () => {
                 />
                 <TouchableOpacity 
                   //@ts-ignore
-                  onPress={() => navigation.navigate("StyleOption")}
+                  onPress={() => {
+                    veganApi(response)
+                  }
+                }
                 style={{
                     width: 100,
                     display: "flex",
