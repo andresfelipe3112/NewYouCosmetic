@@ -13,6 +13,7 @@ import { Title } from "../Components/Title";
 const otono = require('../Assets/video/otono.mp4');
 //
 const promo = require('../Assets/video/promo.mp4');
+const promo2 = require('../Assets/video/danni.mp4');
 const imageA = require('../Assets/Img/ropaA.jpg');
 const imageB = require('../Assets/Img/ropaB.jpg');
 const imageC = require('../Assets/Img/ropaC.jpg');
@@ -20,43 +21,53 @@ const imageD = require('../Assets/Img/ropaD.jpg');
 
 //Camisas
 
-
-export const Home = ({route,firtsData}:any) => {
-
- 
+export const Home = ({route}:any) => {
 
 const data = [
   {
+    nombre: "Ver todas",
+    icono: "home",
+    compareAPI:"VER TODAS"
+  },
+  {
     nombre: "Gafas",
     icono: "home",
+    compareAPI:"GAFA"
   },
   {
     nombre: "Pañuelos",
     icono: "home",
+    compareAPI:"PAÑUELO"
   },
   {
     nombre: "Gorros",
     icono: "home",
+    compareAPI:"GORRO",
   },
   {
     nombre: "Pulseras",
     icono: "home",
+    compareAPI:"PULSERA",
   },
   {
     nombre: "Camisas",
     icono: "home",
+    compareAPI:"CAMISA",
   },
   {
     nombre: "Gorros",
     icono: "home",
+    compareAPI:"GORRO",
   },
   {
     nombre: "Vestidos",
     icono: "home",
+    compareAPI:"VESTIDO",
   },
   {
-    nombre: "zapatillas",
+    nombre: "Zapatillas",
     icono: "home",
+    compareAPI:"ZAPATILLA",
   },
 ]
 const productoObjPañuelos = [
@@ -310,7 +321,10 @@ const array:any = [
 
 ];
 
+const navigation = useNavigation();
 const  [dataProduct, setData]=useState<any>([])
+const  [dataProductFilter, setDataFilter]=useState<any>([])
+const  [filterOn, setFilterON]=useState<any>(false)
 
 useEffect(() => {
   console.log(route?.params?.firtsData?.productos);
@@ -322,40 +336,18 @@ for (const key in route?.params?.firtsData?.productos) {
     console.log("element",element);
   }
 }
-
   setData(array)
-  console.log("dataProduct",dataProduct);
 },[route?.params?.firtsData])
   
-  const navigation = useNavigation();
-  var focus = useIsFocused();
-  const dato = route.params?.current;
+const changueRecomendations = (type:string) => {
 
-//   useEffect(() => {
-//     if (focus === true && dato === "Camisas") {
-//       console.log(true,dato);
-//       setData([{
-//         categoria:"Camisas",
-//         dataProduct:productoObjCamisa,
-//         status:"new"
-//       }, ...array,])
-//       focus=false
-//     }   
-// },[focus, dato])
-
-// useEffect(() => {
-//   if (focus === true && dato === "Pantalones") {
-//     console.log(true,dato);
-//     setData([{
-//       categoria:"Pantalones",
-//       dataProduct:productoObjPantalon,
-//       status:"new"
-//     }, ...dataProduct,])
-//     focus=false
-//   }
-//   },[focus,dato])
-
-
+  if (type === "VER TODAS") {
+    return setFilterON(false)
+  } 
+  let newArray = dataProduct.filter((x)=> x[0].type === type )
+  setFilterON(true)
+  setDataFilter(newArray)
+}
 
   return (
     <>
@@ -427,7 +419,7 @@ for (const key in route?.params?.firtsData?.productos) {
       >
         <Video
           // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
-          source={promo}
+          source={promo2}
           resizeMode={"stretch"}
           opacity={1}
           controls={false}
@@ -466,11 +458,11 @@ for (const key in route?.params?.firtsData?.productos) {
           <Text style={{ backgroundColor: "#809BBB", fontWeight: "bold", borderRadius: 5, padding: 2, margin: 2 }}>Patrocinado</Text>
           <Text
             style={{ color: "white", fontWeight: "bold", margin: 2 }}
-          >  ADIDAS
+          >  danimateluna.cl
           </Text>
-          <Text
+          {/* <Text
             style={{ color: "white", margin: 2 }}
-          >Polera Adidas</Text>
+          >Polera Adidas</Text> */}
         </View>
         <Title text={"Mis recomendaciones para tí"} />
         <View
@@ -482,22 +474,36 @@ for (const key in route?.params?.firtsData?.productos) {
             marginTop: -12
           }}
         >
-          {data.map(({ nombre, icono }, index) => {
+          <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          >
+          
+          {data.map(({ nombre, icono, compareAPI }, index) => {
             return (
               <TouchableOpacity
-                key={index}
-                style={styles.category}>
+              key={index}
+              onPress={() => changueRecomendations(compareAPI)}
+              style={styles.category}>
+            
                 <Text
                   style={styles.textCategory}
-                >{nombre}</Text>
+                  >{nombre}</Text>
               </TouchableOpacity>
             )
           }
           )
-          }
+        }
+        </ScrollView>
         </View>
+        {!filterOn && dataProduct?.map((item, index) =>{
+            return (
+              <DetailComponent title={item[0].type} productoObj={item} status={item.status}  />
+            )
+          })
+        }
         {
-          dataProduct?.map((item, index) =>{
+          filterOn && dataProductFilter?.map((item, index) =>{
             return (
               <DetailComponent title={item[0].type} productoObj={item} status={item.status}  />
             )

@@ -12,27 +12,20 @@ let obj = {
     cabello: "Castaño",
 }
 
-export const LoadingHome = (props: any) => {
+export const LoadingHome = ({title}) => {
 
     const [visible, setVisible] = React.useState(true);
     const navigation = useNavigation();
 
-    //    useEffect(() => {
-    //             setTimeout(() => {
-    //                 //@ts-ignore
-    //             navigation.navigate("Root")
-    //        },3000)
-    //    },[])
-
     return (
         <View
             style={{
-                width: "100%", display: "flex", justifyContent: "space-between",
-                flexDirection: "column", alignItems: 'center'
+                width: "100%", display: "flex", height: "100%",
+                flexDirection: "column", alignItems: 'center', justifyContent: 'center',
             }}
         >
             <LinearGradient opacity={1} colors={['#378bc1', '#3F3E98', '#2E2D89']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
-            <Text
+            {/* <Text
                 style={{ color: "white", fontSize: 30, fontWeight: "bold", marginTop: 30, fontFamily: 'EvilIcons', }}>BIENVENIDO</Text>
             <View
                 style={{ width: 120, height: 120, backgroundColor: "white", borderRadius: 70, marginTop: 30 }}
@@ -43,18 +36,18 @@ export const LoadingHome = (props: any) => {
                     textAlign: "center", marginBottom: 30
                 }}>
                 {obj.name}
-            </Text>
-            <View
+            </Text> */}
+            {/* <View
                 style={{
                     backgroundColor: "#2E2D89", alignSelf: "center", width: "95%",
                     borderRadius: 10, padding: 10, display: "flex", flexDirection: "column",
                     justifyContent: "center",
                 }}
-            >
+            > */}
                 {/* <Text
                 style={{fontSize:20, alignSelf: "center", fontWeight: "bold", marginBottom:15 }}
                 >MI PERFIL</Text> */}
-                <View
+                {/* <View
                     style={styles.container}
                 >
                     <Text
@@ -63,8 +56,8 @@ export const LoadingHome = (props: any) => {
                     <Text
                         style={styles.text}
                     >{obj.email}</Text>
-                </View>
-                <View
+                </View> */}
+                {/* <View
                     style={styles.container}
                 >
                     <Text
@@ -73,8 +66,8 @@ export const LoadingHome = (props: any) => {
                     <Text
                         style={styles.text}
                     >{obj.gender}</Text>
-                </View>
-                <View
+                </View> */}
+                {/* <View
                     style={styles.container}
                 >
                     <Text
@@ -83,8 +76,8 @@ export const LoadingHome = (props: any) => {
                     <Text
                         style={styles.text}
                     >{obj.cabello}</Text>
-                </View>
-                <View
+                </View> */}
+                {/* <View
                     style={[styles.container, { borderBottomWidth: 0 }]}
                 >
                     <Text
@@ -93,29 +86,30 @@ export const LoadingHome = (props: any) => {
                     <Text
                         style={styles.text}
                     >{obj.eyes}</Text>
-                </View>
-                </View>
-                <View
-                    style={{ width: "100%", alignItems: 'center', justifyContent: 'center', marginTop:20 }}
-                >
-                    <Image
-                        source={require("../Assets/Img/logo_NewYou.png")}
-                        style={{ width: 70, height: 60, }}
-                    ></Image>
-                </View>
+                </View> */}
+            {/* </View> */}
+            <View
+                style={{ width: "100%", alignItems: 'center', justifyContent: 'center', marginTop: 20 }}
+            >
+                <Image
+                    source={require("../Assets/Img/logo_NewYou.png")}
+                    style={{ width: 70, height: 60, }}
+                ></Image>
+            </View>
 
-                <Text
-                    style={{ color: "white", fontSize: 18, fontWeight: "bold", marginTop: 20, alignSelf: "center",fontFamily:"Fontisto" }}>
-                    Creando tu primera recomendación
-                </Text>
-                <FAB
-                    loading
-                    visible={visible}
-                    icon={{ name: 'add', color: 'white' }}
-                    size="large"
-                    color='#17165D'
-                    style={{ width: 50, height: 50, alignSelf: "center", backgroundColor: "red", marginTop: 20 }}
-                />
+            <Text
+                style={{ color: "white", fontSize: 17, fontWeight: "bold", marginTop: 20,
+                 marginHorizontal:30, alignSelf: "center", fontFamily: "Fontisto", textAlign:"center" }}>
+                {title}
+            </Text>
+            <FAB
+                loading
+                visible={visible}
+                icon={{ name: 'add', color: 'white' }}
+                size="large"
+                color='#17165D'
+                style={{ width: 50, height: 50, alignSelf: "center", backgroundColor: "red", marginTop: 20 }}
+            />
 
         </View>
     )
@@ -127,7 +121,7 @@ const styles = StyleSheet.create({
         marginBottom: 6,
         color: "white",
         fontWeight: "bold",
-        fontFamily:"Fontisto"
+        fontFamily: "Fontisto"
     },
     container: {
         display: "flex",

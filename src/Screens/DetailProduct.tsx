@@ -10,6 +10,7 @@ import VideoPlayer from "react-native-video-controls";
 import { Button, Icon, Image } from "react-native-elements";
 import LinearGradient from "react-native-linear-gradient";
 import { Title } from "../Components/Title";
+import newApi from "../Services/LoginApiValues";
 
 
 export const DetailProduct = ({ route }: any) => {
@@ -17,6 +18,14 @@ export const DetailProduct = ({ route }: any) => {
   const [indexPagination, setIndexPagination] = React.useState(0);
   const isCarousel = React.useRef<any>(null);
   const [iconHeart, setIconHeart] = useState(false);
+
+  const {dataProduct} = route?.params;
+  // const [dataParams, setDataParams] = useState(dataRoute)
+
+  useEffect(() => {
+      // setDataParams(route.params)
+      console.log("dataProduct",dataProduct);
+  },[route.params])
 
   const otono = require('../Assets/video/otono.mp4');
   const promo = require('../Assets/video/promo.mp4');
@@ -75,6 +84,39 @@ export const DetailProduct = ({ route }: any) => {
 
   const navigation = useNavigation();
 
+  const addFavorite = async () => {
+    try {
+        const resp = newApi.post(`users/favorites/${dataProduct._id}`)       
+        console.log("addFavorite",resp);
+         
+    } catch (error) {
+        console.log(error);
+    }
+}
+  const deleteFavorite = async () => {
+    try {
+        const resp = newApi.delete(`users/favorites/${dataProduct._id}`)  
+        console.log("deleteFavorite",resp);
+              
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+  const onFavorite = async () => {
+    try {
+        const resp = await newApi.get(`users/check-favorite/${dataProduct._id}`)
+        console.log("onFavorite",resp.data.inFavorite);     
+        resp.data.inFavorite === true ? setIconHeart(true) : setIconHeart(false);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+useEffect(() => {
+  onFavorite()
+},[])
+
   const _renderItem = ({ item, index }: any) => {
 
     if (item.tipo === "VIDEO") {
@@ -82,7 +124,7 @@ export const DetailProduct = ({ route }: any) => {
         <View
           style={{
             width: Dimensions.get('window').width * 0.9,
-            height: 400,
+            height: 380,
             borderRadius: 20
             // backgroundColor:"red"
           }}
@@ -115,9 +157,9 @@ export const DetailProduct = ({ route }: any) => {
       <Image
         style={{
           width: Dimensions.get('window').width * 0.9,
-          height: 390,
+          height: 370,
         }}
-        source={item.image}
+        source={{ uri:item.url}}
         resizeMode="contain"
         containerStyle={{
           backgroundColor: "black", alignSelf: "center", borderRadius: 20,
@@ -164,6 +206,7 @@ export const DetailProduct = ({ route }: any) => {
             }}
           >
             <TouchableOpacity
+            onPress={()=>navigation.goBack()}
               style={{
                 padding: 10,
                 width: 60
@@ -176,52 +219,76 @@ export const DetailProduct = ({ route }: any) => {
                 size={38}
                 tvParallaxProperties={undefined}
                 //@ts-ignore
-                onPress={() => navigation.goBack()}
+                // onPress={() => navigation.goBack()}
               />
-            </TouchableOpacity>
+            </TouchableOpacity
+            >
             <Text
               style={{ padding: 15, width: Dimensions.get("window").width * 0.6, textAlign: "center", fontSize: 17 }}
-            >Nombre del Producto</Text>
-            <Icon
-                                    name='heart'
-                                    size={30}
-                                    color={!iconHeart ? 'gray' : 'red'}
-                                    type='feather'
-                                    tvParallaxProperties={false}
-                                    onPress={()=>setIconHeart(!iconHeart )}
-                                />
+            >{dataProduct?.description}
+            </Text>
+            {/* <Icon
+              name='heart'
+              size={27}
+              iconStyle={{ marginTop: 15 }}
+              color={!iconHeart ? 'gray' : 'red'}
+              type='feather'
+              tvParallaxProperties={false}
+              onPress={() => {
+                setIconHeart(!iconHeart);
+                iconHeart ? deleteFavorite() : addFavorite();
+              }}
+            /> */}
           </View>
 
 
           <Carousel
-            data={data}
+            data={dataProduct.media}
             renderItem={_renderItem}
             ref={isCarousel}
             onSnapToItem={(index) => setIndexPagination(index)}
             sliderWidth={Dimensions.get('window').width * 0.9}
             itemWidth={Dimensions.get('window').width * 0.9}
-            sliderHeight={405}
+            sliderHeight={380}
             activeSlideOffset={100}
             callbackOffsetMargin={5}
             enableMomentum={true}
             containerStyle={{ borderRadius: 20 }}
             style={{}}
           />
-          <Pagination
-            dotsLength={data.length}
+          {/* <Pagination
+            dotsLength={dataProduct.media.length}
             activeDotIndex={indexPagination}
             carouselRef={isCarousel}
             dotStyle={{
-              width: 7,
-              height: 7,
+              width: 5,
+              height: 5,
               borderRadius: 5,
-              marginHorizontal: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.92)',
             }}
             inactiveDotOpacity={0.4}
             inactiveDotScale={0.6}
             tappableDots={true}
-          />
+          /> */}
+              <Button
+               onPress={() => {
+                setIconHeart(!iconHeart);
+                iconHeart ? deleteFavorite() : addFavorite();
+              }}
+              title={!iconHeart ? "Guardar en mi armario": "Sacar de mi armario"}
+              titleStyle={{color:!iconHeart ? "#1A0349" : "white"}}
+              containerStyle={{borderRadius: 20, marginVertical:5 , borderWidth: 2, borderColor:!iconHeart ? "#1A0349" : "white"}}
+              buttonStyle={{backgroundColor:!iconHeart ? "white" : "#4847a2", borderRadius: 20, borderColor:!iconHeart ? "#1A0349" : "white"}}
+              iconContainerStyle={{ padding: 15}}
+              icon={ <Icon
+                name='checkroom'
+                size={25}
+                iconStyle={{ marginRight:10 }}
+                color={!iconHeart ? '#1A0349' : 'white'}
+                type='material'
+                tvParallaxProperties={false}
+              />}
+              >
+              </Button>
           <View
             style={{
               alignSelf: "center",
@@ -270,7 +337,7 @@ export const DetailProduct = ({ route }: any) => {
         <Button
           title="Ir a tiendas disponibles"
           onPress={() => navigation.navigate('DetailProductStore') }
-          containerStyle={{ borderRadius: 10, width: 200, alignSelf: "center", margin: 30, backgroundColor: "white", padding: 5 }}
+          containerStyle={{ borderRadius: 30, width: 200, alignSelf: "center", margin: 30, backgroundColor: "white", padding: 5 }}
           titleStyle={{ color: "#6B6871" }}
           buttonStyle={{ backgroundColor: "white" }}
         />

@@ -37,12 +37,12 @@ const ColorHearOption = () => {
     
 
 
-    const colorHearOptionApi = async (season: string,) => {
+    const colorHearOptionApi = async () => {
         try {
             const resp = await newApi.post('users/skinColor', { "skinColor": response })
             console.log("colorHearOptionApi", resp.data);
             if (resp) {
-                navigation.navigate("Root")
+                navigation.navigate("StyleOption")
             }
         } catch (error) {
             console.log(error);
@@ -264,7 +264,9 @@ const ColorHearOption = () => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                <TouchableOpacity style={{
+                <TouchableOpacity 
+                 onPress={()=>colorHearOptionApi()}
+                style={{
                     width: 100,
                     display: "flex",
                     flexDirection: "row",
@@ -280,7 +282,7 @@ const ColorHearOption = () => {
                         size={50}
                         tvParallaxProperties={undefined}
                         //@ts-ignore
-                        onPress={() => colorHearOptionApi()}
+                       
                     />
                 </TouchableOpacity>
             </View>

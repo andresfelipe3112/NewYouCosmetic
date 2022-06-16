@@ -30,6 +30,8 @@ import TipoDeRostro from '../Screens/TipoDeRostro';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import newApi from '../Services/LoginApiValues';
+import { CurrentResponse } from '../Screens/CurrentResponse';
+import { Perfil } from '../Screens/Perfil';
 
 const Stack = createStackNavigator();
 
@@ -50,9 +52,6 @@ export const AuthNavigator = () => {
     }
   }
 
-  
-
-  
   return (
     <Stack.Navigator
     initialRouteName={"Wellcome"}
@@ -154,6 +153,16 @@ export const AuthNavigator = () => {
         }}  
           />
            <Stack.Screen name="Age" component={Age}
+           options={{
+            transitionSpec: {
+              open: config,
+              close: closeConfig,
+             },
+             gestureDirection:"vertical-inverted",
+             cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+           }}
+          />
+           <Stack.Screen name="Perfil" component={Perfil}
            options={{
             transitionSpec: {
               open: config,
@@ -284,10 +293,10 @@ export const AuthNavigator = () => {
          cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
        }}
        />
-       {/* <Stack.Screen name="FormIntroOne" component={FormIntroOne} />
-    <Stack.Screen name="Home" component={Home} /> 
-    <Stack.Screen name="GenderOption" component={GenderOption} />
-  */}
+       <Stack.Screen name="CurrentResponse" component={CurrentResponse} />
+     {/* <Stack.Screen name="Home" component={Home} /> 
+    <Stack.Screen name="GenderOption" component={GenderOption} /> */}
+  
         </Stack.Navigator> 
   );
 }

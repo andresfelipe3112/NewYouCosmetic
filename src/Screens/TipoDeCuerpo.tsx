@@ -7,6 +7,7 @@ import { Image } from 'react-native-elements/dist/image/Image';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import DawnLogo from '../Components/DawnLogo';
+import newApi from '../Services/LoginApiValues';
 
 
 const videoA = require('../Assets/video/casual.mp4');
@@ -23,9 +24,9 @@ const imagenE = require('../Assets/Img/tipo5.jpg')
 const imagenF = require('../Assets/Img/tipo6.jpg')
 
 
-const TipoDeCuerpo = () => {
+const TipoDeCuerpo = ({route}) => {
     const navigation = useNavigation();
-    const [season, setSeason] = useState("");
+    const [data, setData] = useState("");
     const [statusInfo, setstatusInfo] = useState(true);
     const [colorCheckA, setcolorCheckA] = useState(false);
     const [colorCheckB, setsetcolorCheckB] = useState(false);
@@ -33,12 +34,39 @@ const TipoDeCuerpo = () => {
     const [colorCheckD, setcolorCheckD] = useState(false);
     const [colorCheckE, setcolorCheckE] = useState(false);
     const [colorCheckF, setcolorCheckF] = useState(false);
+    const[categoryName, setCategoryName] = useState()
+
+    useEffect(()=>{
+        console.log(route?.params?.category);
+        setCategoryName(route?.params?.category)
+    },[route])
+
+    const addCategory = async () => {
+        try {
+            const resp = await newApi.post('users/typeBody', {
+                "typeBody": data
+            })
+            if (resp) {
+                const respCategori = await newApi.get(`products/second-category/${categoryName}`)
+                if (respCategori) {
+                    navigation.navigate("Root", {reRender:true})
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        console.log("data", data);
+    },[data])
 
     const colorA = () => {
         if (colorCheckA) {
+            setData("")
             return setcolorCheckA(false)
         }
-      
+        setData("linfatico")
         setcolorCheckA(true);
         setsetcolorCheckB(false)
         setcolorCheckC(false)
@@ -50,7 +78,7 @@ const TipoDeCuerpo = () => {
         if (colorCheckB) {
             return setsetcolorCheckB(false)
         }
-     
+        setData("sanguineo")
         setcolorCheckA(false);
         setsetcolorCheckB(true);
         setcolorCheckC(false)
@@ -60,9 +88,10 @@ const TipoDeCuerpo = () => {
     }
     const colorC = () => {
         if (colorCheckC) {
+            setData("");
             return setcolorCheckC(false)
         }
-       
+        setData("bilioso")
         setcolorCheckE(false)
         setcolorCheckA(false);
         setsetcolorCheckB(false);
@@ -72,9 +101,10 @@ const TipoDeCuerpo = () => {
     }
     const colorD = () => {
         if (colorCheckD) {
+            setData("");
             return setcolorCheckD(false)
         }
-     
+        setData("nervioso")
         setcolorCheckE(false)
         setcolorCheckA(false);
         setsetcolorCheckB(false);
@@ -148,7 +178,10 @@ const TipoDeCuerpo = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorB}
+                        onPress={()=>{
+                            colorB();
+                            setData("bilioso")
+                        }}
                     >
                         <Image
                             source={ImagenB}
@@ -163,7 +196,10 @@ const TipoDeCuerpo = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorC}
+                        onPress={()=>{
+                            colorC();
+                            setData("bilioso")
+                        }}
                     >
                         <Image
                             source={imagenC}
@@ -178,7 +214,9 @@ const TipoDeCuerpo = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckD ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorD}
+                        onPress={()=>{
+                            colorD();
+                        }}
                     >
                         <Image
                             source={imagenD}
@@ -214,10 +252,11 @@ const TipoDeCuerpo = () => {
                 />
                 <TouchableOpacity 
                  //@ts-ignore
-                 onPress={() => navigation.navigate("Root", {
-                    screen:"Para tí",
-                    params:{current:"Camisas"}
-                })}
+                 onPress={addCategory}
+                //  onPress={() => navigation.navigate("Root", {
+                //     screen:"Para tí",
+                //     params:{current:"Camisas"}
+                // })}
                 style={{
           width: 200,
           display: "flex",
@@ -246,8 +285,6 @@ const TipoDeCuerpo = () => {
             color='#D4D7EE'
             size={40}
             tvParallaxProperties={undefined}
-
-
           />
         </TouchableOpacity>
             </View>

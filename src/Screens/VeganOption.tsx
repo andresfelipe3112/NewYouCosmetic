@@ -27,11 +27,11 @@ const Seasons = () => {
 
     const veganApi = async (response: Boolean,) => {
         try {
+            navigation.navigate("ColorHearOption")
             const resp = await newApi.post('users/vegan', { "vegan": response })
             console.log("genderApi", resp.data);
-            if (resp) {
-                navigation.navigate("StyleOption")
-            }
+            // if (resp) {
+            // }
         } catch (error) {
             console.log(error);
         }

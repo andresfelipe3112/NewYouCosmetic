@@ -24,7 +24,7 @@ export default function Register() {
     });
     const onSubmit = (data: any) => {
         console.log("onSubmit",data);
-        Register(data.email, data.Constraseña, data.usuario);
+        registerApi(data.email, data.Constraseña, data.usuario);
         console.log('errors', errors);
     };
 
@@ -39,11 +39,14 @@ export default function Register() {
         navigation.navigate('RecoveryPassword');
     }
 
-    const Register = async (email:string, password:string, username:string) => {
+    const registerApi = async (email:string, password:string, username:string) => {
         try {
             setloadingLogin(false)
             const resp = await newApi.post('auth/register-user',{"email": email,
             "password": password, "repetirPassword":password,"username":username  })
+            if (resp) {
+                navigation.navigate('LoginScreen')
+            }
             console.log("Register",resp);
             setloadingLogin(true)
         } catch (error) {

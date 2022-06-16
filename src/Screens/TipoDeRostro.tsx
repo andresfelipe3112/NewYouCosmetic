@@ -23,7 +23,7 @@ const imagenD = require('../Assets/Img/alargado.jpg');
 const imagenE = require('../Assets/Img/triangular.jpg');
 
 
-const TipoDeRostro = () => {
+const TipoDeRostro = ({route}) => {
     const navigation = useNavigation();
     const [season, setSeason] = useState(videoA);
     const [statusInfo, setstatusInfo] = useState(true);
@@ -32,14 +32,24 @@ const TipoDeRostro = () => {
     const [colorCheckC, setcolorCheckC] = useState(false);
     const [colorCheckD, setcolorCheckD] = useState(false);
     const [colorCheckE, setcolorCheckE] = useState(false);
+    const [data, setData] = useState("");
+    const[categoryName, setCategoryName] = useState();
 
+    useEffect(()=>{
+        console.log(route?.params?.category);
+        setCategoryName(route?.params?.category)
+    },[route])
 
-    const TipoRostroApi = async (season: string,) => {
+    const addCategory = async () => {
         try {
-            const resp = await newApi.post('users/typeFace', { "typeFace": "tipeFace123" })
-            console.log("respSeaso", resp.data);
+            const resp = await newApi.post('users/typeFace', {
+                "typeFace": data
+            })
             if (resp) {
-                navigation.navigate("ColorHearOption")
+                const respCategori = await newApi.get(`products/third-category/${categoryName}`)
+                if (respCategori) {
+                    navigation.navigate("Root", {reRender:true})
+                }
             }
         } catch (error) {
             console.log(error);
@@ -47,10 +57,11 @@ const TipoDeRostro = () => {
     }
 
 
-    const colorA = () => {
+    const colorA = (type) => {
         if (colorCheckA) {
             return setcolorCheckA(false)
         }
+        setData(type)
         setSeason(videoA)
         setcolorCheckE(false)
         setcolorCheckA(true);
@@ -58,10 +69,11 @@ const TipoDeRostro = () => {
         setcolorCheckC(false)
         setcolorCheckD(false)
     }
-    const colorB = () => {
+    const colorB = (type) => {
         if (colorCheckB) {
             return setsetcolorCheckB(false)
         }
+        setData(type)
         setSeason(VideoB)
         setcolorCheckE(false)
         setcolorCheckA(false);
@@ -69,10 +81,11 @@ const TipoDeRostro = () => {
         setcolorCheckC(false)
         setcolorCheckD(false)
     }
-    const colorC = () => {
+    const colorC = (type) => {
         if (colorCheckC) {
             return setcolorCheckC(false);
         }
+        setData(type)
         setSeason(VideoC)
         setcolorCheckE(false);
         setcolorCheckA(false);
@@ -80,10 +93,11 @@ const TipoDeRostro = () => {
         setcolorCheckC(true);
         setcolorCheckD(false);
     }
-    const colorD = () => {
+    const colorD = (type) => {
         if (colorCheckD) {
             return setcolorCheckD(false);
         }
+        setData(type)
         setSeason(VideoD)
         setcolorCheckE(false);
         setcolorCheckA(false);
@@ -92,10 +106,11 @@ const TipoDeRostro = () => {
         setcolorCheckD(true);
     }
 
-    const colorE = () => {
+    const colorE = (type) => {
         if (colorCheckE) {
             return setcolorCheckE(false);
         }
+        setData(type)
         setSeason(VideoE)
         setcolorCheckA(false);
         setsetcolorCheckB(false);
@@ -104,9 +119,6 @@ const TipoDeRostro = () => {
         setcolorCheckE(true);
     }
 
-    useEffect(() => {
-        colorA()
-    }, [])
 
     return (
         <View
@@ -123,12 +135,11 @@ const TipoDeRostro = () => {
                     }}
                 >
 
-
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckA ? 'white' : "transparent" }]}
                         //@ts-ignore
                         onPress={() => {
-                            colorA();
+                            colorA("ovalado");
                         }}
                     >
                         <Image
@@ -140,11 +151,12 @@ const TipoDeRostro = () => {
                             style={[styles.text, { color: colorCheckA ? "black" : 'white' }]}
                         >Ovalado</Text>
                     </TouchableOpacity>
+
                     <DawnLogo render={statusInfo} text="Al igual que el rostro redondo, nos encontramos con una forma de cara en la que prevalecen las curvas, si bien el rostro es más alargado que ancho. La barbilla tiende a ser más corta que la frente y suelen marcarse mucho las mejillas." />
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorB}
+                        onPress={()=>colorB("rectangular")}
                     >
                         <Image
                             source={ImagenB}
@@ -159,7 +171,7 @@ const TipoDeRostro = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorC}
+                        onPress={()=> colorC("redondo")}
                     >
                         <Image
                             source={imagenC}
@@ -174,7 +186,7 @@ const TipoDeRostro = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckD ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorD}
+                        onPress={() => colorD("alargado")}
                     >
                         <Image
                             source={imagenD}
@@ -189,7 +201,7 @@ const TipoDeRostro = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckE ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorE}
+                        onPress={()=> colorE("triangular")}
                     >
                         <Image
                             source={imagenE}
@@ -209,13 +221,12 @@ const TipoDeRostro = () => {
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
                 }}
             >
-                <LinearGradient opacity={0.7} colors={['#19181C', '#19181C']}
-                    style={{
-                        position: "absolute", width: Dimensions.get("window").width * 1.5,
-                        height: 65,
-                        marginHorizontal: -100,
-                        marginTop: -13
-                    }} />
+                 <LinearGradient opacity={0.7} colors={['#19181C', '#19181C']} 
+                 style={{ position: "absolute", width: Dimensions.get("window").width * 1.5 ,
+                  height: 65,
+                  marginHorizontal:-100,
+                  marginTop:-13
+                  }} />
                 <Icon
                     name='arrow-left'
                     type='evilicon'
@@ -224,26 +235,43 @@ const TipoDeRostro = () => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                <TouchableOpacity
-                    //@ts-ignore
-                    onPress={() => TipoRostroApi()}
-                    style={{
-                        width: 100,
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                    }}>
-                    <Text
-                        style={{ color: 'white', }}
-                    >Siguiente</Text>
-                    <Icon
-                        name='arrow-right'
-                        type='evilicon'
-                        color='#7C8499'
-                        size={50}
-                        tvParallaxProperties={undefined}
-                    />
-                </TouchableOpacity>
+                <TouchableOpacity 
+                 //@ts-ignore
+                 onPress={addCategory}
+                //  onPress={() => navigation.navigate("Root", {
+                //     screen:"Para tí",
+                //     params:{current:"Camisas"}
+                // })}
+                style={{
+          width: 200,
+          display: "flex",
+          flexDirection: "row",
+          alignSelf: "flex-end",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          padding: 3,
+          backgroundColor: "#19181C",
+          borderRadius: 20,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 6,
+          },
+          shadowOpacity: 0.37,
+          shadowRadius: 7.49,
+          elevation: 12,
+        }}>
+          <Text
+            style={{ color: '#D4D7EE', }}
+          >Agregar categoría</Text>
+          <Icon
+            name='plus'
+            type='evilicon'
+            color='#D4D7EE'
+            size={40}
+            tvParallaxProperties={undefined}
+          />
+        </TouchableOpacity>
             </View>
         </View>
 

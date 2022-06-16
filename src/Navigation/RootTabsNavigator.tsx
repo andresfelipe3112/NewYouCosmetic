@@ -5,49 +5,72 @@ import { Icon } from 'react-native-elements';
 import Start from '../Screens/Start';
 import { Home } from '../Screens/Home';
 import { Perfil } from '../Screens/Perfil';
-import  StyleOption  from '../Screens/StyleOption';
+import StyleOption from '../Screens/StyleOption';
 import LinearGradient from 'react-native-linear-gradient';
 import { AllProducts } from '../Screens/AllProducts';
 import { AllProductsPerfil } from '../Screens/AllProductsPerfil';
 import { LoadingHome } from '../Components/LoadingHome';
 import newApi from '../Services/LoginApiValues';
+import { useIsFocused } from '@react-navigation/native';
+import { Info } from '../Screens/Info';
 
 const Tab = createBottomTabNavigator();
 
-export const RootTabsNavigator = () => {
+export const RootTabsNavigator = ({route}) => {
     const [currentIcon, setCurrentIcon] = useState("Home");
     const [stateCurrent, setStateCurrent] = useState(true);
     const [firtsData, setFirtsData] = useState([]);
+    const [renderNewCategoria, setrRenderNewCategoria] = useState(true);
+    const [root, setRoot] = useState("Para tí");
+    const [titleLoading, setTitleLoading] = useState("Bienvenido Andres Felipe, estoy buscando las mejores recomendaciones para ti…");
 
-    const colorHearOptionApi = async () => {
+    useEffect(() => {
+        route?.params?.reRender && setTitleLoading("Un momento, estoy buscando las mejores recomendaciones para ti")
+    },[route?.params?.reRender])
+    
+    const firstCategoryData = async () => {
         try {
-            const resp = await newApi.get('products/first-category')
-            console.log("colorHearOptionApi", resp.data);
-            if (resp) {
-                setFirtsData(resp.data)
+            const resp = route?.params?.reRender === undefined  && await newApi.get('products/first-category')
+            const respHome = await newApi.get('home')
+            console.log("respHome", respHome);
+            console.log("firstCategoryData", resp);
+            if (resp || respHome) {
+                setFirtsData(respHome.data)
                 setStateCurrent(false)
+                setrRenderNewCategoria(false)
             }
         } catch (error) {
             console.log(error);
         }
     }
 
+    let focus = useIsFocused()
+
+     useEffect(() => {
+         console.log("routeAA",route?.params?.reRender);
+         route?.params?.reRender === true && setrRenderNewCategoria(true)
+         focus = false
+     },[route?.params?.reRender])
+
     useEffect(() => {
-        colorHearOptionApi()
-    },[])
+        if (renderNewCategoria === true ) {
+            setStateCurrent(true);
+            firstCategoryData();
+        }
+    }, [renderNewCategoria])
+
 
     if (stateCurrent) {
-        return(
-        <>
-        <LoadingHome></LoadingHome>
-        </>
+        return (
+            <>
+                <LoadingHome title={titleLoading} ></LoadingHome>
+            </>
         )
     }
     return (
-        <Tab.Navigator initialRouteName="Para tí"
+        <Tab.Navigator initialRouteName={root}
             screenOptions={({ route }) => (
                 Platform.OS === 'ios' ?
-
                     {
                         tabBarIcon: ({ color }) => screenOptionsIos(route, color),
                         tabBarBadgeStyle: { backgroundColor: '#DB0A57', },
@@ -93,10 +116,10 @@ export const RootTabsNavigator = () => {
                         headerShown: false,
                     }
             )}>
-            <Tab.Screen name="Mi Perfil" component={Perfil} listeners={{ tabPress: () => setCurrentIcon("Person") }} />
-            <Tab.Screen name="Para tí" component={Home} listeners={{tabPress: () => setCurrentIcon("Home")}} initialParams={{ firtsData: firtsData }} />
-            <Tab.Screen name="Placard" component={AllProductsPerfil} listeners={{ tabPress: () => setCurrentIcon("Outfit") }} />
-             {/* <Tab.Screen name="Lista Deseos" component={Start} />
+            <Tab.Screen name="Mi Perfil" component={Info} listeners={{ tabPress: () => setCurrentIcon("Person") }} />
+            <Tab.Screen name="Para tí" component={Home} listeners={{ tabPress: () => setCurrentIcon("Home") }} initialParams={{ firtsData: firtsData }} />
+            <Tab.Screen name="Armario" component={AllProductsPerfil} listeners={{ tabPress: () => setCurrentIcon("Outfit") }} />
+            {/* <Tab.Screen name="Lista Deseos" component={Start} />
             <Tab.Screen name="Mi Carro" component={Start} />   */}
 
         </Tab.Navigator>
@@ -111,7 +134,7 @@ export const RootTabsNavigator = () => {
             case "Mi Perfil":
                 currentIcon === "Person" ? iconName = "person" : iconName = "person-outline";
                 break;
-            case "Placard":
+            case "Armario":
                 currentIcon === "Outfit" ? iconName = "albums" : iconName = "albums-outline";
                 break;
             case "Para tí":

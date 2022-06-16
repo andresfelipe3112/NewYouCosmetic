@@ -2,9 +2,10 @@ import React from "react";
 import { useNavigation } from '@react-navigation/native';
 import { DetailComponent } from "../Components/DetailComponent";
 import { Tab } from "../Components/Tab";
-import { Dimensions, ScrollView, TouchableOpacity, View } from "react-native";
+import { Dimensions, ScrollView, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon, Image, Text } from "react-native-elements";
 import { ComponentImag } from "../Components/ComponentImag";
+import LinearGradient from "react-native-linear-gradient";
 
 
 export const Perfil = () => {
@@ -19,30 +20,60 @@ export const Perfil = () => {
 
     return (
         <View
-            style={{ backgroundColor: "#0d0a1e", width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "100%", display:"flex", justifyContent: "center", alignItems: 'center'}}
         >
-            {/* <Tab textTitle="Home" /> */}
-            <ScrollView
-                style={{ backgroundColor: "#0d0a1e", height: "100%", width: "100%", marginTop:30, marginBottom: 50 }}
+            <LinearGradient opacity={1} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: "100%"}} />
+            <Text style={{
+                position: "absolute",
+                top:10,
+                color: "white",
+                fontSize: 20
+            }}>Mis Datos</Text>
+            <TouchableOpacity
+                onPress={()=> navigation.goBack()} 
+                style={{ position: "absolute", top: 10, left: 15}}
             >
-                <View
-                    style={{ display: "flex", flexDirection: "row", width: "100%" ,
-                             justifyContent:"space-between", paddingHorizontal:10  }}
-                >
-                    <Image
-                        style={{ backgroundColor: "white", width: 125, height: 125, borderRadius: 65 }}
-                        source={""}
-                    ></Image>
-                    <View style={{ width: "60%", display: "flex", flexDirection: "column", alignItems: 'flex-end'}}>
-                        <Text style={{ fontSize: 22, fontWeight: "bold", color: "white" }} >Francisco Jimenez</Text>
-                        <Text style={{ fontSize: 16, color: "white" }} >Editar Perfil</Text>
-                    </View>
-                </View>
+                <Icon
+                    name='arrow-back-outline'
+                    type='ionicon'
+                    color='white'
+                    size={25}
+                />
+            </TouchableOpacity>
 
-                <ComponentImag title="Para ti" color="#7704a5" photoName={imgPlacard}  />
-                <ComponentImag title="Placard" color="#c703c7" photoName={imgPlacard}  />
-                <ComponentImag title="Outfitts" color="#0393c7" marginBottom={35} photoName={imgPlacard}   />
-            </ScrollView>
+            <Text
+                style={{ color: 'white', textAlign: "left", width:"65%", marginTop:-350 }}
+            >Nombre:</Text>
+            <TextInput
+                style={{
+                    backgroundColor: "#4952BF", width: "70%", alignSelf: "center", textAlign: "center",
+                    borderRadius: 10, borderWidth: 1, borderColor: "white", marginTop: 5
+                }}
+            >
+                <Text
+                    style={{
+                        color: "white", fontWeight: "bold",
+                        fontSize: 14, alignSelf: "center",
+                    }}
+                >Andrés Felipe</Text>
+            </TextInput>
+
+
+            <Text
+                style={{ color: 'white', textAlign: "left", marginTop:15, width:"65%" }}
+            >Correo:</Text>
+            <TextInput
+                style={{
+                    backgroundColor: "#4952BF", width: "70%", alignSelf: "center", textAlign: "center", marginTop: 5,
+                    borderRadius: 10, borderWidth: 1, borderColor: "white", color: "white", fontWeight: "bold",
+                    fontSize: 16
+                }}
+            >
+                      <Text
+                      style={{color: "white", fontWeight: "bold",
+                      fontSize:14}}
+                      >Andresfelipe3112@gmail.com</Text>
+                  </TextInput>
         </View>
     )
 }

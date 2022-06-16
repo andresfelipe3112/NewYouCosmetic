@@ -33,15 +33,15 @@ const StyleOption = () => {
     const [colorCheckD, setcolorCheckD] = useState(false);
     const [colorCheckE, setcolorCheckE] = useState(false);
 
-    const [response, setResponse] = useState(false);
+    const [response, setResponse] = useState("");
 
     const idDressApi = async (response: Boolean,) => {
         try {
-            const resp = await newApi.post('users/dressCode', { "dressCode": 1234})
+            navigation.navigate("Root")
+            const resp = await newApi.post('users/style', { "style": "tipo1" })
             console.log("idDressApi", resp.data);
-            if (resp) {
-                navigation.navigate("colorOjos")
-            }
+            // if (resp) {
+            // }
         } catch (error) {
             console.log(error);
         }
@@ -156,6 +156,7 @@ const StyleOption = () => {
                         //@ts-ignore
                         onPress={()=>{
                             colorA();
+                            setResponse("style1");
                         }}
                     >
                         <Image
@@ -171,7 +172,10 @@ const StyleOption = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorB}
+                        onPress={()=>{
+                            colorB();
+                            setResponse("style2");
+                        }}
                     >
                         <Image
                             source={ImagenB}
@@ -186,7 +190,10 @@ const StyleOption = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorC}
+                        onPress={()=>{
+                            colorB();
+                            setResponse("style3");
+                        }}
                     >
                         <Image
                             source={imagenC}

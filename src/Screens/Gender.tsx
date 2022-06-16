@@ -25,11 +25,11 @@ const Gender = () => {
 
     const genderApi = async (valueInput: string,) => {
         try {
+            navigation.navigate("VeganOption")
             const resp = await newApi.post('users/gender', { "gender": valueInput === "Mujer"? "F" : "M" })
             console.log("genderApi", resp.data);
-            if (resp) {
-                navigation.navigate('Age')
-            }
+            // if (resp) {
+            // }
         } catch (error) {
             console.log(error);
         }

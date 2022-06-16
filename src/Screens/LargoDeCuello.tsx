@@ -8,6 +8,7 @@ import RBSheet from 'react-native-rbs';
 import ImagePicker from 'react-native-image-picker';
 import { CustomToast } from '../utils/customToast';
 import { Picker } from '@react-native-picker/picker';
+import newApi from '../Services/LoginApiValues';
 
 interface Action {
     title: string;
@@ -17,7 +18,7 @@ interface Action {
 
 const includeExtra = true;
 
-export default function LargoDeCuello() {
+export default function LargoDeCuello({route}) {
     const navigation = useNavigation();
     const [itemFoto, setItemFoto] = useState('');
     const bottomSheetModalRef = useRef<RBSheet>(null);
@@ -25,27 +26,38 @@ export default function LargoDeCuello() {
     const [response, setResponse] = React.useState<any>(null);
     const [age, setAge] = React.useState<any>([]);
     const [state, setState] = React.useState<any>({
-        age: ""
+        age: "corto"
     });
 
     const updateAge = (age: number) => {
         setState({ age: age })
     }
 
-    const render = () => {
-        let age = []
-        {
-            for (let i = 1; i <= 50; i++) {
-                age[i] = "" + i + " centímetros";
+    const[categoryName, setCategoryName] = useState()
+
+    useEffect(()=>{
+        console.log(route?.params?.category);
+        setCategoryName(route?.params?.category)
+    },[route])
+
+    const neckLength = async () => {
+        try {
+            const resp = await newApi.post('users/neckLength', {"neckLength": state.age} )
+            console.log("camisasApi", resp.data);
+            if (resp) {
+                navigation.navigate("TipoDeCuerpo", {category:categoryName})
             }
-            setAge(age)
+        } catch (error) {
+            console.log(error);
         }
     }
 
     useEffect(() => {
-        render()
-    }, [])
+        console.log(state.age);
+        
+    },[state.age])
 
+  
     return (
         <View>
             <LinearGradient opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
@@ -104,7 +116,7 @@ export default function LargoDeCuello() {
                 />
               <TouchableOpacity 
        //@ts-ignore
-      onPress={()=> navigation.navigate("TipoDeCuerpo")}
+      onPress={neckLength}
       style={{
           width:100,
           display: "flex",

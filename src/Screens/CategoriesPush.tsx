@@ -6,13 +6,12 @@ import LinearGradient from 'react-native-linear-gradient'
 import { Image } from 'react-native-elements/dist/image/Image';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-
+import newApi from '../Services/LoginApiValues';
 
 const invierno = require('../Assets/video/invierno.mp4');
 const otono = require('../Assets/video/otono.mp4');
 const primavera = require('../Assets/video/primavera.mp4');
 const verano = require('../Assets/video/verano.mp4');
-
 
 const CategoriesPush = () => {
     const navigation = useNavigation();
@@ -25,10 +24,11 @@ const CategoriesPush = () => {
 
 
     
-    const colorVerano = () => {
+    const pantalones = (type) => {
         if (colorCheckVerano) {
             return setcolorCheckVerano(false)
         }
+        categoriesApi(type)
         setSeason(verano)
         setcolorCheckVerano(true);
         setcolorCheckInvierno(false)
@@ -46,26 +46,87 @@ const CategoriesPush = () => {
         setcolorCheckOtono(false)
         setcolorCheckPrimavera(false)
     }
-    const colorOtono = () => {
+
+    const collares = (type) => {
         if (colorCheckOtono) {
             return setcolorCheckOtono(false)
         }
+        categoriesApiThird(type)
         setSeason(otono)
         setcolorCheckVerano(false);
         setcolorCheckInvierno(false);
         setcolorCheckOtono(true);
         setcolorCheckPrimavera(false)
     }
-    const colorPrimavera = () => {
+    const camisas = (type) => {
         if (colorCheckPrimavera) {
             return setcolorCheckPrimavera(false)
         }
+        categoriesApi(type)
         setSeason(primavera)
         setcolorCheckVerano(false);
         setcolorCheckInvierno(false);
         setcolorCheckOtono(false);
         setcolorCheckPrimavera(true);
     }
+
+    const categoriesApi = async (type) => {
+        try {
+            const data = await newApi.get(`users/check-second-answers`)
+            console.log("data check-second-answers", data.data);
+            
+            if (data?.data?.isComplete === false) {
+                if (data?.data?.check?.height === false) {
+                 return  navigation.navigate("Altura",{category:type})
+                }
+                if (data?.data?.check?.neckLength === false) {
+                    return  navigation.navigate("LargoDeCuello", {category:type})
+                }
+                if (data?.data?.check?.typeBody === false) {
+                   return navigation.navigate("TipoDeCuerpo", {category:type})
+                }
+            } else {
+                const resp = await newApi.get(`products/second-category/${type}`)
+                console.log("camisasApi", resp.data);
+                if (resp) {
+                    navigation.navigate("Root", {reRender:true})
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const categoriesApiThird = async (type) => {
+        try {
+            const data = await newApi.get(`users/check-third-answers`)
+            console.log("data check-third-answers", data.data);
+            
+            if (data?.data?.isComplete === false) {
+                if (data?.data?.check?.height === false) {
+                 return  navigation.navigate("Altura",{category:type})
+                }
+                if (data?.data?.check?.neckLength === false) {
+                    return  navigation.navigate("LargoDeCuello", {category:type})
+                }
+                if (data?.data?.check?.typeBody === false) {
+                   return navigation.navigate("TipoDeCuerpo", {category:type})
+                }
+                if (data?.data?.check?.typeFace === false) {
+                   return navigation.navigate("TipoDeRostro", {category:type})
+                }
+            } else {
+                const resp = await newApi.get(`products/second-category/${type}`)
+                console.log("camisasApi", resp.data);
+                if (resp) {
+                    navigation.navigate("Root", {reRender:true})
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
         <View
@@ -103,7 +164,7 @@ const CategoriesPush = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckPrimavera ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorPrimavera}
+                        onPress={()=> camisas("CAMISA")}
                     >
                         <Text
                             style={[styles.text, { color: colorCheckPrimavera ? "black" : 'white' }]}
@@ -113,12 +174,8 @@ const CategoriesPush = () => {
                         style={[styles.button, { backgroundColor: colorCheckVerano ? 'white' : "transparent" }]}
                         //@ts-ignore
                         onPress={()=>{
-                            colorVerano();
-                            //@ts-ignore
-                            return navigation.navigate("Root", {
-                                screen:"Para tí",
-                                params:{current:"Pantalones"},
-                            })}}
+                            pantalones("PANTALON")
+                            }}
                     >
                         <Text
                             style={[styles.text, { color: colorCheckVerano ? "black" : 'white' }]}
@@ -136,29 +193,21 @@ const CategoriesPush = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckOtono ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorOtono}
+                        onPress={()=>collares("COLLAR")}
                     >
                         <Text
                             style={[styles.text, { color: colorCheckOtono ? "black" : 'white' }]}
-                        >Vestidos</Text>
+                        >Collares</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: "transparent" }]}
                         //@ts-ignore
-                        // onPress={colorPrimavera}
+                        // onPress={()=>collares("COLLAR")}
                     >
+            
                         <Text
                             style={[styles.text, { color: 'white' }]}
-                        >Collares</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.button, { backgroundColor:"transparent" }]}
-                        //@ts-ignore
-                        // onPress={colorPrimavera}
-                    >
-                        <Text
-                            style={[styles.text, { color: 'white' }]}
-                        >Collares</Text>
+                        >Vestidos</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: "transparent" }]}
@@ -223,7 +272,7 @@ const CategoriesPush = () => {
                 />
                 <TouchableOpacity 
                     //@ts-ignore
-                    onPress={() => navigation.navigate("Altura")}
+                    // onPress={camisasApi}
                 style={{
                     width: 100,
                     display: "flex",

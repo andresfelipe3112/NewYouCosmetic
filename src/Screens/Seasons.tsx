@@ -29,11 +29,11 @@ const Seasons = () => {
     const seasonsApi = async (season: string,) => {
         try {
             setloadingLogin(false)
+            navigation.navigate("Gender")
             const resp = await newApi.post('users/season', { "season": dataLogin })
             console.log("respSeaso", resp.data);
-            if (resp) {
-                navigation.navigate("Gender")
-            }
+            // if (resp) {
+            // }
         } catch (error) {
             console.log(error);
         }

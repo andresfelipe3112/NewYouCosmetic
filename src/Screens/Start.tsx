@@ -37,7 +37,7 @@ export default function Start() {
                 >¡Hola!</Text>
                 <Text
                     style={styles.textTitle}
-                >Con tan solo 6 preguntas te brindaremos algunas recomendaciones .</Text>
+                >Con tan solo 5 preguntas te brindaremos algunas recomendaciones .</Text>
             </View>
             <View
                 style={{

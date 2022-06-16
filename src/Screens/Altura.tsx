@@ -8,6 +8,7 @@ import RBSheet from 'react-native-rbs';
 import ImagePicker from 'react-native-image-picker';
 import { CustomToast } from '../utils/customToast';
 import { Picker } from '@react-native-picker/picker';
+import newApi from '../Services/LoginApiValues';
 
 interface Action {
     title: string;
@@ -17,16 +18,36 @@ interface Action {
 
 const includeExtra = true;
 
-export default function Altura() {
+export default function Altura({route}) {
     const navigation = useNavigation();
     const [itemFoto, setItemFoto] = useState('');
     const bottomSheetModalRef = useRef<RBSheet>(null);
     const { showToast } = CustomToast()
     const [response, setResponse] = React.useState<any>(null);
     const [age, setAge] = React.useState<any>([]);
+    const [ageOnlyNumber, setAgeOnlyNumber] = React.useState<any>([]);
     const [state, setState] = React.useState<any>({
         age: ""
     });
+
+    const[categoryName, setCategoryName] = useState()
+
+    useEffect(()=>{
+        console.log(route?.params?.category);
+        setCategoryName(route?.params?.category)
+    },[route])
+
+    const heightApi = async () => {
+        try {
+            const resp = await newApi.post('users/height', {"height": ageOnlyNumber })
+            console.log("camisasApi", resp.data);
+            if (resp) {
+                navigation.navigate("LargoDeCuello",{category:categoryName})
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const updateAge = (age: number) => {
         setState({ age: age })
@@ -34,11 +55,14 @@ export default function Altura() {
 
     const render = () => {
         let age = []
+        let ageNumber;
         {
-            for (let i = 1; i <= 250; i++) {
+            for (let i = 100; i <= 250; i++) {
                 age[i] = "" + i + " centímetros";
+                ageNumber = i 
             }
             setAge(age)
+            setAgeOnlyNumber(ageNumber)
         }
     }
 
@@ -104,7 +128,7 @@ export default function Altura() {
                 />
               <TouchableOpacity 
        //@ts-ignore
-      onPress={()=> navigation.navigate("LargoDeCuello")}
+      onPress={heightApi}
       style={{
           width:100,
           display: "flex",

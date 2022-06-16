@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { Dimensions, ScrollView, TouchableOpacity, View } from 'react-native'
-import { Button, Image, Text } from 'react-native-elements'
+import { Button, Icon, Image, Text } from 'react-native-elements'
 
 export const DetailComponent = ({ productoObj, title, status="" }: any) => {
     const navigation = useNavigation();
@@ -31,7 +31,7 @@ export const DetailComponent = ({ productoObj, title, status="" }: any) => {
                         >{title} {<Text style={{ fontSize:15,color :"yellow", fontWeight: "bold"}}>{status}</Text>} 
                         </Text>
                         <TouchableOpacity
-                            style={{ alignSelf: "flex-end", justifyContent: "flex-end" }}
+                            style={{ alignSelf: "flex-end", justifyContent: "flex-end", display: "flex", flexDirection: "row", marginRight:-15}}
                             onPress={() => navigation.navigate("AllProducts", {
                                 data: productoObj,
                                 title: title,
@@ -39,7 +39,13 @@ export const DetailComponent = ({ productoObj, title, status="" }: any) => {
                         >
                             <Text
                                 style={{ color: "#C8D3E5" }}
-                            >{`Ver todos >`}</Text>
+                            >{`Ver todos`}</Text>
+                            <Icon
+                                name='chevron-forward-outline'
+                                type='ionicon'
+                                color='white'
+                                size={19}
+                            />
                         </TouchableOpacity>
                     </View>
                     <ScrollView
