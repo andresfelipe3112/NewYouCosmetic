@@ -18,7 +18,7 @@ interface Action {
 
 const includeExtra = true;
 
-export default function Altura({route}) {
+export default function Altura({ route }) {
     const navigation = useNavigation();
     const [itemFoto, setItemFoto] = useState('');
     const bottomSheetModalRef = useRef<RBSheet>(null);
@@ -30,19 +30,27 @@ export default function Altura({route}) {
         age: ""
     });
 
-    const[categoryName, setCategoryName] = useState()
+    const [categoryName, setCategoryName] = useState()
 
-    useEffect(()=>{
-        console.log(route?.params?.category);
+    useEffect(() => {
+        console.log(route?.params);
         setCategoryName(route?.params?.category)
-    },[route])
+    }, [route])
+
+    useEffect(() => {
+      
+        console.log(state.age === 0 + " centímetros");
+    
+        
+    }, [state])
 
     const heightApi = async () => {
         try {
-            const resp = await newApi.post('users/height', {"height": ageOnlyNumber })
+            route?.params?.actualizar === true && navigation.goBack()
+            const resp = await newApi.post('users/height', { "height": ageOnlyNumber })
             console.log("camisasApi", resp.data);
             if (resp) {
-                navigation.navigate("LargoDeCuello",{category:categoryName})
+                !route?.params?.actualizar && navigation.navigate("LargoDeCuello", { category: categoryName })
             }
         } catch (error) {
             console.log(error);
@@ -54,21 +62,30 @@ export default function Altura({route}) {
     }
 
     const render = () => {
-        let age = []
-        let ageNumber;
-        {
-            for (let i = 100; i <= 250; i++) {
-                age[i] = "" + i + " centímetros";
-                ageNumber = i 
-            }
-            setAge(age)
-            setAgeOnlyNumber(ageNumber)
+         let age = []
+         let ageNumber;
+         {
+             for (let i = 0; i <= 250; i++) {
+                 age[i] = "" + i + " centímetros";
+                 ageNumber = i
+             }
+             setAge(age)
+             setAgeOnlyNumber(ageNumber)
+         }
+    }
+
+    const render2 = () => {
+   
+        if (route?.params?.data ) {
+            setAge( ["" + route?.params?.data + " centímetros"])
+            setAgeOnlyNumber(route?.params?.data)
         }
     }
 
     useEffect(() => {
-        render()
-    }, [])
+        route?.params?.data && render2()
+        !route?.params?.data && render()
+    }, [route?.params?.data])
 
     return (
         <View>
@@ -85,7 +102,7 @@ export default function Altura({route}) {
                 }}
             >
                 <Text
-                    style={{ color: 'white', fontSize: 30 , fontFamily: "Dosis",}}
+                    style={{ color: 'white', fontSize: 30, fontFamily: "Dosis", }}
                 >Selecciona tu altura</Text>
                 <View
                     opacity={0.7}
@@ -101,10 +118,11 @@ export default function Altura({route}) {
                     <View style={styles.Container} >
                         <Picker selectedValue={state.age}
                             onValueChange={updateAge}
-                            style={{backgroundColor:"white", borderRadius:20, fontWeight:"bold", fontSize:40,}}
+                            onFocus={async () => route?.params?.data && await render()}
+                            style={{ backgroundColor: "white", borderRadius: 20, fontWeight: "bold", fontSize: 40, }}
                         >{
                                 age.map((item, key) => (
-                                    <Picker.Item key={key} label={item} value={item} />
+                                    <Picker.Item key={key} label={item} value={state.age === 0 + " centímetros" && route?.params?.data ? route?.params?.data :item} />
                                 ))
                             }
                         </Picker>
@@ -126,28 +144,42 @@ export default function Altura({route}) {
                     onPress={() => navigation.goBack()}
                     tvParallaxProperties={undefined}
                 />
-              <TouchableOpacity 
-       //@ts-ignore
-      onPress={heightApi}
-      style={{
-          width:100,
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          
-      }}>
-          <Text
-          style={{ color: 'white',}}
-          >Siguiente</Text>
-    <Icon
-        name='arrow-right'
-        type='evilicon'
-        color='#7C8499'
-        size={50}
-        tvParallaxProperties={undefined}
-    
-        />
-        </TouchableOpacity>
+                {!route?.params?.actualizar && <TouchableOpacity
+                    //@ts-ignore
+                    onPress={heightApi}
+                    style={{
+                        width: 100,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+
+                    }}>
+                    <Text
+                        style={{ color: 'white', }}
+                    >Siguiente</Text>
+                    <Icon
+                        name='arrow-right'
+                        type='evilicon'
+                        color='#7C8499'
+                        size={50}
+                        tvParallaxProperties={undefined}
+
+                    />
+                </TouchableOpacity>}
+                {route?.params?.actualizar === true && <TouchableOpacity
+                    //@ts-ignore
+                    onPress={heightApi}
+                    style={{
+                        width: 100,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+
+                    }}>
+                    <Text
+                        style={{ color: 'white', borderRadius:10, borderColor: 'gray', borderWidth: 1, padding:10}}
+                    >Actualizar</Text>
+                </TouchableOpacity>}
             </View>
         </View>
     );
@@ -180,10 +212,10 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     Container: {
-        width:200,
+        width: 200,
         alignSelf: "center",
         justifyContent: 'center',
-        marginTop:-20
+        marginTop: -20
     },
     button: {
         marginTop: 25,

@@ -192,6 +192,16 @@ export const AuthNavigator = () => {
               cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
             }}
           />
+         <Stack.Screen name="ColorHearOption" component={ColorHearOption}
+         options={{
+           transitionSpec: {
+             open: config,
+             close: closeConfig,
+            },
+            gestureDirection:"vertical-inverted",
+            cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+          }}
+        />
            <Stack.Screen name="colorOjos" component={ColorOjos} 
        options={{
         transitionSpec: {
@@ -212,16 +222,6 @@ export const AuthNavigator = () => {
               cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
             }}
           /> 
-           <Stack.Screen name="ColorHearOption" component={ColorHearOption}
-           options={{
-             transitionSpec: {
-               open: config,
-               close: closeConfig,
-              },
-              gestureDirection:"vertical-inverted",
-              cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-            }}
-          />
           
       <Stack.Screen name="LoadingHome" component={LoadingHome}
         options={{

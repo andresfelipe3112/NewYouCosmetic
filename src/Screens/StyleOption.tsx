@@ -23,7 +23,7 @@ const imagenD = require('../Assets/Img/blackTie.jpeg')
 const imagenE = require('../Assets/Img/whiteTie.jpeg')
 
 
-const StyleOption = () => {
+const StyleOption = ({route}) => {
     const navigation = useNavigation();
     const [season, setSeason] = useState(videoA);
     const [statusInfo, setstatusInfo] = useState(true);
@@ -37,8 +37,10 @@ const StyleOption = () => {
 
     const idDressApi = async (response: Boolean,) => {
         try {
-            navigation.navigate("Root")
-            const resp = await newApi.post('users/style', { "style": "tipo1" })
+            route?.params?.actualizar === true && navigation.goBack();
+            const resp = await newApi.post('users/style', { "style": "style1" })
+            resp && await newApi.get('products/first-category')
+            !route?.params?.actualizar  && navigation.navigate("Root")
             console.log("idDressApi", resp.data);
             // if (resp) {
             // }
@@ -105,8 +107,28 @@ const StyleOption = () => {
     }
 
     useEffect(() => {
-        colorA()
-    },[])
+        if (route?.params?.data === "style1") {
+           colorA();
+           setResponse("style")
+        }
+        if (route?.params?.data === "style2") {
+           colorB();
+           setResponse("style2")  
+        }
+        if (route?.params?.data === "style3") {
+           colorC();
+           setResponse("style3")  
+        }
+        if (route?.params?.data === "style4") {
+           colorD();
+           setResponse("style4")  
+        }
+        if (route?.params?.data === "style5") {
+           colorE();
+           setResponse("style5")  
+        }     
+        
+    },[route?.params?.data])
 
     return (
         <View
@@ -191,7 +213,7 @@ const StyleOption = () => {
                         style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
                         //@ts-ignore
                         onPress={()=>{
-                            colorB();
+                            colorC();
                             setResponse("style3");
                         }}
                     >
@@ -208,7 +230,10 @@ const StyleOption = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckD ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorD}
+                        onPress={()=>{
+                            colorD();
+                            setResponse("style4");
+                        }}
                     >
                         <Image
                             source={imagenD}
@@ -223,7 +248,10 @@ const StyleOption = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckE ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorE}
+                        onPress={()=>{
+                            colorE();
+                            setResponse("style5");
+                        }}
                     >
                         <Image
                             source={imagenE}
@@ -257,7 +285,7 @@ const StyleOption = () => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                <TouchableOpacity 
+               { !route?.params?.actualizar  && <TouchableOpacity 
                      //@ts-ignore
                      onPress={() => idDressApi()}
                 style={{
@@ -277,7 +305,20 @@ const StyleOption = () => {
                         tvParallaxProperties={undefined}
                    
                     />
-                </TouchableOpacity>
+                </TouchableOpacity>}
+               { route?.params?.actualizar === true && <TouchableOpacity 
+                     //@ts-ignore
+                     onPress={() => idDressApi()}
+                style={{
+                    width: 100,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                }}>
+                    <Text
+                        style={{ color: 'white', borderRadius:10, borderColor:"gray", borderWidth:1, padding:10}}
+                    >Actualizar</Text>
+                </TouchableOpacity>}
             </View>
         </View>
 

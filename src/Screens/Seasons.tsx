@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 //@ts-ignore
 import Video from "react-native-video";
@@ -15,7 +15,7 @@ const primavera = require('../Assets/video/primavera.mp4');
 const verano = require('../Assets/video/verano.mp4');
 
 
-const Seasons = () => {
+const Seasons = ({route}) => {
     const navigation = useNavigation();
     const [season, setSeason] = useState(otono);
     const [active, setActive] = useState(false);
@@ -26,10 +26,13 @@ const Seasons = () => {
     const [loadingLogin, setloadingLogin] = useState<Boolean>(false)
     const [dataLogin, setdataLogin] = useState<any>('')
 
+    console.log("route", route?.params);
+    
     const seasonsApi = async (season: string,) => {
         try {
             setloadingLogin(false)
-            navigation.navigate("Gender")
+            !route?.params?.actualizar && navigation.navigate("Gender");
+            route?.params?.actualizar === true && navigation.goBack();
             const resp = await newApi.post('users/season', { "season": dataLogin })
             console.log("respSeaso", resp.data);
             // if (resp) {
@@ -48,7 +51,6 @@ const Seasons = () => {
         setcolorCheckInvierno(false)
         setcolorCheckOtono(false)
         setcolorCheckPrimavera(false)
-
     }
     const colorInvierno = () => {
         if (colorCheckInvierno) {
@@ -81,9 +83,29 @@ const Seasons = () => {
         setcolorCheckPrimavera(true);
     }
 
-    useEffect(() => {
-        colorOtono()
-    }, [])
+     useEffect(() => {
+        if (route) {
+       
+            if (route?.params?.data === "verano" ) {
+                colorVerano();
+                setdataLogin("verano")
+            }
+            if (route?.params?.data === "otoño" ) {
+                colorOtono()
+                setdataLogin("otoño")
+            }
+            if (route?.params?.data === "primavera" ) {
+                colorPrimavera();
+                setdataLogin("verano")
+            }
+            if (route?.params?.data === "invierno" ) {
+                colorInvierno();
+                setdataLogin("invierno")
+            }
+
+        }
+       
+     }, [route?.params])
 
     return (
         <View
@@ -206,15 +228,15 @@ const Seasons = () => {
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
                 }}
             >
-                <Icon
+                { !route?.params?.actualizar && <Icon
                     name='arrow-left'
                     type='evilicon'
                     color='#7C8499'
                     size={50}
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
-                />
-                <TouchableOpacity
+                />}
+                { !route?.params?.actualizar && <TouchableOpacity
                     //@ts-ignore
                     onPress={() =>
                         seasonsApi(dataLogin)
@@ -224,7 +246,6 @@ const Seasons = () => {
                         display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
-
                     }}>
                     <Text
                         style={{ color: 'white', }}
@@ -235,13 +256,40 @@ const Seasons = () => {
                         color='#7C8499'
                         size={50}
                         tvParallaxProperties={undefined}
-
-
                     />
-                </TouchableOpacity>
+                </TouchableOpacity>}
+                { route?.params?.actualizar === true && <Icon
+                    name='arrow-left'
+                    type='evilicon'
+                    color='#7C8499'
+                    size={50}
+                    tvParallaxProperties={undefined}
+                    onPress={() => navigation.goBack()}
+                />}
+                { route?.params?.actualizar === true && <TouchableOpacity
+                    //@ts-ignore
+                    onPress={() =>
+                        seasonsApi(dataLogin)
+                    }
+                    style={{
+                        width: 100,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}>
+                    <Text
+                        style={{
+                            color: 'white',
+                            borderWidth: 1,
+                            borderColor: "white",
+                            padding: 7,
+                            borderRadius: 10,
+                        }}
+                    >Actualizar</Text>
+                </TouchableOpacity>}
             </View>
         </View>
-
     )
 }
 

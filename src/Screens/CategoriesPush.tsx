@@ -22,8 +22,6 @@ const CategoriesPush = () => {
     const [colorCheckOtono, setcolorCheckOtono] = useState(false);
     const [colorCheckPrimavera, setcolorCheckPrimavera] = useState(false);
 
-
-    
     const pantalones = (type) => {
         if (colorCheckVerano) {
             return setcolorCheckVerano(false)
@@ -87,9 +85,9 @@ const CategoriesPush = () => {
                 }
             } else {
                 const resp = await newApi.get(`products/second-category/${type}`)
-                console.log("camisasApi", resp.data);
+                console.log("Api", resp.data);
                 if (resp) {
-                    navigation.navigate("Root", {reRender:true})
+                    navigation.navigate("Root", {reRender:type})
                 }
             }
         } catch (error) {
@@ -116,11 +114,10 @@ const CategoriesPush = () => {
                    return navigation.navigate("TipoDeRostro", {category:type})
                 }
             } else {
-                const resp = await newApi.get(`products/second-category/${type}`)
-                console.log("camisasApi", resp.data);
-                if (resp) {
-                    navigation.navigate("Root", {reRender:true})
-                }
+                const resp = await newApi.get(`products/third-category/${type}`)
+                console.log("Api", resp.data);
+                    navigation.navigate("Root", {reRender:type})
+                
             }
         } catch (error) {
             console.log(error);

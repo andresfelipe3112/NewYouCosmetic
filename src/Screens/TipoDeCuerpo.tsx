@@ -24,7 +24,7 @@ const imagenE = require('../Assets/Img/tipo5.jpg')
 const imagenF = require('../Assets/Img/tipo6.jpg')
 
 
-const TipoDeCuerpo = ({route}) => {
+const TipoDeCuerpo = ({ route }) => {
     const navigation = useNavigation();
     const [data, setData] = useState("");
     const [statusInfo, setstatusInfo] = useState(true);
@@ -34,22 +34,23 @@ const TipoDeCuerpo = ({route}) => {
     const [colorCheckD, setcolorCheckD] = useState(false);
     const [colorCheckE, setcolorCheckE] = useState(false);
     const [colorCheckF, setcolorCheckF] = useState(false);
-    const[categoryName, setCategoryName] = useState()
+    const [categoryName, setCategoryName] = useState()
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(route?.params?.category);
         setCategoryName(route?.params?.category)
-    },[route])
+    }, [route])
 
     const addCategory = async () => {
         try {
+            route?.params?.actualizar === true && navigation.goBack()
             const resp = await newApi.post('users/typeBody', {
                 "typeBody": data
             })
             if (resp) {
-                const respCategori = await newApi.get(`products/second-category/${categoryName}`)
+                const respCategori = !route?.params?.actualizar && await newApi.get(`products/second-category/${categoryName}`)
                 if (respCategori) {
-                    navigation.navigate("Root", {reRender:true})
+                    !route?.params?.actualizar && navigation.navigate("Root", { reRender: "PANTALON" })
                 }
             }
         } catch (error) {
@@ -59,7 +60,7 @@ const TipoDeCuerpo = ({route}) => {
 
     useEffect(() => {
         console.log("data", data);
-    },[data])
+    }, [data])
 
     const colorA = () => {
         if (colorCheckA) {
@@ -117,7 +118,7 @@ const TipoDeCuerpo = ({route}) => {
         if (colorCheckE) {
             return setcolorCheckE(false)
         }
-      
+
         setcolorCheckA(false);
         setsetcolorCheckB(false);
         setcolorCheckC(false);
@@ -129,7 +130,7 @@ const TipoDeCuerpo = ({route}) => {
         if (colorCheckF) {
             return setcolorCheckF(false)
         }
-      
+
         setcolorCheckA(false);
         setsetcolorCheckB(false);
         setcolorCheckC(false);
@@ -138,9 +139,26 @@ const TipoDeCuerpo = ({route}) => {
         setcolorCheckF(true)
     }
 
-    // useEffect(() => {
-    //     colorA()
-    // },[])
+    useEffect(() => {
+        if (route?.params?.data === "linfatico") {
+           colorA();
+           setData("linfatico")
+        }
+        if (route?.params?.data === "sanguineo") {
+           colorB();
+           setData("sanguineo")  
+        }
+        if (route?.params?.data === "biloso") {
+           colorC();
+           setData("biloso")  
+        }
+        if (route?.params?.data === "nevioso") {
+           colorD();
+           setData("nervioso")  
+        }
+           console.log(route?.params?.data);
+        
+    },[route?.params?.data])
 
     return (
         <View
@@ -153,7 +171,7 @@ const TipoDeCuerpo = ({route}) => {
                 <View
                     style={{
                         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                        width: Dimensions.get("window").width, marginBottom:10
+                        width: Dimensions.get("window").width, marginBottom: 10
                     }}
                 >
 
@@ -161,7 +179,7 @@ const TipoDeCuerpo = ({route}) => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckA ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={()=>{
+                        onPress={() => {
                             colorA();
                         }}
                     >
@@ -173,12 +191,12 @@ const TipoDeCuerpo = ({route}) => {
                         <Text
                             style={[styles.text, { color: colorCheckA ? "black" : 'white' }]}
                         >Linfático</Text>
-                        </TouchableOpacity>
-                           <DawnLogo  render={statusInfo} text="Este tipo de cuerpo se caracteriza por tener hombros más angostos que las caderas, volumen  concentrado en caderas, muslos, cola y abdomen bajo. Son de cintura pronunciada y busto pequeño. Si hay más peso se concentra en los brazos" />
+                    </TouchableOpacity>
+                    <DawnLogo render={statusInfo} text="Este tipo de cuerpo se caracteriza por tener hombros más angostos que las caderas, volumen  concentrado en caderas, muslos, cola y abdomen bajo. Son de cintura pronunciada y busto pequeño. Si hay más peso se concentra en los brazos" />
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={()=>{
+                        onPress={() => {
                             colorB();
                             setData("bilioso")
                         }}
@@ -192,11 +210,11 @@ const TipoDeCuerpo = ({route}) => {
                             style={[styles.text, { color: colorCheckB ? "black" : 'white' }]}
                         >Sanguíneo</Text>
                     </TouchableOpacity>
-                    <DawnLogo  render={statusInfo} text="Volumen o grasa se concentra de forma pareja en el cuerpo, en caso de mujer tiene busto y cola, cuerpo curvilíneo, hombros a la misma altura que caderas, en caso de los hombres son cuerpos corpulentos." />
+                    <DawnLogo render={statusInfo} text="Volumen o grasa se concentra de forma pareja en el cuerpo, en caso de mujer tiene busto y cola, cuerpo curvilíneo, hombros a la misma altura que caderas, en caso de los hombres son cuerpos corpulentos." />
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={()=>{
+                        onPress={() => {
                             colorC();
                             setData("bilioso")
                         }}
@@ -210,11 +228,11 @@ const TipoDeCuerpo = ({route}) => {
                             style={[styles.text, { color: colorCheckC ? "black" : 'white' }]}
                         >Biloso</Text>
                     </TouchableOpacity>
-                    <DawnLogo text="Espalda más ancha que las caderas, de mucho busto y poca cintura, el volumen se concentra en la zona superior manteniendo caderas mas estrechas, piernas delgadas y poca cola.."/>
+                    <DawnLogo text="Espalda más ancha que las caderas, de mucho busto y poca cintura, el volumen se concentra en la zona superior manteniendo caderas mas estrechas, piernas delgadas y poca cola.." />
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckD ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={()=>{
+                        onPress={() => {
                             colorD();
                         }}
                     >
@@ -227,7 +245,7 @@ const TipoDeCuerpo = ({route}) => {
                             style={[styles.text, { color: colorCheckD ? "black" : 'white' }]}
                         >Nervioso</Text>
                     </TouchableOpacity>
-                    <DawnLogo text="Hombros más anchos que las caderas, de poco busto, pelvis estrecha, cola media, piernas y brazos delgados y largos, poca hay cintura y la concentración de grasa es en el abdomen."/>
+                    <DawnLogo text="Hombros más anchos que las caderas, de poco busto, pelvis estrecha, cola media, piernas y brazos delgados y largos, poca hay cintura y la concentración de grasa es en el abdomen." />
                 </View>
             </ScrollView>
             <View
@@ -236,12 +254,13 @@ const TipoDeCuerpo = ({route}) => {
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
                 }}
             >
-                 <LinearGradient opacity={0.7} colors={['#19181C', '#19181C']} 
-                 style={{ position: "absolute", width: Dimensions.get("window").width * 1.5 ,
-                  height: 65,
-                  marginHorizontal:-100,
-                  marginTop:-13
-                  }} />
+                <LinearGradient opacity={0.7} colors={['#19181C', '#19181C']}
+                    style={{
+                        position: "absolute", width: Dimensions.get("window").width * 1.5,
+                        height: 65,
+                        marginHorizontal: -100,
+                        marginTop: -13
+                    }} />
                 <Icon
                     name='arrow-left'
                     type='evilicon'
@@ -250,43 +269,57 @@ const TipoDeCuerpo = ({route}) => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                <TouchableOpacity 
-                 //@ts-ignore
-                 onPress={addCategory}
-                //  onPress={() => navigation.navigate("Root", {
-                //     screen:"Para tí",
-                //     params:{current:"Camisas"}
-                // })}
-                style={{
-          width: 200,
-          display: "flex",
-          flexDirection: "row",
-          alignSelf: "flex-end",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          padding: 3,
-          backgroundColor: "#19181C",
-          borderRadius: 20,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 6,
-          },
-          shadowOpacity: 0.37,
-          shadowRadius: 7.49,
-          elevation: 12,
-        }}>
-          <Text
-            style={{ color: '#D4D7EE', }}
-          >Agregar categoría</Text>
-          <Icon
-            name='plus'
-            type='evilicon'
-            color='#D4D7EE'
-            size={40}
-            tvParallaxProperties={undefined}
-          />
-        </TouchableOpacity>
+                { !route?.params?.actualizar && <TouchableOpacity
+                    //@ts-ignore
+                    onPress={addCategory}
+                    //  onPress={() => navigation.navigate("Root", {
+                    //     screen:"Para tí",
+                    //     params:{current:"Camisas"}
+                    // })}
+                    style={{
+                        width: 200,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignSelf: "flex-end",
+                        alignItems: "center",
+                        justifyContent: "flex-end",
+                        padding: 3,
+                        backgroundColor: "#19181C",
+                        borderRadius: 20,
+                        shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0,
+                            height: 6,
+                        },
+                        shadowOpacity: 0.37,
+                        shadowRadius: 7.49,
+                        elevation: 12,
+                    }}>
+                    <Text
+                        style={{ color: '#D4D7EE', }}
+                    >Agregar categoría</Text>
+                    <Icon
+                        name='plus'
+                        type='evilicon'
+                        color='#D4D7EE'
+                        size={40}
+                        tvParallaxProperties={undefined}
+                    />
+                </TouchableOpacity>}
+                {route?.params?.actualizar === true && <TouchableOpacity
+                    //@ts-ignore
+                    onPress={addCategory}
+                    style={{
+                        width: 100,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+
+                    }}>
+                    <Text
+                        style={{ color: 'white', borderRadius:10, borderColor: "gray", borderWidth: 1, padding:10}}
+                    >Actualizar</Text>
+                </TouchableOpacity>}
             </View>
         </View>
 
@@ -305,39 +338,39 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         opacity: 0.6, display: "flex",
         marginTop: 70,
-        marginHorizontal:20
+        marginHorizontal: 20
     },
     text: {
         fontSize: 15,
         color: 'white',
         fontWeight: 'bold',
-        marginTop:-20
+        marginTop: -20
     },
     button: {
         width: 230,
         color: 'white',
-        height:270,
+        height: 270,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
         // borderColor: "white",
         // borderWidth: 1,
         margin: 2,
-        marginBottom:5
-        
+        marginBottom: 5
+
     },
     containerStyle: {
         width: 200,
         height: 200,
         margin: 30,
         borderRadius: 15,
-        
+
     },
-    textInput:{
+    textInput: {
         color: 'white',
-        paddingHorizontal:25,
+        paddingHorizontal: 25,
     },
-    inputOptions:{
- 
+    inputOptions: {
+
     }
 })

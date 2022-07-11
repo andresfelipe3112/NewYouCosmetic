@@ -27,14 +27,13 @@ export const RootTabsNavigator = ({route}) => {
     useEffect(() => {
         route?.params?.reRender && setTitleLoading("Un momento, estoy buscando las mejores recomendaciones para ti")
     },[route?.params?.reRender])
-    
+
+        
     const firstCategoryData = async () => {
         try {
-            const resp = route?.params?.reRender === undefined  && await newApi.get('products/first-category')
             const respHome = await newApi.get('home')
             console.log("respHome", respHome);
-            console.log("firstCategoryData", resp);
-            if (resp || respHome) {
+            if (respHome) {
                 setFirtsData(respHome.data)
                 setStateCurrent(false)
                 setrRenderNewCategoria(false)
@@ -47,9 +46,11 @@ export const RootTabsNavigator = ({route}) => {
     let focus = useIsFocused()
 
      useEffect(() => {
-         console.log("routeAA",route?.params?.reRender);
-         route?.params?.reRender === true && setrRenderNewCategoria(true)
-         focus = false
+        route?.params?.reRender === "CAMISA" && setrRenderNewCategoria(true)
+        route?.params?.reRender === "PANTALON" && setrRenderNewCategoria(true)
+        route?.params?.reRender === "COLLAR" && setrRenderNewCategoria(true)
+        console.log(route?.params?.reRender);
+        
      },[route?.params?.reRender])
 
     useEffect(() => {

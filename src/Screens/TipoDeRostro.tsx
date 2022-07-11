@@ -23,7 +23,7 @@ const imagenD = require('../Assets/Img/alargado.jpg');
 const imagenE = require('../Assets/Img/triangular.jpg');
 
 
-const TipoDeRostro = ({route}) => {
+const TipoDeRostro = ({ route }) => {
     const navigation = useNavigation();
     const [season, setSeason] = useState(videoA);
     const [statusInfo, setstatusInfo] = useState(true);
@@ -33,22 +33,23 @@ const TipoDeRostro = ({route}) => {
     const [colorCheckD, setcolorCheckD] = useState(false);
     const [colorCheckE, setcolorCheckE] = useState(false);
     const [data, setData] = useState("");
-    const[categoryName, setCategoryName] = useState();
+    const [categoryName, setCategoryName] = useState();
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(route?.params?.category);
         setCategoryName(route?.params?.category)
-    },[route])
+    }, [route])
 
     const addCategory = async () => {
         try {
+            route?.params?.actualizar === true && navigation.goBack()
             const resp = await newApi.post('users/typeFace', {
                 "typeFace": data
             })
             if (resp) {
-                const respCategori = await newApi.get(`products/third-category/${categoryName}`)
+                const respCategori = !route?.params?.actualizar && await newApi.get(`products/third-category/${categoryName}`)
                 if (respCategori) {
-                    navigation.navigate("Root", {reRender:true})
+                    !route?.params?.actualizar && navigation.navigate("Root", { reRender: "COLLAR" })
                 }
             }
         } catch (error) {
@@ -119,6 +120,26 @@ const TipoDeRostro = ({route}) => {
         setcolorCheckE(true);
     }
 
+    useEffect(() => {
+        if (route?.params?.data === "ovalado") {
+            colorA("ovalado")
+        }
+        if (route?.params?.data === "rectangular") {
+           colorB("rectangular")  
+        }
+        if (route?.params?.data === "redondo") {
+           colorC("redondo")  
+        }
+        if (route?.params?.data === "alargado") {
+            colorD("alargado")  
+        }
+        if (route?.params?.data === "trianfular") {
+           colorD("trianfular")  
+        }
+           console.log(route?.params?.data);
+        
+    },[route?.params?.data])
+
 
     return (
         <View
@@ -156,7 +177,7 @@ const TipoDeRostro = ({route}) => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={()=>colorB("rectangular")}
+                        onPress={() => colorB("rectangular")}
                     >
                         <Image
                             source={ImagenB}
@@ -171,7 +192,7 @@ const TipoDeRostro = ({route}) => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={()=> colorC("redondo")}
+                        onPress={() => colorC("redondo")}
                     >
                         <Image
                             source={imagenC}
@@ -201,7 +222,7 @@ const TipoDeRostro = ({route}) => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckE ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={()=> colorE("triangular")}
+                        onPress={() => colorE("triangular")}
                     >
                         <Image
                             source={imagenE}
@@ -221,12 +242,13 @@ const TipoDeRostro = ({route}) => {
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
                 }}
             >
-                 <LinearGradient opacity={0.7} colors={['#19181C', '#19181C']} 
-                 style={{ position: "absolute", width: Dimensions.get("window").width * 1.5 ,
-                  height: 65,
-                  marginHorizontal:-100,
-                  marginTop:-13
-                  }} />
+                <LinearGradient opacity={0.7} colors={['#19181C', '#19181C']}
+                    style={{
+                        position: "absolute", width: Dimensions.get("window").width * 1.5,
+                        height: 65,
+                        marginHorizontal: -100,
+                        marginTop: -13
+                    }} />
                 <Icon
                     name='arrow-left'
                     type='evilicon'
@@ -235,43 +257,57 @@ const TipoDeRostro = ({route}) => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                <TouchableOpacity 
-                 //@ts-ignore
-                 onPress={addCategory}
-                //  onPress={() => navigation.navigate("Root", {
-                //     screen:"Para tí",
-                //     params:{current:"Camisas"}
-                // })}
-                style={{
-          width: 200,
-          display: "flex",
-          flexDirection: "row",
-          alignSelf: "flex-end",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          padding: 3,
-          backgroundColor: "#19181C",
-          borderRadius: 20,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 6,
-          },
-          shadowOpacity: 0.37,
-          shadowRadius: 7.49,
-          elevation: 12,
-        }}>
-          <Text
-            style={{ color: '#D4D7EE', }}
-          >Agregar categoría</Text>
-          <Icon
-            name='plus'
-            type='evilicon'
-            color='#D4D7EE'
-            size={40}
-            tvParallaxProperties={undefined}
-          />
-        </TouchableOpacity>
+              { !route?.params?.actualizar && <TouchableOpacity
+                    //@ts-ignore
+                    onPress={addCategory}
+                    //  onPress={() => navigation.navigate("Root", {
+                    //     screen:"Para tí",
+                    //     params:{current:"Camisas"}
+                    // })}
+                    style={{
+                        width: 200,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignSelf: "flex-end",
+                        alignItems: "center",
+                        justifyContent: "flex-end",
+                        padding: 3,
+                        backgroundColor: "#19181C",
+                        borderRadius: 20,
+                        shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0,
+                            height: 6,
+                        },
+                        shadowOpacity: 0.37,
+                        shadowRadius: 7.49,
+                        elevation: 12,
+                    }}>
+                    <Text
+                        style={{ color: '#D4D7EE', }}
+                    >Agregar categoría</Text>
+                    <Icon
+                        name='plus'
+                        type='evilicon'
+                        color='#D4D7EE'
+                        size={40}
+                        tvParallaxProperties={undefined}
+                    />
+                </TouchableOpacity>}
+                {route?.params?.actualizar === true && <TouchableOpacity
+                    //@ts-ignore
+                    onPress={addCategory}
+                    style={{
+                        width: 100,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+
+                    }}>
+                    <Text
+                        style={{ color: 'white', borderRadius:10, borderColor: "gray", borderWidth: 1, padding:10}}
+                    >Actualizar</Text>
+                </TouchableOpacity>}
             </View>
         </View>
 

@@ -19,20 +19,24 @@ export default function LoginScreen() {
     const [loadingLogin, setloadingLogin] = useState<Boolean>(false)
     const [dataLogin, setdataLogin] = useState<any>('')
 
-    const login = async (email:string, password:string) => {
-  try {
-    setloadingLogin(false)
-      const resp = await newApi.post('auth/login-user',{"email": email,
-      "password": password})
-       await AsyncStorage.setItem('tokenNew', resp.data.accessToken);
-      setdataLogin(resp.data)
-      setloadingLogin(true)
-      console.log("resp.data)",resp.data.accessToken);
-  } catch (error) {
+    const login = async (email: string, password: string) => {
+        try {
+            setloadingLogin(false)
+            const resp = await newApi.post('auth/login-user', {
+                "email": email,
+                "password": password
+            })
+            await AsyncStorage.setItem('tokenNew', resp.data.accessToken);
+            console.log("resp.data)", resp.data.accessToken);
+            if (resp) {
+                setloadingLogin(true)
+                navigation.navigate('IntroScreen')
+            }
+        } catch (error) {
+               console.log(error);
 
-  }
+        }
     }
-
     const { register, setValue, handleSubmit, control, reset, formState: { errors } } = useForm({
         defaultValues: {
             Gmail: '',
@@ -40,15 +44,9 @@ export default function LoginScreen() {
         }
     });
     const onSubmit = (data: any) => {
-        login(data.Gmail,data.Constraseña)
+        login(data.Gmail, data.Constraseña)
         console.log(data);
         console.log('errors', errors);
-    };
-
-    const onChange = (arg: any) => {
-        return {
-            value: arg.nativeEvent.text,
-        };
     };
 
     const goForgotPassword = () => {
@@ -58,38 +56,38 @@ export default function LoginScreen() {
 
     useEffect(() => {
         dataLogin && navigation.navigate('IntroScreen')
-    },[])
+    }, [])
 
     return (
         <>
             <Video
-                        // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
-                        source={require("../../Assets/video/intro2.mp4")}
-                        resizeMode={"stretch"}
-                        opacity={0.5}
-                        controls={false}
-                        paused={false}
-                        mute={true}
-                        disableBack
-                        disableVolume
-                        toggleResizeModeOnFullscreen
-                        repeat={true}
-                        bufferConfig={{
-                            minBufferMs: 15000,
-                            maxBufferMs: 50000,
-                            bufferForPlaybackMs: 2500,
-                            bufferForPlaybackAfterRebufferMs: 5000
-                        }}
+                // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
+                source={require("../../Assets/video/intro2.mp4")}
+                resizeMode={"stretch"}
+                opacity={0.5}
+                controls={false}
+                paused={false}
+                mute={true}
+                disableBack
+                disableVolume
+                toggleResizeModeOnFullscreen
+                repeat={true}
+                bufferConfig={{
+                    minBufferMs: 15000,
+                    maxBufferMs: 50000,
+                    bufferForPlaybackMs: 2500,
+                    bufferForPlaybackAfterRebufferMs: 5000
+                }}
 
-                        style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            bottom: 0,
-                            right: 0,
-                        }}
-                    />
-                        <LinearGradient  opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                }}
+            />
+            <LinearGradient opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             <ScrollView
             // style={{backgroundColor:"black"}}
             >
@@ -105,7 +103,7 @@ export default function LoginScreen() {
                         style={styles.textTitle}
                     >Inicia sesión en tu cuenta de NewYou</Text>
                 </View>
-                {errors.Usuario && <Text style={styles.textError} >El usuario es requerido.</Text>}
+                {errors.Gmail && <Text style={styles.textError} >El usuario es requerido.</Text>}
                 <Controller
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
@@ -136,7 +134,7 @@ export default function LoginScreen() {
                     name="Gmail"
                     rules={{ required: true }}
                 />
-                {errors.Gmail && <Text style={styles.textError} >La constraseña es requerida.</Text>}
+                {errors.Constraseña && <Text style={styles.textError} >La constraseña es requerida.</Text>}
                 <Controller
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
@@ -179,14 +177,13 @@ export default function LoginScreen() {
                 <View style={{ marginHorizontal: 10, display: 'flex', flexDirection: "row", alignSelf: "center", alignItems: 'center' }}>
                     <View style={{ width: "42%", backgroundColor: "white", height: 1 }} ></View>
                     <View style={{ height: 10, width: 10, borderRadius: 5, borderColor: "white", borderWidth: 1, marginHorizontal: 10 }}  ></View>
-                    <View style={{ width: "42%", backgroundColor: "white", height: 1}} ></View>
-
+                    <View style={{ width: "42%", backgroundColor: "white", height: 1 }} ></View>
                 </View>
-               {loadingLogin && <ActivityIndicator/>}
+                {loadingLogin && <ActivityIndicator />}
                 <TouchableOpacity
                     style={styles.button}
                     //@ts-ignore
-                    onPress={() => navigation.navigate('IntroScreen')}
+                    onPress={handleSubmit(onSubmit)}
                 >
                     <Text
                         style={styles.text}
@@ -223,7 +220,7 @@ export default function LoginScreen() {
                     style={{
                         alignSelf: 'center', width: Dimensions.get("window").width * 0.7, fontSize: 14,
                         color: "#c0bfe7", fontFamily: "EvilIcons", textAlign: 'center', marginTop: 25,
-                        height:55,
+                        height: 55,
                     }}
                 >El uso de NewYou está sugeto a nuestros Términos y a la Política de privacidad </Text>
                 <TouchableOpacity
@@ -250,7 +247,7 @@ const styles = StyleSheet.create({
         alignItems: "stretch",
         bottom: 0,
         right: 0
-        },
+    },
 
     containerInput: {
         width: Dimensions.get("window").width * 0.90,

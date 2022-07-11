@@ -65,7 +65,7 @@ export const Info = () => {
                             />
                 <Text
                 style={{ color: "white"}}
-                > Mi respuestas </Text>
+                > Mis respuestas </Text>
                 <Icon
                     name='chevron-forward-outline'
                     type='ionicon'

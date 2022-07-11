@@ -24,7 +24,7 @@ const imagenE = require('../Assets/Img/tipo5.jpg')
 const imagenF = require('../Assets/Img/tipo6.jpg')
 
 
-const ColorHearOption = () => {
+const ColorHearOption = ({route}) => {
     const navigation = useNavigation();
     const [statusInfo, setstatusInfo] = useState(true);
     const [colorCheckA, setcolorCheckA] = useState(false);
@@ -35,14 +35,18 @@ const ColorHearOption = () => {
     const [colorCheckF, setcolorCheckF] = useState(false);
     const [response, setResponse] = useState("");
     
-
+    useEffect(() => {
+        console.log(route?.params);
+    },[route])
+ 
 
     const colorHearOptionApi = async () => {
         try {
+            route?.params?.actualizar === true && navigation.goBack();
             const resp = await newApi.post('users/skinColor', { "skinColor": response })
             console.log("colorHearOptionApi", resp.data);
             if (resp) {
-                navigation.navigate("StyleOption")
+                !route?.params?.actualizar && navigation.navigate("StyleOption")
             }
         } catch (error) {
             console.log(error);
@@ -123,9 +127,32 @@ const ColorHearOption = () => {
         setcolorCheckF(true)
     }
 
-    // useEffect(() => {
-    //     colorA()
-    // },[])
+     useEffect(() => {
+         if (route?.params?.data === "tipo1") {
+            colorA();
+            setResponse("tipo1")
+         }
+         if (route?.params?.data === "tipo2") {
+            colorB();
+            setResponse("tipo2")  
+         }
+         if (route?.params?.data === "tipo3") {
+            colorC();
+            setResponse("tipo3")  
+         }
+         if (route?.params?.data === "tipo4") {
+            colorD();
+            setResponse("tipo4")  
+         }
+         if (route?.params?.data === "tipo5") {
+            colorE();
+            setResponse("tipo5")  
+         }
+         if (route?.params?.data === "tipo6") {
+            colorF();
+            setResponse("tipo6")  
+         }         
+     },[route?.params?.data])
 
     return (
         <View
@@ -184,7 +211,7 @@ const ColorHearOption = () => {
                         //@ts-ignore
                         onPress={()=> {
                             colorC();
-                            setResponse("tipo3");
+                            setResponse("tipo3")  
                         }}
                     >
                         <Image
@@ -200,7 +227,10 @@ const ColorHearOption = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckD ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorD}
+                        onPress={()=> {
+                            colorD();
+                            setResponse("tipo4")  
+                        }}
                     >
                         <Image
                             source={imagenD}
@@ -215,7 +245,10 @@ const ColorHearOption = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckE ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorE}
+                        onPress={()=> {
+                            colorE();
+                            setResponse("tipo5")  
+                        }}
                     >
                         <Image
                             source={imagenE}
@@ -230,7 +263,10 @@ const ColorHearOption = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckF ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorF}
+                        onPress={()=> {
+                            colorF();
+                            setResponse("tipo6")  
+                        }}
                     >
                         <Image
                             source={imagenF}
@@ -264,7 +300,7 @@ const ColorHearOption = () => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                <TouchableOpacity 
+                { !route?.params?.actualizar && <TouchableOpacity 
                  onPress={()=>colorHearOptionApi()}
                 style={{
                     width: 100,
@@ -284,7 +320,20 @@ const ColorHearOption = () => {
                         //@ts-ignore
                        
                     />
-                </TouchableOpacity>
+                </TouchableOpacity>}
+
+                { route?.params?.actualizar === true && <TouchableOpacity 
+                 onPress={()=>colorHearOptionApi()}
+                style={{
+                    width: 100,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                }}>
+                    <Text
+                        style={{ color: 'white', padding:10, borderWidth: 1, borderColor: "gray", borderRadius:10 }}
+                    >Actualizar</Text>
+                </TouchableOpacity>}
             </View>
         </View>
 

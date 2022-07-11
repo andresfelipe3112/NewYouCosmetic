@@ -1,13 +1,14 @@
-import React from 'react';
-import { Dimensions, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
+import newApi from '../Services/LoginApiValues';
 
 export const CurrentResponse = ({navigation}) => {
 
     const data = [
-        { pregunta:"Estación del año", navigation:"Seasons" },
-        { pregunta:"Género", navigation:"Gender" },
+        { pregunta:"Estación del año", navigation:"Seasons"  },
+        { pregunta:"Género", navigation:"Gender"},
         { pregunta:"Vegano", navigation:"VeganOption" },
         { pregunta:"Estílo", navigation:"StyleOption" },
         { pregunta:"Tipo de piel", navigation:"ColorHearOption" },
@@ -16,6 +17,45 @@ export const CurrentResponse = ({navigation}) => {
         { pregunta:"Altura", navigation:"Altura" },
         { pregunta:"Cuello", navigation:"LargoDeCuello" },
     ]
+
+    const [dataResponse, setDataResponse] = useState<any>([])
+    const responses  = async () => {
+      const resp = await newApi.get(`users/data-user`)
+      console.log("responses",resp.data);
+      setDataResponse(resp.data)
+    }
+
+    useEffect(() => {
+      responses()
+      console.log(dataResponse);
+    },[])
+
+    const Button =({item, data})=>{
+      return(
+        <TouchableOpacity
+        style={{
+          width: "90%",
+          height: 50,
+          borderRadius: 25,
+          borderColor: "white",
+          backgroundColor: "white",
+          borderWidth: 1.5,
+          alignSelf: "center",
+          margin: 10,
+          display: "flex",
+          alignContent: "center",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        onPress={() => navigation.navigate(item.navigation, { actualizar: true , data: data })}
+      >
+        <Text
+          style={{ fontSize: 15, fontWeight: "bold" }}
+        >{item.pregunta}</Text>
+      </TouchableOpacity>
+      )
+    }
+
 
     return(
         <>
@@ -46,34 +86,18 @@ export const CurrentResponse = ({navigation}) => {
                 />
             </TouchableOpacity>
           </View>
+          <ScrollView>
             <View>
-                {data.map((item, index) => {
-                    return (
-                        <TouchableOpacity
-                        key={index}
-                        style={{
-                            width: "90%",
-                            height: 50,
-                            borderRadius:25,
-                            borderColor:"white",
-                            backgroundColor:"white",
-                            borderWidth: 1.5,
-                            alignSelf: "center",
-                            margin:10,
-                            display: "flex",
-                            alignContent:"center",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                        onPress={() => navigation.navigate(item.navigation, {actualizar:true}) }
-                        >
-                            <Text
-                            style={{ fontSize:15, fontWeight: "bold"}}
-                            >{item.pregunta}</Text>
-                        </TouchableOpacity>
-                    )
-                })}
+            {dataResponse?.dataUser?.season && <Button item={data[0]} data={dataResponse?.dataUser?.season} ></Button> }
+            {dataResponse?.dataUser?.gender && <Button item={data[1]} data={dataResponse?.dataUser?.gender}></Button> }
+            {dataResponse?.dataUser?.height && <Button item={data[7]} data={dataResponse?.dataUser?.height} ></Button> }
+            {dataResponse?.dataUser?.neckLength && <Button item={data[8]} data={dataResponse?.dataUser?.neckLength} ></Button> }
+            {dataResponse?.dataUser?.skinColor && <Button item={data[4]} data={dataResponse?.dataUser?.skinColor} ></Button> }
+            {dataResponse?.dataUser?.style && <Button item={data[3]}  data={dataResponse?.dataUser?.style}></Button> }
+            {dataResponse?.dataUser?.typeBody && <Button item={data[6]} data={dataResponse?.dataUser?.typeBody} ></Button> }
+            {dataResponse?.dataUser?.typeFace && <Button item={data[5]} data={dataResponse?.dataUser?.typeFace} ></Button> }
             </View>
+          </ScrollView>
         </>
     )
 }

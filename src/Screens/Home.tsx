@@ -9,6 +9,7 @@ import VideoPlayer from "react-native-video-controls";
 import { Icon } from "react-native-elements";
 import LinearGradient from "react-native-linear-gradient";
 import { Title } from "../Components/Title";
+import { FloatingAction } from "react-native-floating-action";
 
 const otono = require('../Assets/video/otono.mp4');
 //
@@ -23,320 +24,45 @@ const imageD = require('../Assets/Img/ropaD.jpg');
 
 export const Home = ({route}:any) => {
 
-const data = [
-  {
-    nombre: "Ver todas",
-    icono: "home",
-    compareAPI:"VER TODAS"
-  },
-  {
-    nombre: "Gafas",
-    icono: "home",
-    compareAPI:"GAFA"
-  },
-  {
-    nombre: "Pañuelos",
-    icono: "home",
-    compareAPI:"PAÑUELO"
-  },
-  {
-    nombre: "Gorros",
-    icono: "home",
-    compareAPI:"GORRO",
-  },
-  {
-    nombre: "Pulseras",
-    icono: "home",
-    compareAPI:"PULSERA",
-  },
-  {
-    nombre: "Camisas",
-    icono: "home",
-    compareAPI:"CAMISA",
-  },
-  {
-    nombre: "Gorros",
-    icono: "home",
-    compareAPI:"GORRO",
-  },
-  {
-    nombre: "Vestidos",
-    icono: "home",
-    compareAPI:"VESTIDO",
-  },
-  {
-    nombre: "Zapatillas",
-    icono: "home",
-    compareAPI:"ZAPATILLA",
-  },
-]
-const productoObjPañuelos = [
-  {
-    nombre: "Vestido Galo",
-    marca:"Zara",
-    image: require('../Assets/Img/panuelos1.jpg')
-  },
-  {
-    nombre: "Chaqueta Polar",
-    marca:"Polo",
-    image: require('../Assets/Img/panuelos2.jpg')
-  },
-  {
-    nombre: "Camisa Corta",
-    marca:"Farabella",
-    image: require('../Assets/Img/panuelos3.jpg')
-  },
-  {
-    nombre: "Falda Corta",
-    marca:"Sugar Top",
-    image: require('../Assets/Img/panuelos4.jpg')
-  },
-  {
-    nombre: "Vestido Galo",
-    marca:"Zara",
-    image: require('../Assets/Img/panuelos5.jpg')
-  },
-]
-const productoObjCatera = [
-  {
-    nombre: "Vestido Galo",
-    marca:"Zara",
-    image: require('../Assets/Img/cartera1.jpg')
-  },
-  {
-    nombre: "Chaqueta Polar",
-    marca:"Polo",
-    image: require('../Assets/Img/cartera2.jpg')
-  },
-  {
-    nombre: "Camisa Corta",
-    marca:"Farabella",
-    image: require('../Assets/Img/cartera3.jpg')
-  },
-  {
-    nombre: "Falda Corta",
-    marca:"Sugar Top",
-    image: require('../Assets/Img/cartera4.jpg')
-  },
-  {
-    nombre: "Vestido Galo",
-    marca:"Zara",
-    image: require('../Assets/Img/cartera5.jpg')
-  },
-  {
-    nombre: "Chaqueta Polar",
-    marca:"Polo",
-    image: require('../Assets/Img/cartera6.jpg')
-  },
-  {
-    nombre: "Camisa Corta",
-    marca:"Farabella",
-    image: require('../Assets/Img/cartera1.jpg')
-  },
-  {
-    nombre: "Falda Corta",
-    marca:"Sugar Top",
-    image: require('../Assets/Img/cartera2.jpg')
-  },
-]
-const productoObj = [
-  {
-    nombre: "Vestido Galo",
-    marca:"Zara",
-    image: imageA
-  },
-  {
-    nombre: "Chaqueta Polar",
-    marca:"Polo",
-    image: imageB
-  },
-  {
-    nombre: "Camisa Corta",
-    marca:"Farabella",
-    image: imageC
-  },
-  {
-    nombre: "Falda Corta",
-    marca:"Sugar Top",
-    image: imageD
-  },
-  {
-    nombre: "Vestido Galo",
-    marca:"Zara",
-    image: imageA
-  },
-  {
-    nombre: "Chaqueta Polar",
-    marca:"Polo",
-    image: imageB
-  },
-  {
-    nombre: "Camisa Corta",
-    marca:"Farabella",
-    image: imageC
-  },
-  {
-    nombre: "Falda Corta",
-    marca:"Sugar Top",
-    image: imageD
-  },
-]
-const productoObjReloj = [
-  {
-    nombre: "Vestido Galo",
-    marca:"Zara",
-    image: require('../Assets/Img/reloj1.jpg')
-  },
-  {
-    nombre: "Chaqueta Polar",
-    marca:"Polo",
-    image: require('../Assets/Img/reloj2.jpg')
-  },
-  {
-    nombre: "Camisa Corta",
-    marca:"Farabella",
-    image: require('../Assets/Img/reloj3.jpg')
-  },
-  {
-    nombre: "Falda Corta",
-    marca:"Sugar Top",
-    image: require('../Assets/Img/reloj4.jpg')
-  },
-  {
-    nombre: "Vestido Galo",
-    marca:"Zara",
-    image: require('../Assets/Img/reloj5.jpg')
-  },
-  {
-    nombre: "Chaqueta Polar",
-    marca:"Polo",
-    image: require('../Assets/Img/reloj6.jpg')
-  },
-]
-const productoObjPulseras = [
-  {
-    nombre: "Vestido Galo",
-    marca:"Zara",
-    image: require('../Assets/Img/pulsera1.jpg')
-  },
-  {
-    nombre: "Chaqueta Polar",
-    marca:"Polo",
-    image: require('../Assets/Img/pulsera2.jpg')
-  },
-  {
-    nombre: "Camisa Corta",
-    marca:"Farabella",
-    image: require('../Assets/Img/pulsera3.jpg')
-  },
-  {
-    nombre: "Falda Corta",
-    marca:"Sugar Top",
-    image: require('../Assets/Img/pulsera4.jpg')
-  },
-  {
-    nombre: "Vestido Galo",
-    marca:"Zara",
-    image: require('../Assets/Img/pulsera5.jpg')
-  },
-  {
-    nombre: "Chaqueta Polar",
-    marca:"Polo",
-    image: require('../Assets/Img/pulsera6.jpg')
-  },
-]
-const productoObjCamisa = [
 
-  {
-    nombre: "Vestido Galo",
-    marca:"Zara",
-    image: require('../Assets/Img/camisa1.jpg')
-  },
-  {
-    nombre: "Chaqueta Polar",
-    marca:"Polo",
-    image: require('../Assets/Img/camisa2.jpg')
-  },
-  {
-    nombre: "Camisa Corta",
-    marca:"Farabella",
-    image: require('../Assets/Img/camisa3.jpg')
-  },
-  {
-    nombre: "Falda Corta",
-    marca:"Sugar Top",
-    image: require('../Assets/Img/camisa4.jpg')
-  },
-  {
-    nombre: "Camisa Corta",
-    marca:"Falabella",
-    image: imageC
-  },
-]
-const productoObjPantalon = [
-  {
-    nombre: "Pantalon Galo",
-    marca:"Zara",
-    image: require('../Assets/Img/pantalon1.jpg')
-  },
-  {
-    nombre: "Pantalon Polar",
-    marca:"Polo",
-    image: require('../Assets/Img/pantalon2.jpg')
-  },
-  {
-    nombre: "Pantalon geek",
-    marca:"Farabella",
-    image: require('../Assets/Img/pantalon3.jpg')
-  },
-  {
-    nombre: "Pantalon Fashion",
-    marca:"Sugar Top",
-    image: require('../Assets/Img/pantalon4.jpg')
-  },
-  {
-    nombre: "patanlon foody",
-    marca:"Falabella",
-    image: require('../Assets/Img/pantalon5.jpg')
-  },
-]
 
-const array:any = [
+const actions = [
   {
-    categoria:"Pulseras",
-    dataProduct:productoObjPulseras
+      text: "Agregar Recomendación",
+      icon: require("../Assets/Img/add.png"),
+      name: "Agregar Recomendación",
+      position: 1,
+      // color: TERTIARY_COLOR,
   },
   {
-    categoria:"Pañuelos",
-    dataProduct:productoObjPañuelos
+      text: "Refrescar categorías",
+      icon: require("../Assets/Img/import.png"),
+      name: "Refrescar categorías",
+      position: 2,
+      // color: TERTIARY_COLOR
   },
-  {
-    categoria:"Carteras",
-    dataProduct:productoObjCatera
-  },
-  {
-    categoria:"Relojes",
-    dataProduct:productoObjReloj
-  },
-
 ];
 
 const navigation = useNavigation();
-const  [dataProduct, setData]=useState<any>([])
+const  [dataProduct, setDataProduct]=useState<any>([])
 const  [dataProductFilter, setDataFilter]=useState<any>([])
 const  [filterOn, setFilterON]=useState<any>(false)
+const  [category, setCategory]=useState<any>([])
 
 useEffect(() => {
   console.log(route?.params?.firtsData?.productos);
-  let array = []
+  let array = [];
+  let category:any = [];
 for (const key in route?.params?.firtsData?.productos) {
   if (Object.prototype.hasOwnProperty.call(route?.params?.firtsData?.productos, key)) {
     const element = route?.params?.firtsData?.productos[key];
     array.push(element)   
-    console.log("element",element);
+    console.log("element",key);
+    category.push(key)
   }
 }
-  setData(array)
+   setCategory(category)
+   setDataProduct(array)
 },[route?.params?.firtsData])
   
 const changueRecomendations = (type:string) => {
@@ -344,10 +70,14 @@ const changueRecomendations = (type:string) => {
   if (type === "VER TODAS") {
     return setFilterON(false)
   } 
-  let newArray = dataProduct.filter((x)=> x[0].type === type )
+  let newArray = dataProduct.filter((x)=> x[0].displayName === type )
   setFilterON(true)
   setDataFilter(newArray)
 }
+
+useEffect(() => {
+  console.log("category",category);
+},[category])
 
   return (
     <>
@@ -360,6 +90,7 @@ const changueRecomendations = (type:string) => {
           marginTop: 5
         }}
       >
+         
         <TouchableOpacity
           style={{
             display: "flex",
@@ -378,7 +109,7 @@ const changueRecomendations = (type:string) => {
             // onPress={() => navigation.navigate("CategoriesPush")}
           />
         </TouchableOpacity>
-        <TouchableOpacity 
+        {/* <TouchableOpacity 
            //@ts-ignore
            onPress={() => navigation.navigate("CategoriesPush")}
         style={{
@@ -411,7 +142,7 @@ const changueRecomendations = (type:string) => {
             tvParallaxProperties={undefined}
 
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <ScrollView
@@ -479,38 +210,52 @@ const changueRecomendations = (type:string) => {
           showsHorizontalScrollIndicator={false}
           >
           
-          {data.map(({ nombre, icono, compareAPI }, index) => {
-            return (
-              <TouchableOpacity
-              key={index}
-              onPress={() => changueRecomendations(compareAPI)}
-              style={styles.category}>
-            
-                <Text
-                  style={styles.textCategory}
-                  >{nombre}</Text>
-              </TouchableOpacity>
-            )
-          }
-          )
+          {
+            [...["VER TODAS"],...category].map((categoria, index)=>{
+                return (
+                  <TouchableOpacity
+                  key={index}
+                  onPress={() => changueRecomendations(categoria)}
+                  style={styles.category}>
+                
+                    <Text
+                      style={styles.textCategory}
+                      >{categoria}</Text>
+                  </TouchableOpacity>
+                )
+            })
         }
         </ScrollView>
         </View>
         {!filterOn && dataProduct?.map((item, index) =>{
             return (
-              <DetailComponent title={item[0].type} productoObj={item} status={item.status}  />
+              <DetailComponent title={item[0].displayName} productoObj={item} status={item.status}  />
             )
           })
         }
         {
           filterOn && dataProductFilter?.map((item, index) =>{
             return (
-              <DetailComponent title={item[0].type} productoObj={item} status={item.status}  />
+              <DetailComponent title={item[0].displayName} productoObj={item} status={item.status}  />
             )
           })
         }
       </ScrollView>
-
+      <FloatingAction
+                  showBackground={true}
+                  actions={actions}
+                  buttonSize={55}
+                  color={"#5069B7"}
+                  distanceToEdge={{ vertical: 70, horizontal: 15}}
+                  onPressItem={name => {
+                      if (name === 'Agregar Recomendación') {
+                              navigation.navigate("CategoriesPush")
+                          }
+                       else if (name === 'Refrescar categorías') {
+                          
+                      }
+                  }}
+              />
     </>
   )
 }

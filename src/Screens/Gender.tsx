@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, StyleSheet, Animated, Easing, Pressable, TextInput, ScrollView, Dimensions } from "react-native";
 import { Button, Icon, Text } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import newApi from "../Services/LoginApiValues";
 
-const Gender = () => {
+const Gender = ({route}) => {
     const navigation = useNavigation();
     const dawnLogo = require('../Assets/Img/down.png');
     const speed = 500;
@@ -25,7 +25,8 @@ const Gender = () => {
 
     const genderApi = async (valueInput: string,) => {
         try {
-            navigation.navigate("VeganOption")
+            !route?.params?.actualizar && navigation.navigate("VeganOption")
+            route?.params?.actualizar === true && navigation.goBack()
             const resp = await newApi.post('users/gender', { "gender": valueInput === "Mujer"? "F" : "M" })
             console.log("genderApi", resp.data);
             // if (resp) {
@@ -160,6 +161,18 @@ const Gender = () => {
         !open2 ? RotationUP2() : RotationDown2();
         !open2 ? dawnPosition2() : upPosition2();
     }
+
+    useEffect(() => {
+       console.log(route?.params?.data);
+       if (route?.params?.data === "M" ) {
+        setvalueInput("Mujer")
+       }
+       if (route?.params?.data === "F" ) {
+        setvalueInput("Hombre")
+       }
+
+    },[route?.params])
+
     return (
         <>
             <LinearGradient opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
@@ -229,7 +242,7 @@ const Gender = () => {
                         >{'Hombre'}</Text>
                     </AnimatedPressable>
 
-                    <Button
+                    {!route?.params?.actualizar&& <Button
                         title="Siguiente"
                         type={"clear"}
                         containerStyle={{
@@ -245,7 +258,24 @@ const Gender = () => {
                         onPress={() =>{
                             genderApi(valueInput)
                         }}
-                    />
+                    />}
+                    {route?.params?.actualizar === true && <Button
+                        title="Actualizar"
+                        type={"clear"}
+                        containerStyle={{
+                            width: 150,
+                            marginHorizontal: "26%",
+                            borderRadius: 10,
+                            marginTop: 20,
+                            borderWidth: 1,
+                            borderColor: "white"
+                        }}
+                        titleStyle={{ color: 'white', marginHorizontal: 20, fontSize: 15 }}
+                        //@ts-ignore
+                        onPress={() =>{
+                            genderApi(valueInput)
+                        }}
+                    />}
                      <View
                 style={{
                     position: "absolute", top: Dimensions.get("window").height * 0.6, display: "flex", flexDirection: "row",
