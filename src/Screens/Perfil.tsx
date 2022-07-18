@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from '@react-navigation/native';
 import { DetailComponent } from "../Components/DetailComponent";
 import { Tab } from "../Components/Tab";
@@ -6,6 +6,7 @@ import { Dimensions, ScrollView, TextInput, TouchableOpacity, View } from "react
 import { Icon, Image, Text } from "react-native-elements";
 import { ComponentImag } from "../Components/ComponentImag";
 import LinearGradient from "react-native-linear-gradient";
+import newApi from "../Services/LoginApiValues";
 
 
 export const Perfil = () => {
@@ -17,6 +18,21 @@ export const Perfil = () => {
     const imgPlacard = require('../Assets/Img/placard.jpg');
     const productoObj = [imageA, imageB, imageC, imageD];
     const navigation = useNavigation();
+    const [user, setUser] = useState({
+        username: "",
+        email: "",
+        _id:"",
+    })
+
+    const dataUser = async () => {
+        const data =await newApi.get(`/users/profile-user`)
+        console.log(data.data.dataUser);
+        setUser(data.data.dataUser)
+    }
+
+    useEffect(() => {
+        dataUser()
+    },[])
 
     return (
         <View
@@ -55,7 +71,7 @@ export const Perfil = () => {
                         color: "white", fontWeight: "bold",
                         fontSize: 14, alignSelf: "center",
                     }}
-                >Andrés Felipe</Text>
+                >{user.username}</Text>
             </TextInput>
 
 
@@ -72,7 +88,7 @@ export const Perfil = () => {
                       <Text
                       style={{color: "white", fontWeight: "bold",
                       fontSize:14}}
-                      >Andresfelipe3112@gmail.com</Text>
+                      >{user.email}</Text>
                   </TextInput>
         </View>
     )

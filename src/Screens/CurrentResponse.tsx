@@ -10,7 +10,7 @@ export const CurrentResponse = ({navigation}) => {
         { pregunta:"Estación del año", navigation:"Seasons"  },
         { pregunta:"Género", navigation:"Gender"},
         { pregunta:"Vegano", navigation:"VeganOption" },
-        { pregunta:"Estílo", navigation:"StyleOption" },
+        { pregunta:"Estilo", navigation:"StyleOption" },
         { pregunta:"Tipo de piel", navigation:"ColorHearOption" },
         { pregunta:"Tipo de rostro", navigation:"TipoDeRostro" },
         { pregunta:"Tipo de cuerpo", navigation:"TipoDeCuerpo" },

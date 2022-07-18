@@ -13,8 +13,6 @@ import newApi from "../Services/LoginApiValues";
 
 
 export const AllProductsPerfil = ({route}:any) => {
-
-  
   const otono = require('../Assets/video/otono.mp4');
   const promo = require('../Assets/video/promo.mp4');
   const imageA = require('../Assets/Img/ropaA.jpg');
@@ -91,7 +89,7 @@ export const AllProductsPerfil = ({route}:any) => {
   return (
     <>
       <LinearGradient opacity={1} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
-        <FlatList
+       {firtsData.length > 0 ? <FlatList
         contentContainerStyle={{ 
             flexDirection: 'column',
             display: "flex",
@@ -107,6 +105,16 @@ export const AllProductsPerfil = ({route}:any) => {
           )}
         keyExtractor={item => item.id}
       />
+    :
+    <Text
+    style={{
+    alignSelf: "center",
+    marginTop:70,
+    color: "white",
+
+    }}
+    >No hay elementos en tu armario</Text>
+    }
 </>
   )
 }

@@ -16,11 +16,11 @@ const VideoC = require('../Assets/video/cocktail.mp4');
 const VideoD = require('../Assets/video/blackTie.mp4');
 const VideoE = require('../Assets/video/white.mp4');
 
-const imagenA = require('../Assets/Img/casual.jpeg')
-const ImagenB = require('../Assets/Img/formal.jpeg')
-const imagenC = require('../Assets/Img/cocktail.jpeg')
-const imagenD = require('../Assets/Img/blackTie.jpeg')
-const imagenE = require('../Assets/Img/whiteTie.jpeg')
+const imagenA = require('../Assets/Img/romantico.png')
+const ImagenB = require('../Assets/Img/clasico.png')
+const imagenC = require('../Assets/Img/creativo.png')
+const imagenD = require('../Assets/Img/sensual.png')
+const imagenE = require('../Assets/Img/citychic.png')
 
 
 const StyleOption = ({route}) => {
@@ -188,9 +188,9 @@ const StyleOption = ({route}) => {
                         />
                         <Text
                             style={[styles.text, { color: colorCheckA ? "black" : 'white' }]}
-                        >Casual</Text>
+                        >Romantico</Text>
                         </TouchableOpacity>
-                           <DawnLogo  render={statusInfo} text="En el caso del look casual no hay demasiadas reglas, debiendo primar el sentido común. Para ello hay que fijarse en dónde y cuándo es la celebración. Tanto en el caso de los hombres como de las mujeres se pueden admitir unos jeans, que ellas combinarían con accesorios que reflejen su personalidad, y ellos con una camisa de mangas cortas o un polo, por ejemplo." />
+                           <DawnLogo  render={statusInfo} text="El vestido romántico tiene multitud de posibilidades a la hora de combinarlo. Puedes optar por romper la delicadeza de la prenda con unas zapatillas deportivas y chaqueta biker. Si prefieres mantener esa inspiración clásica, un vestido de encaje en forma de A es la mejor opción. Añade unas espardeñas y bolso de mimbre." />
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
                         //@ts-ignore
@@ -206,9 +206,9 @@ const StyleOption = ({route}) => {
                         />
                         <Text
                             style={[styles.text, { color: colorCheckB ? "black" : 'white' }]}
-                        >Formal</Text>
+                        >Clásico</Text>
                     </TouchableOpacity>
-                    <DawnLogo  render={statusInfo} text="Para eventos de noche y elegantes, sin llegar a la etiqueta. Un look femenino apropiado pasaría por un vestido largo de tela fina, zapatillas altas y algún accesorio como un clutch. El hombre tiene que optar por un traje y corbata, con acabados distintos a los que utilizaría de día." />
+                    <DawnLogo  render={statusInfo} text="Cuando hablamos de estilo clásico nos referimos a simetría, lujo, comodidad, calidad y elegancia en el diseño. Este estilo se acerca al romántico, ya que utiliza materiales puros, accesorios elaborados y colores intensos." />
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
                         //@ts-ignore
@@ -224,9 +224,9 @@ const StyleOption = ({route}) => {
                         />
                         <Text
                             style={[styles.text, { color: colorCheckC ? "black" : 'white' }]}
-                        >Cocktail</Text>
+                        >Creativo</Text>
                     </TouchableOpacity>
-                    <DawnLogo text="Es el dress code adecuado para un evento formal de día, de tarde o incluso en algunos casos, de noche. Para la mujer, lo más recomendable es un vestido por las rodillas y zapatillas, aunque también se puede optar por una falda en combinación con una blusa que aporte distinción. El hombre tendría que ir de traje, siendo opcional ponerse corbata."/>
+                    <DawnLogo text=" Es una forma de proyección personal basada en máxima expresión de individualidad, diferenciación, creatividad y capacidad de asumir riesgos que transforman las viejas ideas en aventuras poco convencionales."/>
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckD ? 'white' : "transparent" }]}
                         //@ts-ignore
@@ -242,9 +242,9 @@ const StyleOption = ({route}) => {
                         />
                         <Text
                             style={[styles.text, { color: colorCheckD ? "black" : 'white' }]}
-                        >Black Tie</Text>
+                        >Sensual</Text>
                     </TouchableOpacity>
-                    <DawnLogo text="Etiqueta simple. La idea es vestir elegante, para un evento también de noche. La mujer debe ir con vestido largo y con estilo, tacones y accesorios que añadan un plus de elegancia. Los hombres tienen que decantarse por el esmoquin."/>
+                    <DawnLogo text="Las personas de estilo sexy o sensual buscan valorar las formas de su cuerpo, especialmente con piezas que hacen que el cuerpo sea aún más curvilíneo."/>
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckE ? 'white' : "transparent" }]}
                         //@ts-ignore
@@ -260,9 +260,9 @@ const StyleOption = ({route}) => {
                         />
                         <Text
                             style={[styles.text, { color: colorCheckE ? "black" : 'white' }]}
-                        >White Tie</Text>
+                        >City Chick</Text>
                     </TouchableOpacity>
-                    <DawnLogo text="Etiqueta 100%. Exige lucir tus mejores galas para un look de noche. Las mujeres deben optar por vestido largo combinado con zapatos muy elegantes (siempre altos). En el caso del hombre, las opciones permitidas son el frac, o el traje combinado con chaleco y corbata de moño."/>
+                    <DawnLogo text="El estilo city chic es saber combinar con gusto el estilo casual con varios detalles llamativos que son el ultimo grito de la moda. Es el estilo de la chica de la cuidad grande que va bien para la oficina, paseos o una cita con amigos."/>
                 </View>
             </ScrollView>
             <View

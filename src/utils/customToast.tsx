@@ -10,10 +10,11 @@ export const CustomToast = () => {
         placement: 'top',
         animationType: 'slide-in',
         textStyle: {
-            fontSize: 13
+            fontSize: 13,
+            color: 'black'
         },
         style: {
-            backgroundColor: 'rgba(128,0,128, 0.9)',
+            backgroundColor: 'white',
             borderRadius: 30,
             zIndex: 4,
             marginTop: Platform.OS === 'ios' ? 50 : 0

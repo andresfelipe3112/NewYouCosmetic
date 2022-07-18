@@ -18,14 +18,26 @@ export const DetailProduct = ({ route }: any) => {
   const [indexPagination, setIndexPagination] = React.useState(0);
   const isCarousel = React.useRef<any>(null);
   const [iconHeart, setIconHeart] = useState(false);
+  const [dataShop, setDataShop] = useState(false);
 
   const {dataProduct} = route?.params;
   // const [dataParams, setDataParams] = useState(dataRoute)
+
+  const getShop = async () => {
+    const data = await newApi.get(`shops/get-shopData/${dataProduct?._id}`);
+    console.log("dataTienda", data?.data);
+    setDataShop(data?.data?.shopData)
+  }
 
   useEffect(() => {
       // setDataParams(route.params)
       console.log("dataProduct",dataProduct);
   },[route.params])
+
+   useEffect(() => {
+    getShop()
+   },[])
+
 
   const otono = require('../Assets/video/otono.mp4');
   const promo = require('../Assets/video/promo.mp4');
@@ -124,7 +136,7 @@ useEffect(() => {
         <View
           style={{
             width: Dimensions.get('window').width * 0.9,
-            height: 380,
+            height: 350,
             borderRadius: 20
             // backgroundColor:"red"
           }}
@@ -156,21 +168,21 @@ useEffect(() => {
 
       <Image
         style={{
-          width: Dimensions.get('window').width * 0.9,
-          height: 370,
+          width: Dimensions.get('window').width ,
+          height: 350,
         }}
         source={{ uri:item.url}}
-        resizeMode="contain"
+        resizeMode="stretch"
         containerStyle={{
           backgroundColor: "black", alignSelf: "center", borderRadius: 20,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 3,
-          },
-          shadowOpacity: 0.27,
-          shadowRadius: 4.65,
-          elevation: 6,
+          // shadowColor: "#000",
+          // shadowOffset: {
+          //   width: 0,
+          //   height: 3,
+          // },
+          // shadowOpacity: 0.27,
+          // shadowRadius: 4.65,
+          // elevation: 6,
         }}
         PlaceholderContent={<ActivityIndicator />}
       />
@@ -184,7 +196,7 @@ useEffect(() => {
 
         <View
           style={{
-            padding: 20, alignSelf: "center", backgroundColor: "white", height: 630, borderBottomLeftRadius: 30, borderBottomRightRadius: 30,
+            padding: 20, alignSelf: "center", backgroundColor: "white", height:550, borderBottomLeftRadius: 30, borderBottomRightRadius: 30,
             shadowColor: "#000",
             shadowOffset: {
               width: 0,
@@ -192,7 +204,6 @@ useEffect(() => {
             },
             shadowOpacity: 0.39,
             shadowRadius: 8.30,
-
             elevation: 13,
           }}
         >
@@ -225,7 +236,7 @@ useEffect(() => {
             >
             <Text
               style={{ padding: 15, width: Dimensions.get("window").width * 0.6, textAlign: "center", fontSize: 17 }}
-            >{dataProduct?.description}
+            >{dataProduct?.nameProduct}
             </Text>
             {/* <Icon
               name='heart'
@@ -249,7 +260,7 @@ useEffect(() => {
             onSnapToItem={(index) => setIndexPagination(index)}
             sliderWidth={Dimensions.get('window').width * 0.9}
             itemWidth={Dimensions.get('window').width * 0.9}
-            sliderHeight={380}
+            sliderHeight={350}
             activeSlideOffset={100}
             callbackOffsetMargin={5}
             enableMomentum={true}
@@ -289,59 +300,14 @@ useEffect(() => {
               />}
               >
               </Button>
-          <View
-            style={{
-              alignSelf: "center",
-              display: 'flex',
-              width: Dimensions.get("window").width * 0.8,
-              flexDirection: 'row',
-              justifyContent: "space-around"
-            }}
-          >
-
-            <View
-              style={styles.containerDetail}
-            >
-              <Text
-                style={styles.textDetail}
-              >115</Text>
-              <Text
-                style={styles.textDetailVentas}
-              >Ventas</Text>
-            </View>
-            <View
-              style={styles.containerDetail}
-            >
-              <Text
-                style={styles.textDetail}
-              >2540</Text>
-              <Text
-                style={styles.textDetailVentas}
-              >Vistas</Text>
-            </View>
-            <View
-              style={styles.containerDetail}
-            >
-              <Text
-                style={styles.textDetail}
-              >5620</Text>
-              <Text
-                style={styles.textDetailVentas}
-              >Favoritos</Text>
-            </View>
-
-          </View>
-
         </View>
-
         <Button
           title="Ir a tiendas disponibles"
-          onPress={() => navigation.navigate('DetailProductStore') }
+          onPress={() => navigation.navigate('DetailProductStore',{data:dataShop}) }
           containerStyle={{ borderRadius: 30, width: 200, alignSelf: "center", margin: 30, backgroundColor: "white", padding: 5 }}
           titleStyle={{ color: "#6B6871" }}
           buttonStyle={{ backgroundColor: "white" }}
         />
-
       </ScrollView>
     </>
   )

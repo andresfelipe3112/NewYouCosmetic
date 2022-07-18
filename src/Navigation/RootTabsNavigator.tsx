@@ -22,7 +22,24 @@ export const RootTabsNavigator = ({route}) => {
     const [firtsData, setFirtsData] = useState([]);
     const [renderNewCategoria, setrRenderNewCategoria] = useState(true);
     const [root, setRoot] = useState("Para tí");
-    const [titleLoading, setTitleLoading] = useState("Bienvenido Andres Felipe, estoy buscando las mejores recomendaciones para ti…");
+    const [user, setUser] = useState({
+        username: "",
+        email: "",
+        _id:"",
+    })
+
+    const dataUser = async () => {
+        const data =await newApi.get(`/users/profile-user`)
+        console.log(data.data.dataUser);
+        setUser(data.data.dataUser)
+        setTitleLoading(`Bienvenido ${data?.data?.dataUser?.username}, estoy buscando las mejores recomendaciones para ti…`)
+    }
+
+    useEffect(() => {
+        !route?.params?.reRender && dataUser()
+    },[])
+
+    const [titleLoading, setTitleLoading] = useState("");
 
     useEffect(() => {
         route?.params?.reRender && setTitleLoading("Un momento, estoy buscando las mejores recomendaciones para ti")
@@ -34,9 +51,11 @@ export const RootTabsNavigator = ({route}) => {
             const respHome = await newApi.get('home')
             console.log("respHome", respHome);
             if (respHome) {
-                setFirtsData(respHome.data)
-                setStateCurrent(false)
-                setrRenderNewCategoria(false)
+                setTimeout(() => {
+                    setFirtsData(respHome.data)
+                    setStateCurrent(false)
+                    setrRenderNewCategoria(false)
+                }, 1500); 
             }
         } catch (error) {
             console.log(error);
@@ -46,9 +65,14 @@ export const RootTabsNavigator = ({route}) => {
     let focus = useIsFocused()
 
      useEffect(() => {
-        route?.params?.reRender === "CAMISA" && setrRenderNewCategoria(true)
-        route?.params?.reRender === "PANTALON" && setrRenderNewCategoria(true)
-        route?.params?.reRender === "COLLAR" && setrRenderNewCategoria(true)
+        route?.params?.reRender === "b15" && setrRenderNewCategoria(true) // camisa
+        route?.params?.reRender === "b17" && setrRenderNewCategoria(true) // pantalon
+        route?.params?.reRender === "c11" && setrRenderNewCategoria(true) // collares
+        route?.params?.reRender === "b24" && setrRenderNewCategoria(true) // botas
+        route?.params?.reRender === "b21" && setrRenderNewCategoria(true) // zapatos
+        route?.params?.reRender === "b11" && setrRenderNewCategoria(true) // Blusas
+        route?.params?.reRender === "b13" && setrRenderNewCategoria(true) // Poleras
+        route?.params?.reRender === "c12" && setrRenderNewCategoria(true) // aros
         console.log(route?.params?.reRender);
         
      },[route?.params?.reRender])

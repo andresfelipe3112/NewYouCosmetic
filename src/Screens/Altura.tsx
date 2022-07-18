@@ -38,10 +38,7 @@ export default function Altura({ route }) {
     }, [route])
 
     useEffect(() => {
-      
         console.log(state.age === 0 + " centímetros");
-    
-        
     }, [state])
 
     const heightApi = async () => {

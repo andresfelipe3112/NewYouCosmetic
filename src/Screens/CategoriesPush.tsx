@@ -7,6 +7,7 @@ import { Image } from 'react-native-elements/dist/image/Image';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import newApi from '../Services/LoginApiValues';
+import { CustomToast } from '../utils/customToast';
 
 const invierno = require('../Assets/video/invierno.mp4');
 const otono = require('../Assets/video/otono.mp4');
@@ -14,6 +15,7 @@ const primavera = require('../Assets/video/primavera.mp4');
 const verano = require('../Assets/video/verano.mp4');
 
 const CategoriesPush = () => {
+    const { showToast } = CustomToast()
     const navigation = useNavigation();
     const [season, setSeason] = useState(otono);
     const [active, setActive] = useState(false);
@@ -21,7 +23,11 @@ const CategoriesPush = () => {
     const [colorCheckInvierno, setcolorCheckInvierno] = useState(false);
     const [colorCheckOtono, setcolorCheckOtono] = useState(false);
     const [colorCheckPrimavera, setcolorCheckPrimavera] = useState(false);
-
+    const [checkA, setcheckA] = useState(false);
+    const [checkB, setcheckB] = useState(false);
+    const [checkC, setcheckC] = useState(false);
+    const [checkD, setcheckD] = useState(false);
+    
     const pantalones = (type) => {
         if (colorCheckVerano) {
             return setcolorCheckVerano(false)
@@ -32,17 +38,25 @@ const CategoriesPush = () => {
         setcolorCheckInvierno(false)
         setcolorCheckOtono(false)
         setcolorCheckPrimavera(false)
-
+        setcheckA(false)
+        setcheckB(false)
+        setcheckC(false)
+        setcheckD(false)
     }
-    const colorInvierno = () => {
+    const botas = (type) => {
         if (colorCheckInvierno) {
             return setcolorCheckInvierno(false)
         }
+        categoriesApi(type)
         setSeason(invierno)
         setcolorCheckVerano(false);
         setcolorCheckInvierno(true);
         setcolorCheckOtono(false)
         setcolorCheckPrimavera(false)
+        setcheckB(false)
+        setcheckA(false)
+        setcheckC(false)
+        setcheckD(false)
     }
 
     const collares = (type) => {
@@ -55,6 +69,9 @@ const CategoriesPush = () => {
         setcolorCheckInvierno(false);
         setcolorCheckOtono(true);
         setcolorCheckPrimavera(false)
+        setcheckA(false)
+        setcheckB(false)
+        setcheckC(false)
     }
     const camisas = (type) => {
         if (colorCheckPrimavera) {
@@ -66,6 +83,74 @@ const CategoriesPush = () => {
         setcolorCheckInvierno(false);
         setcolorCheckOtono(false);
         setcolorCheckPrimavera(true);
+        setcheckA(false)
+        setcheckB(false)
+        setcheckC(false)
+        setcheckD(false)
+    }
+
+    const zapatos = (type) => {
+        if (checkA) {
+            return setcolorCheckPrimavera(false)
+        }
+        categoriesApi(type)
+        setSeason(primavera)
+        setcolorCheckVerano(false);
+        setcolorCheckInvierno(false);
+        setcolorCheckOtono(false);
+        setcolorCheckPrimavera(false);
+        setcheckA(true)
+        setcheckC(false)
+        setcheckB(false)
+        setcheckD(false)
+    }
+
+    const blusas = (type) => {
+        if (checkB) {
+            return setcolorCheckPrimavera(false)
+        }
+        categoriesApi(type)
+        setSeason(primavera)
+        setcolorCheckVerano(false);
+        setcolorCheckInvierno(false);
+        setcolorCheckOtono(false);
+        setcolorCheckPrimavera(false);
+        setcheckA(false)
+        setcheckC(false)
+        setcheckB(true)
+        setcheckD(false)
+    }
+
+    const Poleras = (type) => {
+        if (checkB) {
+            return setcolorCheckPrimavera(false)
+        }
+        categoriesApi(type)
+        setSeason(primavera)
+        setcolorCheckVerano(false);
+        setcolorCheckInvierno(false);
+        setcolorCheckOtono(false);
+        setcolorCheckPrimavera(false);
+        setcheckA(false)
+        setcheckB(false)
+        setcheckC(true)
+        setcheckD(false)
+    }
+
+    const Aros = (type) => {
+        if (checkB) {
+            return setcolorCheckPrimavera(false)
+        }
+        categoriesApi(type)
+        setSeason(primavera)
+        setcolorCheckVerano(false);
+        setcolorCheckInvierno(false);
+        setcolorCheckOtono(false);
+        setcolorCheckPrimavera(false);
+        setcheckA(false)
+        setcheckB(false)
+        setcheckC(false)
+        setcheckD(true)
     }
 
     const categoriesApi = async (type) => {
@@ -84,7 +169,7 @@ const CategoriesPush = () => {
                    return navigation.navigate("TipoDeCuerpo", {category:type})
                 }
             } else {
-                const resp = await newApi.get(`products/second-category/${type}`)
+                const resp = await newApi.get(`/products/newCategory/${type}`)
                 console.log("Api", resp.data);
                 if (resp) {
                     navigation.navigate("Root", {reRender:type})
@@ -92,6 +177,7 @@ const CategoriesPush = () => {
             }
         } catch (error) {
             console.log(error);
+            showToast('Esta categoría aún no tiene productos ');
         }
     }
 
@@ -114,13 +200,14 @@ const CategoriesPush = () => {
                    return navigation.navigate("TipoDeRostro", {category:type})
                 }
             } else {
-                const resp = await newApi.get(`products/third-category/${type}`)
+                const resp = await newApi.get(`/products/newCategory/${type}`)
                 console.log("Api", resp.data);
                     navigation.navigate("Root", {reRender:type})
                 
             }
         } catch (error) {
             console.log(error);
+            showToast('Esta categoría aún no tiene productos ');
         }
     }
 
@@ -161,7 +248,7 @@ const CategoriesPush = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckPrimavera ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={()=> camisas("CAMISA")}
+                        onPress={()=> camisas("b15")}
                     >
                         <Text
                             style={[styles.text, { color: colorCheckPrimavera ? "black" : 'white' }]}
@@ -171,7 +258,7 @@ const CategoriesPush = () => {
                         style={[styles.button, { backgroundColor: colorCheckVerano ? 'white' : "transparent" }]}
                         //@ts-ignore
                         onPress={()=>{
-                            pantalones("PANTALON")
+                            pantalones("b17")
                             }}
                     >
                         <Text
@@ -181,66 +268,66 @@ const CategoriesPush = () => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckInvierno ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={colorInvierno}
+                        onPress={()=> botas("b24")}
                     >
                         <Text
                             style={[styles.text, { color: colorCheckInvierno ? "black" : 'white' }]}
-                        >Sweater</Text>
+                        >Botas-botines</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckOtono ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={()=>collares("COLLAR")}
-                    >
+                        onPress={()=>collares("c11")}
+                        >
                         <Text
                             style={[styles.text, { color: colorCheckOtono ? "black" : 'white' }]}
-                        >Collares</Text>
+                            >Collares</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: "transparent" }]}
-                        //@ts-ignore
-                        // onPress={()=>collares("COLLAR")}
-                    >
+                            style={[styles.button, { backgroundColor: checkA ? 'white' : "transparent" }]}
+                            //@ts-ignore
+                            onPress={()=>zapatos("b21")}
+                            >
             
                         <Text
-                            style={[styles.text, { color: 'white' }]}
-                        >Vestidos</Text>
+                            style={[styles.text, { color: checkA ? "black" : 'white' }]}
+                            >Zapatos</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: checkB ? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={()=>blusas("b11")}
+                        >
+                        <Text
+                           style={[styles.text, { color: checkB ? "black" : 'white' }]}
+                           >Blusas</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                           style={[styles.button, { backgroundColor: checkC? 'white' : "transparent" }]}
+                           //@ts-ignore
+                           onPress={()=> Poleras("b13")}
+                           >
+                        <Text
+                            style={[styles.text, { color: checkC ? "black" : 'white' }]}
+                            >Poleras</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: checkD? 'white' : "transparent" }]}
+                        //@ts-ignore
+                          onPress={()=> Aros("c12")}
+                        >
+                        <Text
+                            style={[styles.text, { color: checkD ? "black" : 'white' }]}
+                        >Aros</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: "transparent" }]}
                         //@ts-ignore
-                        // onPress={colorPrimavera}
-                    >
-                        <Text
-                            style={[styles.text, { color:  'white' }]}
-                        >Cinturones</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.button, { backgroundColor:  "transparent" }]}
-                        //@ts-ignore
-                        // onPress={colorPrimavera}
+                        // onPress={()=>blusas("b11")}
                     >
                         <Text
                             style={[styles.text, { color: 'white' }]}
-                        >Poleras</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.button, { backgroundColor:  "transparent" }]}
-                        //@ts-ignore
-                        // onPress={colorPrimavera}
-                    >
-                        <Text
-                            style={[styles.text, { color:  'white' }]}
-                        >Chaquetas</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.button, { backgroundColor: "transparent" }]}
-                        //@ts-ignore
-                        // onPress={colorPrimavera}
-                    >
-                        <Text
-                            style={[styles.text, { color: 'white' }]}
-                        >Blusas</Text>
+                        >otro</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor:"transparent" }]}

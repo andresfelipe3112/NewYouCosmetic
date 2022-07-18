@@ -16,11 +16,22 @@ const VideoC = require('../Assets/video/cocktail.mp4');
 const VideoD = require('../Assets/video/blackTie.mp4');
 const VideoE = require('../Assets/video/white.mp4');
 
-const imagenA = require('../Assets/Img/ovalado.jpg');
-const ImagenB = require('../Assets/Img/rectangular.jpg');
-const imagenC = require('../Assets/Img/redondo.jpg');
-const imagenD = require('../Assets/Img/alargado.jpg');
-const imagenE = require('../Assets/Img/triangular.jpg');
+// const imagenA = require('../Assets/Img/ovalado.jpg');
+// const ImagenB = require('../Assets/Img/rectangularMen.jpg');
+// const imagenC = require('../Assets/Img/redondoMen.webp');
+// const imagenD = require('../Assets/Img/alargadoMen.webp');
+// const imagenE = require('../Assets/Img/triangular.jpg');
+
+//mujer
+
+const imagenA = require('../Assets/Img/ovaladoWoman.jpg');
+const ImagenB = require('../Assets/Img/rectangularWoman.webp');
+const imagenC = require('../Assets/Img/redondoWomen.jpg');
+const imagenD = require('../Assets/Img/alargadoWomen.jpg');
+const imagenE = require('../Assets/Img/trianguloWoman.webp');
+const imagenF = require('../Assets/Img/trianguloInvertidoWomen.webp');
+const imagenG = require('../Assets/Img/diamanteWoman.jpeg');
+
 
 
 const TipoDeRostro = ({ route }) => {
@@ -32,6 +43,8 @@ const TipoDeRostro = ({ route }) => {
     const [colorCheckC, setcolorCheckC] = useState(false);
     const [colorCheckD, setcolorCheckD] = useState(false);
     const [colorCheckE, setcolorCheckE] = useState(false);
+    const [colorCheckF, setcolorCheckF] = useState(false);
+    const [colorCheckG, setcolorCheckG] = useState(false);
     const [data, setData] = useState("");
     const [categoryName, setCategoryName] = useState();
 
@@ -64,11 +77,13 @@ const TipoDeRostro = ({ route }) => {
         }
         setData(type)
         setSeason(videoA)
+        setcolorCheckF(false);
         setcolorCheckE(false)
         setcolorCheckA(true);
         setsetcolorCheckB(false)
         setcolorCheckC(false)
         setcolorCheckD(false)
+        setcolorCheckG(false);
     }
     const colorB = (type) => {
         if (colorCheckB) {
@@ -76,6 +91,7 @@ const TipoDeRostro = ({ route }) => {
         }
         setData(type)
         setSeason(VideoB)
+        setcolorCheckF(false);
         setcolorCheckE(false)
         setcolorCheckA(false);
         setsetcolorCheckB(true);
@@ -88,11 +104,13 @@ const TipoDeRostro = ({ route }) => {
         }
         setData(type)
         setSeason(VideoC)
+        setcolorCheckF(false);
         setcolorCheckE(false);
         setcolorCheckA(false);
         setsetcolorCheckB(false);
         setcolorCheckC(true);
         setcolorCheckD(false);
+        setcolorCheckG(false);
     }
     const colorD = (type) => {
         if (colorCheckD) {
@@ -100,11 +118,13 @@ const TipoDeRostro = ({ route }) => {
         }
         setData(type)
         setSeason(VideoD)
+        setcolorCheckF(false);
         setcolorCheckE(false);
         setcolorCheckA(false);
         setsetcolorCheckB(false);
         setcolorCheckC(false);
         setcolorCheckD(true);
+        setcolorCheckG(false);
     }
 
     const colorE = (type) => {
@@ -118,6 +138,38 @@ const TipoDeRostro = ({ route }) => {
         setcolorCheckC(false);
         setcolorCheckD(false);
         setcolorCheckE(true);
+        setcolorCheckF(false);
+        setcolorCheckG(false);
+    }
+
+    const colorF = (type) => {
+        if (colorCheckF) {
+            return setcolorCheckF(false);
+        }
+        setData(type)
+        setSeason(VideoE)
+        setcolorCheckA(false);
+        setsetcolorCheckB(false);
+        setcolorCheckC(false);
+        setcolorCheckD(false);
+        setcolorCheckE(false);
+        setcolorCheckF(true);
+        setcolorCheckG(false);
+    }
+
+    const colorG = (type) => {
+        if (colorCheckG) {
+            return setcolorCheckG(false);
+        }
+        setData(type)
+        setSeason(VideoE)
+        setcolorCheckA(false);
+        setsetcolorCheckB(false);
+        setcolorCheckC(false);
+        setcolorCheckD(false);
+        setcolorCheckE(false);
+        setcolorCheckF(false);
+        setcolorCheckG(true);
     }
 
     useEffect(() => {
@@ -133,8 +185,14 @@ const TipoDeRostro = ({ route }) => {
         if (route?.params?.data === "alargado") {
             colorD("alargado")  
         }
-        if (route?.params?.data === "trianfular") {
-           colorD("trianfular")  
+        if (route?.params?.data === "triangulo") {
+           colorE("triangulo")  
+        }
+        if (route?.params?.data === "trianguloInvertido") {
+           colorG("trianguloInvertido")  
+        }
+        if (route?.params?.data === "diamante") {
+           colorG("diamante")  
         }
            console.log(route?.params?.data);
         
@@ -222,7 +280,7 @@ const TipoDeRostro = ({ route }) => {
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckE ? 'white' : "transparent" }]}
                         //@ts-ignore
-                        onPress={() => colorE("triangular")}
+                        onPress={() => colorE("triangulo")}
                     >
                         <Image
                             source={imagenE}
@@ -232,6 +290,36 @@ const TipoDeRostro = ({ route }) => {
                         <Text
                             style={[styles.text, { color: colorCheckE ? "black" : 'white' }]}
                         >Triangular</Text>
+                    </TouchableOpacity>
+                    <DawnLogo text="El rostro triangular se caracteriza por una mandíbula amplia y una frente estrecha en comparación, con los pómulos en una situación intermedia." />
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: colorCheckF? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={() => colorF("trianguloInvertido")}
+                    >
+                        <Image
+                            source={imagenF}
+                            containerStyle={styles.containerStyle}
+                            PlaceholderContent={<ActivityIndicator />}
+                        />
+                        <Text
+                            style={[styles.text, { color: colorCheckF ? "black" : 'white' }]}
+                        >Triangular invertido</Text>
+                    </TouchableOpacity>
+                    <DawnLogo text="El rostro triangular se caracteriza por una mandíbula amplia y una frente estrecha en comparación, con los pómulos en una situación intermedia." />
+                    <TouchableOpacity
+                        style={[styles.button, { backgroundColor: colorCheckG? 'white' : "transparent" }]}
+                        //@ts-ignore
+                        onPress={() => colorG("diamante")}
+                    >
+                        <Image
+                            source={imagenG}
+                            containerStyle={styles.containerStyle}
+                            PlaceholderContent={<ActivityIndicator />}
+                        />
+                        <Text
+                            style={[styles.text, { color: colorCheckG ? "black" : 'white' }]}
+                        >Diamante</Text>
                     </TouchableOpacity>
                     <DawnLogo text="El rostro triangular se caracteriza por una mandíbula amplia y una frente estrecha en comparación, con los pómulos en una situación intermedia." />
                 </View>
@@ -285,9 +373,9 @@ const TipoDeRostro = ({ route }) => {
                     }}>
                     <Text
                         style={{ color: '#D4D7EE', }}
-                    >Agregar categoría</Text>
+                    >Finalizar</Text>
                     <Icon
-                        name='plus'
+                        name='arrow-right'
                         type='evilicon'
                         color='#D4D7EE'
                         size={40}

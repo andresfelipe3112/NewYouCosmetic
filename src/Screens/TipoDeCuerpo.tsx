@@ -8,6 +8,7 @@ import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import DawnLogo from '../Components/DawnLogo';
 import newApi from '../Services/LoginApiValues';
+import { CustomToast } from '../utils/customToast';
 
 
 const videoA = require('../Assets/video/casual.mp4');
@@ -26,6 +27,7 @@ const imagenF = require('../Assets/Img/tipo6.jpg')
 
 const TipoDeCuerpo = ({ route }) => {
     const navigation = useNavigation();
+    const { showToast } = CustomToast();
     const [data, setData] = useState("");
     const [statusInfo, setstatusInfo] = useState(true);
     const [colorCheckA, setcolorCheckA] = useState(false);
@@ -34,10 +36,10 @@ const TipoDeCuerpo = ({ route }) => {
     const [colorCheckD, setcolorCheckD] = useState(false);
     const [colorCheckE, setcolorCheckE] = useState(false);
     const [colorCheckF, setcolorCheckF] = useState(false);
-    const [categoryName, setCategoryName] = useState()
+    const [categoryName, setCategoryName] = useState("")
 
     useEffect(() => {
-        console.log(route?.params?.category);
+        console.log("category",route?.params?.category);
         setCategoryName(route?.params?.category)
     }, [route])
 
@@ -48,13 +50,15 @@ const TipoDeCuerpo = ({ route }) => {
                 "typeBody": data
             })
             if (resp) {
-                const respCategori = !route?.params?.actualizar && await newApi.get(`products/second-category/${categoryName}`)
+                const respCategori = !route?.params?.actualizar && await newApi.get(`/products/newCategory/${categoryName}`)
                 if (respCategori) {
-                    !route?.params?.actualizar && navigation.navigate("Root", { reRender: "PANTALON" })
+                    !route?.params?.actualizar && navigation.navigate("Root", { reRender: categoryName })
                 }
             }
         } catch (error) {
             console.log(error);
+            !route?.params?.actualizar && navigation.navigate("Root")
+            showToast('Esta categoría aún no tiene productos ');
         }
     }
 
@@ -265,7 +269,7 @@ const TipoDeCuerpo = ({ route }) => {
                     name='arrow-left'
                     type='evilicon'
                     color='#7C8499'
-                    size={50}
+                    size={45}
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
@@ -277,7 +281,7 @@ const TipoDeCuerpo = ({ route }) => {
                     //     params:{current:"Camisas"}
                     // })}
                     style={{
-                        width: 200,
+                        width: 140,
                         display: "flex",
                         flexDirection: "row",
                         alignSelf: "flex-end",
@@ -297,9 +301,9 @@ const TipoDeCuerpo = ({ route }) => {
                     }}>
                     <Text
                         style={{ color: '#D4D7EE', }}
-                    >Agregar categoría</Text>
+                    >Finalizar</Text>
                     <Icon
-                        name='plus'
+                        name='arrow-right'
                         type='evilicon'
                         color='#D4D7EE'
                         size={40}

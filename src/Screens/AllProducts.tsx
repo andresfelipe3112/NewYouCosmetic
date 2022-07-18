@@ -62,7 +62,7 @@ export const AllProducts = ({route}:any) => {
         </TouchableOpacity>
         <TouchableOpacity style={{
           width: 190,
-          display: "flex",
+          // display: "flex",
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "flex-end",
@@ -70,6 +70,7 @@ export const AllProducts = ({route}:any) => {
           backgroundColor: "#0B72A9",
           borderRadius: 20,
           margin: 5,
+          display:"none",
           shadowColor: "#000",
           shadowOffset: {
             width: 0,

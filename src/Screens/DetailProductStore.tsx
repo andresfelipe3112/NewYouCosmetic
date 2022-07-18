@@ -15,16 +15,26 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 export const DetailProductStore = ({ route }: any) => {
 
+  console.log("route",route?.params?.data);
+  
+  
   const [indexPagination, setIndexPagination] = React.useState(0)
   const isCarousel = React.useRef<any>(null)
-  
   const instagram = require('../Assets/Img/instagram2.jpeg');
   const whatsapp = require('../Assets/Img/whatsapp.png');
   const maps = require('../Assets/Img/maps.png');
+  const web = require('../Assets/Img/web.jpeg');
   const background = require('../Assets/Img/addidasBanner.jpeg');
-  const [imageBackground, setImageBackground] = React.useState(background)
+  const [dataShop, setDataShop] = React.useState([])
+  const [imageBackground, setImageBackground] = React.useState("")
+  const [onFirstPhoto, setonFirstPhoto] = React.useState(true)
 
-  
+  useEffect(() => {
+    onFirstPhoto && setImageBackground(dataShop[0]?.banner);
+    dataShop[0]?.banner && setonFirstPhoto(false)
+  },[dataShop])
+
+
   const imageA = require('../Assets/Img/tiendaA.png');
   const imageB = require('../Assets/Img/nike.jpeg');
   const imageC = require('../Assets/Img/tiendaC.png');
@@ -79,6 +89,10 @@ export const DetailProductStore = ({ route }: any) => {
     //   longitude:-70.625260}
     // },
   ]
+
+  useEffect(() => {
+     setDataShop(route?.params?.data)
+  },[route?.params])
 
   const navigation = useNavigation();
   const [origin, setOrigin] = React.useState<any>(data[0].position)
@@ -165,36 +179,25 @@ export const DetailProductStore = ({ route }: any) => {
     
     return (
       <View style={{width:"100%", height:"100%"}}>
-      <Image
-            style={{
-              width: Dimensions.get("window").width,
-              height: Dimensions.get("window").width,
-              position: "absolute",
-            }}
-            source={require('../Assets/Img/addidasBanner.jpeg')}
-            resizeMode="contain"
-            containerStyle={{
-              margin: 5
-            }}
-            PlaceholderContent={<ActivityIndicator />}
-          />
       <View
         style={{
           backgroundColor: "white",
           borderRadius: 15,
           width: Dimensions.get('window').width * 0.8,
           height: 280,
+          paddingTop:40,
+          borderWidth:1,
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          alignItems: "center",
           shadowColor: "#000",
           shadowOffset: {
             width: 0,
             height: 3,
           },
           shadowOpacity: 0.27,
-          shadowRadius: 4.65,
-          
+          shadowRadius: 4.65,  
           elevation: 6,
         }}
         >
@@ -208,16 +211,16 @@ export const DetailProductStore = ({ route }: any) => {
           >
           <Text
             style={{ fontSize: 16, alignSelf: "center", width:"90%", fontWeight: "bold", marginBottom:6}}
-            >{item.nombre}</Text>
+            >{item.nameShop}</Text>
           <Text
-            style={{ fontSize: 12, alignSelf: "center", width:"90%" }}
-            >{item.description}</Text>
+            style={{ fontSize: 13, alignSelf: "center", width:"90%" }}
+            >{item.owner}</Text>
            <Text
             style={{ fontSize: 16, alignSelf: "center", width:"90%", fontWeight: "bold", marginBottom:2, marginTop:13}}
             >Dirección</Text>
           <Text
-            style={{ fontSize: 12, alignSelf: "center", width:"90%" }}
-            >{item.direction}</Text>
+            style={{ fontSize: 13, alignSelf: "center", width:"90%", paddingBottom:5 }}
+            >{item.address}</Text>
         <View
         style={{ width: "100%", height: 90, alignSelf: "center", 
         justifyContent: 'space-around', display: "flex", 
@@ -225,6 +228,7 @@ export const DetailProductStore = ({ route }: any) => {
       }}
       >
         <Image
+        onPress={()=>Linking.openURL(`https://www.instagram.com/${item.rrss.instagram.split("").slice(1).join("")}`)}
             style={{
               width: 60,
               height: 60,
@@ -238,7 +242,7 @@ export const DetailProductStore = ({ route }: any) => {
             PlaceholderContent={<ActivityIndicator />}
             />
         <Image
-            onPress={()=>Linking.openURL(`https://api.whatsapp.com/send?phone=${item.whatsapp}`)}
+            onPress={()=>Linking.openURL(`https://api.whatsapp.com/send?phone=${item.rrss.whatsapp}`)}
             style={{
               width: 60,
               height: 60,
@@ -252,7 +256,7 @@ export const DetailProductStore = ({ route }: any) => {
             PlaceholderContent={<ActivityIndicator />}
             />
         <Image
-            onPress={()=>Linking.openURL(`http://maps.google.com/?q="+ ${item.direction},"_system`)}
+            onPress={()=>Linking.openURL(`http://maps.google.com/?q="+${item.address}`)}
             style={{
               width: 70,
               height: 70,
@@ -268,16 +272,17 @@ export const DetailProductStore = ({ route }: any) => {
             PlaceholderContent={<ActivityIndicator />}
             />
         <Image
-            onPress={()=>Linking.openURL(item.url)}
+            onPress={()=>Linking.openURL(item.rrss.web)}
             style={{
               width: 60,
               height: 60,
               borderRadius: 30,
             }}
-            source={item.image}
+            source={web}
             resizeMode="contain"
             containerStyle={{
-              margin: 5
+              margin: 5,
+              marginLeft:-9,
             }}
             PlaceholderContent={<ActivityIndicator />}
             />
@@ -290,7 +295,7 @@ export const DetailProductStore = ({ route }: any) => {
 
   return (
     <>
-       <ImageBackground source={imageBackground} resizeMode='contain' style={{ 
+       <ImageBackground source={{ uri:imageBackground}} resizeMode='contain' style={{ 
         position:'absolute',
          width:'110%', 
          height:'110%',
@@ -322,9 +327,6 @@ export const DetailProductStore = ({ route }: any) => {
           />
         </TouchableOpacity>
       </View>
-
-      
-
       {/* <View style={styles.container}>
       <MapView
         customMapStyle={[]}
@@ -346,9 +348,7 @@ export const DetailProductStore = ({ route }: any) => {
       >
      <Marker
      coordinate={origin}
-
      ></Marker>
-
       </MapView>
     </View> */}
 
@@ -360,18 +360,16 @@ export const DetailProductStore = ({ route }: any) => {
           height: 340,
           position: "absolute",
           bottom: 30,
-          
-
         }}
       >
         <Carousel
-          data={data}
+          data={dataShop}
           renderItem={_renderItem}
           ref={isCarousel}
           onSnapToItem={(index: number) => {
             setIndexPagination(index);
-            setOrigin(data[index].position) 
-            setImageBackground(data[index].imgBanner)
+            setOrigin(dataShop[index].position) 
+            setImageBackground(dataShop[index].banner)
           }}
           sliderWidth={Dimensions.get('window').width }
           itemWidth={Dimensions.get('window').width * 0.8}

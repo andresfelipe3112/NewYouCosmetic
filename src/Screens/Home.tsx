@@ -91,7 +91,7 @@ useEffect(() => {
         }}
       >
          
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             display: "flex",
             flexDirection: "row",
@@ -108,7 +108,7 @@ useEffect(() => {
             //@ts-ignore
             // onPress={() => navigation.navigate("CategoriesPush")}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {/* <TouchableOpacity 
            //@ts-ignore
            onPress={() => navigation.navigate("CategoriesPush")}

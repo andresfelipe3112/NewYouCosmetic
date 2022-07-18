@@ -15,7 +15,7 @@ const primavera = require('../Assets/video/primavera.mp4');
 const verano = require('../Assets/video/verano.mp4');
 
 
-const Seasons = () => {
+const Seasons = ({route}) => {
     const navigation = useNavigation();
     const [season, setSeason] = useState(otono);
     const [active, setActive] = useState(false);
@@ -27,7 +27,8 @@ const Seasons = () => {
 
     const veganApi = async (response: Boolean,) => {
         try {
-            navigation.navigate("ColorHearOption")
+           route?.params?.actualizar === true && navigation.goBack();
+           !route?.params?.actualizar && navigation.navigate("ColorHearOption")
             const resp = await newApi.post('users/vegan', { "vegan": response })
             console.log("genderApi", resp.data);
             // if (resp) {
@@ -143,7 +144,7 @@ const Seasons = () => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                <TouchableOpacity 
+                { !route?.params?.actualizar  && <TouchableOpacity 
                   //@ts-ignore
                   onPress={() => {
                     veganApi(response)
@@ -166,7 +167,23 @@ const Seasons = () => {
                         tvParallaxProperties={undefined}
                       
                     />
-                </TouchableOpacity>
+                </TouchableOpacity>}
+                {route?.params?.actualizar === true && <TouchableOpacity
+                    //@ts-ignore
+                    onPress={() => {
+                        veganApi(response)
+                      }}
+                    style={{
+                        width: 100,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+
+                    }}>
+                    <Text
+                        style={{ color: 'white', borderRadius:10, borderColor: "gray", borderWidth: 1, padding:10}}
+                    >Actualizar</Text>
+                </TouchableOpacity>}
             </View>
         </View>
 
