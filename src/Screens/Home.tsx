@@ -10,6 +10,7 @@ import { Icon } from "react-native-elements";
 import LinearGradient from "react-native-linear-gradient";
 import { Title } from "../Components/Title";
 import { FloatingAction } from "react-native-floating-action";
+import newApi from "../Services/LoginApiValues";
 
 const otono = require('../Assets/video/otono.mp4');
 //
@@ -24,7 +25,9 @@ const imageD = require('../Assets/Img/ropaD.jpg');
 
 export const Home = ({route}:any) => {
 
-
+const refresh = () => {
+ return navigation.navigate("Root", {reRender:"render"})
+}
 
 const actions = [
   {
@@ -247,12 +250,12 @@ useEffect(() => {
                   buttonSize={55}
                   color={"#5069B7"}
                   distanceToEdge={{ vertical: 70, horizontal: 15}}
-                  onPressItem={name => {
+                  onPressItem={ name => {
                       if (name === 'Agregar Recomendación') {
                               navigation.navigate("CategoriesPush")
                           }
                        else if (name === 'Refrescar categorías') {
-                          
+                        refresh()
                       }
                   }}
               />

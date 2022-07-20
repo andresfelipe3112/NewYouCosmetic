@@ -35,11 +35,11 @@ const StyleOption = ({route}) => {
 
     const [response, setResponse] = useState("");
 
-    const idDressApi = async (response: Boolean,) => {
+    const idDressApi = async (text:string) => {
         try {
             route?.params?.actualizar === true && navigation.goBack();
-            const resp = await newApi.post('users/style', { "style": "style1" })
-            resp && await newApi.get('products/first-category')
+            const resp = await newApi.post('users/style', { "style": response })
+            !route?.params?.actualizar && await newApi.get('products/first-category')
             !route?.params?.actualizar  && navigation.navigate("Root")
             console.log("idDressApi", resp.data);
             // if (resp) {
@@ -171,8 +171,6 @@ const StyleOption = ({route}) => {
                         width: Dimensions.get("window").width, marginBottom:40
                     }}
                 >
-
-
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckA ? 'white' : "transparent" }]}
                         //@ts-ignore

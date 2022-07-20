@@ -47,6 +47,7 @@ export const RootTabsNavigator = ({route}) => {
 
         
     const firstCategoryData = async () => {
+        setStateCurrent(true)
         try {
             const respHome = await newApi.get('home')
             console.log("respHome", respHome);
@@ -61,10 +62,28 @@ export const RootTabsNavigator = ({route}) => {
             console.log(error);
         }
     }
+    const firstCategoryDataRefresh = async () => {
+        setStateCurrent(true)
+        try {
+            const dataRefresh =  await newApi.get(`/products/refresh-all`)
+            const respHome = await newApi.get('home')
+            console.log("respHomeRefresh", respHome);
+            if (respHome) {
+                setTimeout(() => {
+                    setFirtsData(respHome.data)
+                    setStateCurrent(false)
+                    setrRenderNewCategoria(false)
+                }, 1500); 
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     let focus = useIsFocused()
 
-     useEffect(() => {
+    
+    useEffect(() => {
         route?.params?.reRender === "b15" && setrRenderNewCategoria(true) // camisa
         route?.params?.reRender === "b17" && setrRenderNewCategoria(true) // pantalon
         route?.params?.reRender === "c11" && setrRenderNewCategoria(true) // collares
@@ -73,8 +92,16 @@ export const RootTabsNavigator = ({route}) => {
         route?.params?.reRender === "b11" && setrRenderNewCategoria(true) // Blusas
         route?.params?.reRender === "b13" && setrRenderNewCategoria(true) // Poleras
         route?.params?.reRender === "c12" && setrRenderNewCategoria(true) // aros
+        route?.params?.reRender === "a11" && setrRenderNewCategoria(true) // carteras
+        route?.params?.reRender === "a14" && setrRenderNewCategoria(true) // pulseras
+        route?.params?.reRender === "a12" && setrRenderNewCategoria(true) // relog
+        route?.params?.reRender === "a13" && setrRenderNewCategoria(true) // pañuelos
         console.log(route?.params?.reRender);
-        
+    },[route?.params?.reRender])
+
+     useEffect(() => {
+        console.log(route?.params?.reRender);
+        route?.params?.reRender === "render" && firstCategoryDataRefresh()
      },[route?.params?.reRender])
 
     useEffect(() => {
@@ -146,7 +173,6 @@ export const RootTabsNavigator = ({route}) => {
             <Tab.Screen name="Armario" component={AllProductsPerfil} listeners={{ tabPress: () => setCurrentIcon("Outfit") }} />
             {/* <Tab.Screen name="Lista Deseos" component={Start} />
             <Tab.Screen name="Mi Carro" component={Start} />   */}
-
         </Tab.Navigator>
 
     );

@@ -134,7 +134,6 @@ const TipoDeCuerpo = ({ route }) => {
         if (colorCheckF) {
             return setcolorCheckF(false)
         }
-
         setcolorCheckA(false);
         setsetcolorCheckB(false);
         setcolorCheckC(false);
@@ -152,11 +151,11 @@ const TipoDeCuerpo = ({ route }) => {
            colorB();
            setData("sanguineo")  
         }
-        if (route?.params?.data === "biloso") {
+        if (route?.params?.data === "bilioso") {
            colorC();
-           setData("biloso")  
+           setData("bilioso")  
         }
-        if (route?.params?.data === "nevioso") {
+        if (route?.params?.data === "nervioso") {
            colorD();
            setData("nervioso")  
         }
@@ -178,13 +177,12 @@ const TipoDeCuerpo = ({ route }) => {
                         width: Dimensions.get("window").width, marginBottom: 10
                     }}
                 >
-
-
                     <TouchableOpacity
                         style={[styles.button, { backgroundColor: colorCheckA ? 'white' : "transparent" }]}
                         //@ts-ignore
                         onPress={() => {
                             colorA();
+                            setData("linfatico")
                         }}
                     >
                         <Image
@@ -202,7 +200,7 @@ const TipoDeCuerpo = ({ route }) => {
                         //@ts-ignore
                         onPress={() => {
                             colorB();
-                            setData("bilioso")
+                            setData("sanguineo")
                         }}
                     >
                         <Image

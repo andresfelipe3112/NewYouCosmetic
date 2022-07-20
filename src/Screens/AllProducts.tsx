@@ -9,18 +9,40 @@ import VideoPlayer from "react-native-video-controls";
 import { Icon } from "react-native-elements";
 import LinearGradient from "react-native-linear-gradient";
 import { Title } from "../Components/Title";
+import newApi from "../Services/LoginApiValues";
 
 
 export const AllProducts = ({route}:any) => {
 
 
     const data = route?.params;
-    const [dataParams, setDataParams] = useState(data)
+    const [dataParams, setDataParams] = useState(data);
+    const [category, setCategory] = useState("");
+    const navigation = useNavigation();
 
     useEffect(() => {
         setDataParams(route.params)
-        console.log("router",data);
+        console.log("router",data.title);
     },[route.params])
+
+    useEffect(() => {
+      route?.params?.title === "CAMISAS"     && setCategory("b15") // camisa
+      route?.params?.title === "PANTALONES"  && setCategory("b17") // pantalon
+      route?.params?.title === "COLLARES"    && setCategory("c11") // collares
+      route?.params?.title === "BOTAS"    && setCategory("b24") // botas
+      route?.params?.title === "ZAPATOS"   && setCategory("b21") // zapatos
+      route?.params?.title === "BLUSAS" && setCategory("b11") // Blusas
+      route?.params?.title === "POLERAS"   && setCategory("b13") // Poleras
+      route?.params?.title === "CARTERAS"  && setCategory("a11") // aros
+      route?.params?.title === "PULSERAS"  && setCategory("a14") // aros
+      route?.params?.title === "RELOGES"  && setCategory("a12") // aros
+      route?.params?.title === "PAÑUELOS"  && setCategory("a13") // aros
+    },[])
+
+    const deleteCategory = async () => {
+      navigation.navigate('Root', {reRender:category})
+      const data = await newApi.delete(`products/deleteCategory/${category}`)
+    }
     
    const otono = require('../Assets/video/otono.mp4');
    const promo = require('../Assets/video/promo.mp4');
@@ -29,7 +51,6 @@ export const AllProducts = ({route}:any) => {
    const imageC = require('../Assets/Img/ropaC.jpg');
    const imageD = require('../Assets/Img/ropaD.jpg');
 
-  const navigation = useNavigation();
 
   return (
     <>
@@ -60,7 +81,9 @@ export const AllProducts = ({route}:any) => {
             onPress={() => navigation.goBack()}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={{
+        <TouchableOpacity 
+         onPress={() => deleteCategory()}
+        style={{
           width: 190,
           // display: "flex",
           flexDirection: "row",
@@ -70,7 +93,6 @@ export const AllProducts = ({route}:any) => {
           backgroundColor: "#0B72A9",
           borderRadius: 20,
           margin: 5,
-          display:"none",
           shadowColor: "#000",
           shadowOffset: {
             width: 0,

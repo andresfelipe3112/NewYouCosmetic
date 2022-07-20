@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -25,10 +26,12 @@ export const CurrentResponse = ({navigation}) => {
       setDataResponse(resp.data)
     }
 
+    let focus = useIsFocused();
     useEffect(() => {
       responses()
       console.log(dataResponse);
-    },[])
+      focus=false
+    },[focus])
 
     const Button =({item, data})=>{
       return(

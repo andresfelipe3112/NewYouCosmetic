@@ -7,6 +7,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import newApi from "../Services/LoginApiValues";
 
 const Gender = ({route}) => {
+
+    console.log("route",route);
+
     const navigation = useNavigation();
     const dawnLogo = require('../Assets/Img/down.png');
     const speed = 500;
@@ -25,9 +28,9 @@ const Gender = ({route}) => {
 
     const genderApi = async (valueInput: string,) => {
         try {
-            !route?.params?.actualizar && navigation.navigate("VeganOption")
-            route?.params?.actualizar === true && navigation.goBack()
-            const resp = await newApi.post('users/gender', { "gender": valueInput === "Mujer"? "F" : "M" })
+            !route?.params?.actualizar && navigation.navigate("VeganOption");
+            route?.params?.actualizar === true && navigation.goBack();
+            const resp = await newApi.post('users/gender', { "gender": valueInput === "Mujer"? "F" : "M" });
             console.log("genderApi", resp.data);
             // if (resp) {
             // }
@@ -170,7 +173,6 @@ const Gender = ({route}) => {
        if (route?.params?.data === "F" ) {
         setvalueInput("Hombre")
        }
-
     },[route?.params])
 
     return (
