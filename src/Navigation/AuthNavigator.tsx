@@ -32,6 +32,8 @@ import { useNavigation } from '@react-navigation/native';
 import newApi from '../Services/LoginApiValues';
 import { CurrentResponse } from '../Screens/CurrentResponse';
 import { Perfil } from '../Screens/Perfil';
+import VeinColor from '../Screens/ VeinColor';
+import Pecas from '../Screens/Pecas';
 
 const Stack = createStackNavigator();
 
@@ -54,12 +56,14 @@ export const AuthNavigator = () => {
 
   return (
     <Stack.Navigator
-    initialRouteName={"Wellcome"}
+    initialRouteName={"Pecas"}
     screenOptions={{
       headerShown: false,
       cardStyle: { backgroundColor: undefined }
     }}>
       <Stack.Screen name="Wellcome" component={WellCome} />
+      <Stack.Screen name="Pecas" component={Pecas} />
+      <Stack.Screen name="VeinColor" component={VeinColor} />
       <Stack.Screen name="LoginScreen" component={LoginScreen}
       options={{
         transitionSpec: {
