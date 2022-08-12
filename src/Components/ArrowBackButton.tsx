@@ -14,7 +14,7 @@ export const ArrowBackButton = (props: any) => {
         }}>
             <View style={{
                 width: 35, height: 35, flexDirection: 'row',
-                backgroundColor: '#9933FF', justifyContent: 'center',
+                 justifyContent: 'center',
                 alignItems: 'center', marginBottom: 20, borderRadius: 30, marginTop: 3
             }}>
                 <Icon name='arrow-left' type='feather'

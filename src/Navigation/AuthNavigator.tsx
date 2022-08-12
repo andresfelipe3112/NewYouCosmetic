@@ -1,14 +1,11 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { createStackNavigator, TransitionSpecs, HeaderStyleInterpolators, CardStyleInterpolators } from "@react-navigation/stack";
+import { createStackNavigator, CardStyleInterpolators } from "@react-navigation/stack";
 import LoginScreen from '../Screens/Auth/LoginScreen';
 import { RecoveryPasswordScreen } from '../Screens/Auth/RecoveryPasswordScreen';
-import { ChangePasswordScreen } from '../Screens/Auth/ChangePasswordScreen';
 import { IntroScreen } from '../Screens/IntroScreen';
-import { GenderOption } from '../Screens/GenderOption';
-import FormIntroOne from '../Screens/FormIntroOne';
 import { LoadingHome } from '../Components/LoadingHome';
 import WellCome from '../Components/WellCome';
-import { Animated, Easing } from 'react-native';
+import { Easing } from 'react-native';
 import Register from '../Screens/Auth/Register';
 import Seasons from '../Screens/Seasons';
 import Start from '../Screens/Start';
@@ -27,9 +24,6 @@ import { DetailProduct } from '../Screens/DetailProduct';
 import { DetailProductStore } from '../Screens/DetailProductStore';
 import ColorOjos from '../Screens/ColorOjos';
 import TipoDeRostro from '../Screens/TipoDeRostro';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
-import newApi from '../Services/LoginApiValues';
 import { CurrentResponse } from '../Screens/CurrentResponse';
 import { Perfil } from '../Screens/Perfil';
 import VeinColor from '../Screens/ VeinColor';
@@ -56,14 +50,16 @@ export const AuthNavigator = () => {
 
   return (
     <Stack.Navigator
-    initialRouteName={"Pecas"}
+    initialRouteName={"Wellcome"}
     screenOptions={{
       headerShown: false,
       cardStyle: { backgroundColor: undefined }
     }}>
       <Stack.Screen name="Wellcome" component={WellCome} />
+
       <Stack.Screen name="Pecas" component={Pecas} />
       <Stack.Screen name="VeinColor" component={VeinColor} />
+
       <Stack.Screen name="LoginScreen" component={LoginScreen}
       options={{
         transitionSpec: {

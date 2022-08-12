@@ -85,13 +85,11 @@ export const RecoveryPasswordScreen = () => {
                         >Ya tengo un código</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={styles.button}
-                        onPress={handleSubmit(onSubmit)}
-                    >
-                        <Text style={styles.text}>
-                            Recuperar contraseña
-                        </Text>
-                    </TouchableOpacity>
+          style={styles.buttonGoogle}
+          onPress={handleSubmit(onSubmit)}>
+         
+          <Text style={{alignSelf: "center",textAlign: "center", width:Dimensions.get('window').width * 0.65}} >Recuperar contraseña</Text>
+        </TouchableOpacity>
                 </View>
             </ScrollView>
             <ScrollView>
@@ -143,8 +141,7 @@ export const RecoveryPasswordScreen = () => {
 const styles = StyleSheet.create({
     text: {
         fontSize: 15,
-        color: 'white',
-        fontWeight: 'bold',
+        color: 'gray',
     },
     containerTextCodigo: {
         marginTop: 10,
@@ -163,10 +160,12 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: 'center',
         padding: 8,
-        backgroundColor: '#0e101c',
+        // backgroundColor: '#0e101c',
         marginHorizontal: 40,
+        // borderWidth:1,
+        borderColor: 'white',
         paddingHorizontal: 20,
-        marginVertical: "50%",
+        marginVertical: "60%",
         borderRadius: 40,
         paddingVertical: 40
     },
@@ -175,7 +174,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         height: 50,
         // padding: 10,
-        borderRadius: 13,
+        borderRadius: 20,
         // marginVertical: 8,
         fontSize: 16
     },
@@ -188,23 +187,44 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         fontSize: 16
     },
+    buttonGoogle: {
+        width: Dimensions.get('window').width * 0.7,
+        alignSelf: 'center',
+        marginTop: 10,
+        color: 'white',
+        height: 45,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        paddingLeft: 15,
+        borderColor:'gray',
+        borderWidth:1
+      },
     button: {
         marginTop: 10,
         color: 'white',
         height: 45,
-        backgroundColor: '#9933FF',
+        // backgroundColor: '#9933FF',
         borderRadius: 13,
+        borderWidth: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        borderColor: 'gray',
     },
     buttonCancel: {
+        width: Dimensions.get('window').width * 0.3,
+        alignSelf: 'center',
         marginTop: 10,
         color: 'white',
         height: 45,
-        backgroundColor: 'gray',
-        borderRadius: 13,
+        backgroundColor: 'white',
+        borderRadius: 20,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        paddingLeft: 15,
     },
     // Modal
     overlayModalCode: {

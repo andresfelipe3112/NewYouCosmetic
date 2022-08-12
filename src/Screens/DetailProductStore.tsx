@@ -186,7 +186,7 @@ export const DetailProductStore = ({ route }: any) => {
           width: Dimensions.get('window').width * 0.8,
           height: 280,
           paddingTop:40,
-          borderWidth:1,
+          borderWidth:0,
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
