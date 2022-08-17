@@ -22,18 +22,19 @@ export const Info = () => {
         <View
             style={{ width: "100%", height: "100%", display:"flex", justifyContent: "center", alignItems: 'center',marginTop:-50}}
         >
-            <LinearGradient opacity={1} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+            <LinearGradient opacity={1} colors={['white', 'white', 'white']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             
             <Text style={{
                 position: "absolute",
-                top:60,
-                color: "white",
-                fontSize: 20
-            }}>Mi perfil</Text>
+                top:70,
+                color: "black",
+                fontSize: 18,
+                fontWeight: "bold"
+            }}>Mi Perfil</Text>
 
             <TouchableOpacity
               onPress={()=>{ navigation.navigate('Perfil') }}
-              style={{ display:"flex", flexDirection:"row", justifyContent:"space-between", width:"85%",
+              style={{ display:"flex", flexDirection:"row", justifyContent:"space-between", width:"85%",backgroundColor: '#202020',paddingVertical:13,
               borderRadius:20, borderWidth: 1, padding:10, borderColor: "white", marginBottom:20, marginTop:-300}}
             >
                 <Icon
@@ -41,6 +42,7 @@ export const Info = () => {
                     type='ionicon'
                     color='white'
                     size={19}
+                    style={{paddingLeft:10,}}
                             />
                 <Text
                 style={{ color: "white" }}
@@ -48,20 +50,21 @@ export const Info = () => {
                 <Icon
                     name='chevron-forward-outline'
                     type='ionicon'
-                    color='white'
+                    color='#F9AD47'
                     size={19}
                             />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={()=> navigation.navigate("CurrentResponse")}
-              style={{ display:"flex", flexDirection:"row", justifyContent:"space-between", width:"85%",
-                       borderRadius:20, borderWidth: 1, padding:10, borderColor: "white",}}
+              style={{ display:"flex", flexDirection:"row", justifyContent:"space-between", width:"85%", paddingVertical:13, 
+                       borderRadius:20, borderWidth: 1, padding:10, borderColor: "white", backgroundColor: "#202020"}}
             >
                 <Icon
                     name='checkmark-outline'
                     type='ionicon'
                     color='white'
                     size={19}
+                    style={{paddingLeft:10,}}
                             />
                 <Text
                 style={{ color: "white"}}
@@ -69,7 +72,7 @@ export const Info = () => {
                 <Icon
                     name='chevron-forward-outline'
                     type='ionicon'
-                    color='white'
+                    color='#F9AD47'
                     size={19}
                             />
             </TouchableOpacity>

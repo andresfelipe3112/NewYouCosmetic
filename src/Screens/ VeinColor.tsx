@@ -34,6 +34,7 @@ const  VeinColor = ({route}) => {
     const [colorCheckE, setcolorCheckE] = useState(false);
     const [colorCheckF, setcolorCheckF] = useState(false);
     const [response, setResponse] = useState("");
+    const [loadingLogin, setloadingLogin] = useState<Boolean>(false);
     
     useEffect(() => {
         console.log(route?.params);
@@ -42,11 +43,13 @@ const  VeinColor = ({route}) => {
 
     const colorHearOptionApi = async () => {
         try {
+            setloadingLogin(true)
             route?.params?.actualizar === true && navigation.goBack();
-            const resp = await newApi.post('users/skinColor', { "skinColor": response })
-            console.log("colorHearOptionApi", resp.data);
+            const resp = await newApi.post('/users/veins', { "veins": response })
+            console.log('/users/veins', resp.data);
+            setloadingLogin(false)
             if (resp) {
-                !route?.params?.actualizar && navigation.navigate("StyleOption")
+                !route?.params?.actualizar && navigation.navigate("Pecas");
             }
         } catch (error) {
             console.log(error);
@@ -128,17 +131,17 @@ const  VeinColor = ({route}) => {
     }
 
      useEffect(() => {
-         if (route?.params?.data === "tipo1") {
+         if (route?.params?.data === "verdeMorado") {
             colorA();
-            setResponse("tipo1")
+            setResponse("verdeMorado")
          }
-         if (route?.params?.data === "tipo2") {
+         if (route?.params?.data === "verde") {
             colorB();
-            setResponse("tipo2")  
+            setResponse("verde")  
          }
-         if (route?.params?.data === "tipo3") {
+         if (route?.params?.data === "verdeAzul") {
             colorC();
-            setResponse("tipo3")  
+            setResponse("verdeAzul")  
          }
          if (route?.params?.data === "tipo4") {
             colorD();
@@ -173,7 +176,7 @@ const  VeinColor = ({route}) => {
                         //@ts-ignore
                         onPress={()=>{
                             colorA();
-                            setResponse("tipo1")
+                            setResponse("verdeMorado")
                         }}
                     >
                         <Image
@@ -192,7 +195,7 @@ const  VeinColor = ({route}) => {
                         //@ts-ignore
                         onPress={()=> {
                             colorB();
-                            setResponse("tipo2")                        
+                            setResponse("verde")                        
                         }}
                     >
                         <Image
@@ -202,7 +205,7 @@ const  VeinColor = ({route}) => {
                         />
                         <Text
                             style={[styles.text, { color: colorCheckB ? "black" : 'white' }]}
-                        >Tipo ll</Text>
+                        >Verdes</Text>
                     </TouchableOpacity>
                     {/* <DawnLogo  render={statusInfo} text="Este tipo de piel es de razas caucásicas, pieles blancas, cabello rubio, ojos azules, verdes o avellana. Suelen quemarse también con facilidad, sin embargo, pueden llegar a broncearse lentamente, llegando a adoptar un tono levemente moreno, casi imperceptible en la mayoría de los casos, requieren protección solar mayor de 50 fps." /> */}
                     <TouchableOpacity
@@ -210,7 +213,7 @@ const  VeinColor = ({route}) => {
                         //@ts-ignore
                         onPress={()=> {
                             colorC();
-                            setResponse("tipo3")  
+                            setResponse("verdeAzul")  
                         }}
                     >
                         <Image
@@ -220,63 +223,8 @@ const  VeinColor = ({route}) => {
                         />
                         <Text
                             style={[styles.text, { color: colorCheckC ? "black" : 'white' }]}
-                        >Tipo lll</Text>
-                    </TouchableOpacity>
-                    {/* <DawnLogo text="Este tipo de piel es de razas de Europa central, con tonos aceitunados en algunos mediterráneos y tono amarillo en asiáticos, cabello rubio o castaño claro, color de ojos verdes o marrones, durante la temporada de invierno tienen un tono claro y durante la exposición solar en verano pueden broncearse, requieren protección solar media 35-50 spf."/> */}
-                    <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckD ? 'white' : "transparent" }]}
-                        //@ts-ignore
-                        onPress={()=> {
-                            colorD();
-                            setResponse("tipo4")  
-                        }}
-                    >
-                        <Image
-                            source={imagenD}
-                            containerStyle={styles.containerStyle}
-                            PlaceholderContent={<ActivityIndicator />}
-                        />
-                        <Text
-                            style={[styles.text, { color: colorCheckD ? "black" : 'white' }]}
-                        >Tipo lV</Text>
-                    </TouchableOpacity>
-                    <DawnLogo text="Este tipo de piel es de razas mediterráneas, americanas. Piel morena clara, cabello castaño, ojos marrones. No presenta pecas. Común en mediterráneos con matiz café claro, asiáticos con matices amarillo claro o café claro, latinos con matiz olivo y personas provenientes del Medio Oriente con matices olivo o café claro. No suelen tener problemas para broncearse y su piel adopta una tonalidad dorada con facilidad, requieren protección solar media 15-35 fps"/>
-                    <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckE ? 'white' : "transparent" }]}
-                        //@ts-ignore
-                        onPress={()=> {
-                            colorE();
-                            setResponse("tipo5")  
-                        }}
-                    >
-                        <Image
-                            source={imagenE}
-                            containerStyle={styles.containerStyle}
-                            PlaceholderContent={<ActivityIndicator />}
-                        />
-                        <Text
-                            style={[styles.text, { color: colorCheckE ? "black" : 'white' }]}
-                        >Tipo V</Text>
-                    </TouchableOpacity>
-                    <DawnLogo text="Este tipo de piel es de razas del Medio Oriente, Asiáticos y Latinos. Piel morena oscura, ojos y cabello color marrón oscuro o negro. Común en personas provenientes del Medio Oriente con matiz café oscuro, asiáticos con matiz café y latinos con matiz caramelo oscuro. Se broncean con muchísima facilidad y no es necesario que se expongan mucho al sol para estar morenos. Es muy raro que se quemen, requieren una protección solar mínima de 15 fps."/>
-                    <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckF ? 'white' : "transparent" }]}
-                        //@ts-ignore
-                        onPress={()=> {
-                            colorF();
-                            setResponse("tipo6")  
-                        }}
-                    >
-                        <Image
-                            source={imagenF}
-                            containerStyle={styles.containerStyle}
-                            PlaceholderContent={<ActivityIndicator />}
-                        />
-                        <Text
-                            style={[styles.text, { color: colorCheckF ? "black" : 'white' }]}
-                        >Tipo Vl</Text>
-                    </TouchableOpacity>
-                    <DawnLogo text="Este tipo de piel es de razas Africanas y Afroamericanos. Piel negra, ojos y cabello color marrón muy oscuro o negro. Es casi imposible que se quemen, se broncean fácilmente, pues tienen una piel muy pigmentada. Es importante ser conscientes de que el sol es necesario para metabolizar la Vitamina D, por lo que debemos tomar el sol a diario si es posible, el problema está en la excesiva exposición solar, que por lo general sucede en época de verano."/>
+                        >Verdes - Azul</Text>
+                    </TouchableOpacity>                  
                 </View>
             </ScrollView>
             <View
@@ -299,17 +247,18 @@ const  VeinColor = ({route}) => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                { !route?.params?.actualizar && <TouchableOpacity 
+                {loadingLogin && <ActivityIndicator style={{marginLeft:165}} color={'white'} />}
+                { response !== '' && !route?.params?.actualizar && <TouchableOpacity 
                  onPress={()=>colorHearOptionApi()}
-                style={{
-                    width: 100,
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                }}>
+                 style={{
+                     width: 100,
+                     display: "flex",
+                     flexDirection: "row",
+                     alignItems: "center",
+                    }}>
                     <Text
                         style={{ color: 'white', }}
-                    >Siguiente</Text>
+                        >Siguiente</Text>
                     <Icon
                         name='arrow-right'
                         type='evilicon'
@@ -321,7 +270,7 @@ const  VeinColor = ({route}) => {
                     />
                 </TouchableOpacity>}
 
-                { route?.params?.actualizar === true && <TouchableOpacity 
+                { response !== '' &&  route?.params?.actualizar === true && <TouchableOpacity 
                  onPress={()=>colorHearOptionApi()}
                 style={{
                     width: 100,
@@ -333,6 +282,7 @@ const  VeinColor = ({route}) => {
                         style={{ color: 'white', padding:10, borderWidth: 1, borderColor: "gray", borderRadius:10 }}
                     >Actualizar</Text>
                 </TouchableOpacity>}
+               
             </View>
         </View>
 

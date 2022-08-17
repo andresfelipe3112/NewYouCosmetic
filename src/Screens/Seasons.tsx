@@ -31,7 +31,7 @@ const Seasons = ({route}) => {
     const seasonsApi = async (season: string,) => {
         try {
             setloadingLogin(false)
-            !route?.params?.actualizar && navigation.navigate("Gender");
+            !route?.params?.actualizar && navigation.navigate("VeganOption");
             route?.params?.actualizar === true && navigation.goBack();
             const resp = await newApi.post('users/season', { "season": dataLogin })
             console.log("respSeaso", resp.data);
@@ -224,19 +224,23 @@ const Seasons = ({route}) => {
             </ScrollView>
             <View
                 style={{
-                    position: "absolute", top: Dimensions.get("window").height * 0.91, display: "flex", flexDirection: "row",
+                    position: "absolute", top: Dimensions.get("window").height * 0.90, display: "flex", flexDirection: "row",
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
                 }}
             >
-                { !route?.params?.actualizar && <Icon
+                { !route?.params?.actualizar &&
+                <TouchableOpacity
+                onPress={() => navigation.goBack()}
+                >
+                <Icon
                     name='arrow-left'
                     type='evilicon'
                     color='#7C8499'
                     size={50}
                     tvParallaxProperties={undefined}
-                    onPress={() => navigation.goBack()}
-                />}
-                { !route?.params?.actualizar && <TouchableOpacity
+                    />
+                    </TouchableOpacity>}
+                { dataLogin !== '' && !route?.params?.actualizar && <TouchableOpacity
                     //@ts-ignore
                     onPress={() =>
                         seasonsApi(dataLogin)
@@ -266,7 +270,7 @@ const Seasons = ({route}) => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />}
-                { route?.params?.actualizar === true && <TouchableOpacity
+                {route?.params?.actualizar === true && <TouchableOpacity
                     //@ts-ignore
                     onPress={() =>
                         seasonsApi(dataLogin)
@@ -321,8 +325,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     containerStyle: {
-        width: 140,
-        height: 120,
+        width: 130,
+        height: 110,
         margin: 15,
         borderRadius: 15,
         shadowColor: "#000",

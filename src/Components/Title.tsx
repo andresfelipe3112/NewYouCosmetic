@@ -15,8 +15,9 @@ export const Title = ({text}:{text:string}) => {
 }
 const styles = StyleSheet.create({
     textTitle:{
-      fontSize:20,
-      color: '#DDDBEC',
-      fontFamily: "Dosis"
+      fontSize:14.5,
+      color: 'gray',
+      fontFamily: "Dosis",
+      fontWeight: "bold",
     }
   })

@@ -23,14 +23,14 @@ const Pecas = ({route}) => {
     const [colorCheckInvierno, setcolorCheckInvierno] = useState(false);
     const [colorCheckOtono, setcolorCheckOtono] = useState(false);
     const [colorCheckPrimavera, setcolorCheckPrimavera] = useState(false);
-    const [response, setResponse] = useState(false);
+    const [response, setResponse] = useState('');
 
     const veganApi = async (response: Boolean,) => {
         try {
            route?.params?.actualizar === true && navigation.goBack();
-           !route?.params?.actualizar && navigation.navigate("ColorHearOption")
-            const resp = await newApi.post('users/vegan', { "vegan": response })
-            console.log("genderApi", resp.data);
+           !route?.params?.actualizar && navigation.navigate("Bronceado")
+            const resp = await newApi.post('/users/freckles', { "freckles": response })
+            console.log('/users/freckles', resp.data);
             // if (resp) {
             // }
         } catch (error) {
@@ -132,7 +132,7 @@ const Pecas = ({route}) => {
             </ScrollView>
             <View
                 style={{
-                    position: "absolute", top: Dimensions.get("window").height * 0.91, display: "flex", flexDirection: "row",
+                    position: "absolute", top: Dimensions.get("window").height * 0.89, display: "flex", flexDirection: "row",
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
                 }}
             >
@@ -144,7 +144,7 @@ const Pecas = ({route}) => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                { !route?.params?.actualizar  && <TouchableOpacity 
+                { response !== '' && !route?.params?.actualizar  && <TouchableOpacity 
                   //@ts-ignore
                   onPress={() => {
                     veganApi(response)
@@ -168,7 +168,7 @@ const Pecas = ({route}) => {
                       
                     />
                 </TouchableOpacity>}
-                {route?.params?.actualizar === true && <TouchableOpacity
+                {response !== '' && route?.params?.actualizar === true && <TouchableOpacity
                     //@ts-ignore
                     onPress={() => {
                         veganApi(response)

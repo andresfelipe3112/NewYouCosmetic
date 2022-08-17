@@ -1,11 +1,13 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import newApi from '../Services/LoginApiValues';
 
 export const CurrentResponse = ({navigation}) => {
+
+  const [loadingLogin, setloadingLogin] = useState<Boolean>(false);
 
     const data = [
         { pregunta:"Estación del año", navigation:"Seasons"  },
@@ -21,9 +23,11 @@ export const CurrentResponse = ({navigation}) => {
 
     const [dataResponse, setDataResponse] = useState<any>([])
     const responses  = async () => {
+      setloadingLogin(true)
       const resp = await newApi.get(`users/data-user`)
       console.log("responses",resp.data);
       setDataResponse(resp.data)
+      setloadingLogin(false)
     }
 
     let focus = useIsFocused();
@@ -69,26 +73,43 @@ export const CurrentResponse = ({navigation}) => {
               flexWrap: "wrap",
               display: "flex",
               flexDirection: "row",
-              marginBottom: 10
             }}
           >
-            <TouchableOpacity
-            onPress={()=>navigation.goBack()}
-              style={{
-                padding: 10,
-                width: 60
-              }}
-            >
-              <Icon
-                name='arrow-left'
-                type='evilicon'
-                color='#DED4E5'
-                size={38}
-                tvParallaxProperties={undefined}
-                //@ts-ignore
-                />
-            </TouchableOpacity>
+                 <View
+        style={{
+          position: "absolute",
+          height: 50,
+          left: Dimensions.get('window').width * 0.4,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text
+        style={{ fontSize:16, color: 'white'}}
+        >Respuestas</Text>
+      </View>
+                   <View
+               style={{
+                 display: 'flex',
+                 flexDirection: 'row',
+                 justifyContent: 'space-between',
+                 width: Dimensions.get('window').width,
+                 alignSelf: 'center',
+                 height: 45,
+                 marginTop: 20,
+                 paddingLeft:10,
+               }}>    
+            <View style={{
+                width: 28, height: 28, flexDirection: 'row',
+                backgroundColor: 'white', justifyContent: 'center',
+                alignItems: 'center', marginBottom: 20, borderRadius: 30, marginTop: 3
+            }}>
+                <Icon size={18} name='arrow-left' type='feather' tvParallaxProperties={undefined}
+                    color='#444444' onPress={() => navigation.goBack()}>
+                </Icon>
+            </View>
           </View>
+          </View>
+          {loadingLogin && <ActivityIndicator style={{ alignItems: 'center'}} color={'white'} />}
           <ScrollView>
             <View>
             {dataResponse?.dataUser?.season && <Button item={data[0]} data={dataResponse?.dataUser?.season} ></Button> }

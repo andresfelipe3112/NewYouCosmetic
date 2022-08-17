@@ -41,14 +41,14 @@ export const IntroScreen = () => {
     return (
     <View style={{ backgroundColor:`${array[first].color}`, width: "100%", height: "100%"}}>
         <Text
-        style={{color:"white", alignSelf:"center", fontSize: Dimensions.get("window").width * 0.07,
+        style={{color:"white", alignSelf:"center", fontSize: 20,
                 fontWeight: 'bold', marginTop:"10%"}}
         >
             {array[first].title}
         </Text>
         <Text
         style={{color:"white", alignSelf:"center", textAlign:"center", justifyContent: 'center', marginHorizontal:20,
-               fontSize: Dimensions.get("window").width * 0.04, marginTop:"3%", fontFamily:'lucida grande'}}
+                marginTop:"3%", fontFamily:'lucida grande', fontSize:13}}
         >
             {array[first].subTitle}
         </Text>
@@ -60,6 +60,7 @@ export const IntroScreen = () => {
             <View
             style={{
                 flexDirection:"row",
+                marginBottom:15
             }}
             >
                 {[1,2,3,4].map((data,index)=>{
@@ -80,7 +81,7 @@ export const IntroScreen = () => {
               
             </View>
         <Image
-        style={{width: Dimensions.get("window").width *0.68, height:Dimensions.get("window").height* 0.65,}}
+        style={{width: Dimensions.get("window").width *0.65, height:Dimensions.get("window").height* 0.65,}}
         source={array[first].img}
         ></Image>
         </View>

@@ -46,7 +46,7 @@ const ColorHearOption = ({route}) => {
             const resp = await newApi.post('users/skinColor', { "skinColor": response })
             console.log("colorHearOptionApi", resp.data);
             if (resp) {
-                !route?.params?.actualizar && navigation.navigate("StyleOption")
+                !route?.params?.actualizar && navigation.navigate("VeinColor")
             }
         } catch (error) {
             console.log(error);
@@ -300,7 +300,7 @@ const ColorHearOption = ({route}) => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-                { !route?.params?.actualizar && <TouchableOpacity 
+                { response !== '' && !route?.params?.actualizar && <TouchableOpacity 
                  onPress={()=>colorHearOptionApi()}
                 style={{
                     width: 100,

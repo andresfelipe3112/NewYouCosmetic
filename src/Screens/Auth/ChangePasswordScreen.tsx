@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import React, { useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +7,8 @@ import { useForm, Controller } from 'react-hook-form';
 import { ArrowBackButton } from '../../Components/ArrowBackButton';
 import { Input, Icon } from 'react-native-elements';
 import { CustomToast } from '../../utils/customToast';
+import LinearGradient from 'react-native-linear-gradient';
+import newApi from '../../Services/LoginApiValues';
 
 export const ChangePasswordScreen = () => {
 
@@ -15,6 +17,7 @@ export const ChangePasswordScreen = () => {
     // Mostrar u ocultar password
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+    const [loadingLogin, setloadingLogin] = useState<Boolean>(false);
 
     const [colorBordefocusPassword, setcolorBordefocusPassword] = useState<string>('white');
     const [colorBordefocusPasswordConfirm, setcolorBordefocusPasswordConfirm] = useState<string>('white');
@@ -28,11 +31,30 @@ export const ChangePasswordScreen = () => {
 
     const { showToast } = CustomToast();
 
-    const onSubmit = (data: any) => {
+    const RecoverPassword = async ( newPassword: number | string , repetirPassword: number | string ) => {
+        try {
+          setloadingLogin(true);
+          const resp = await newApi.post('/auth/recover-password', {
+            newPassword: newPassword,
+            repetirPassword:repetirPassword
+          });
+          if (resp) {
+            // await AsyncStorage.setItem('tokenNew', resp.data.accessToken);
+            setloadingLogin(false);
+          }
+        } catch (error) {
+          setloadingLogin(false);
+          console.log('error api', error?.response?.data);
+        //   setErrorMessage(error?.response?.data?.realErrorMsg || error?.response?.data?.dataError?.message);
+        }
+      };
+
+    const onSubmit = async (data: any) => {
         if (data.password !== data.passwordConfirm) {
             console.log(data);
             showToast('Las contraseñas deben coincidir');
         } else {
+            await RecoverPassword(data.password, data.passwordConfirm)
             showToast('Cambio de contraseña exitoso');
             //@ts-ignore
             navigation.navigate('LoginScreen');
@@ -47,6 +69,7 @@ export const ChangePasswordScreen = () => {
 
     return (
         <>
+        <LinearGradient  colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             <ArrowBackButton route={navigation}></ArrowBackButton>
             <ScrollView>
                 <View style={styles.container}>
@@ -147,7 +170,7 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: 'center',
         padding: 8,
-        backgroundColor: '#0e101c',
+        // backgroundColor: '#0e101c',
         marginHorizontal: 40,
         paddingHorizontal: 20,
         marginVertical: "50%",
@@ -175,7 +198,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         color: 'white',
         height: 45,
-        backgroundColor: '#9933FF',
+        backgroundColor: 'black',
         borderRadius: 13,
         alignItems: 'center',
         justifyContent: 'center',

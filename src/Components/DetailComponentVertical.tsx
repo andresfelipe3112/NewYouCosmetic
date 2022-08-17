@@ -32,7 +32,7 @@ export const DetailComponentVertical = ({productoObj, index}: any) => {
         justifyContent: 'flex-start',
         alignItems: 'center',
         margin: 20,
-        shadowColor: '#000',
+        shadowColor: '#CECECE',
         shadowOffset: {
           width: 0,
           height: 1,

@@ -34,7 +34,7 @@ const StyleOption = ({route}) => {
     const [colorCheckE, setcolorCheckE] = useState(false);
 
     const [response, setResponse] = useState("");
-
+ 
     const idDressApi = async (text:string) => {
         try {
             route?.params?.actualizar === true && navigation.goBack();
@@ -283,7 +283,7 @@ const StyleOption = ({route}) => {
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-               { !route?.params?.actualizar  && <TouchableOpacity 
+               { response !== '' && !route?.params?.actualizar  && <TouchableOpacity 
                      //@ts-ignore
                      onPress={() => idDressApi()}
                 style={{
@@ -304,7 +304,7 @@ const StyleOption = ({route}) => {
                    
                     />
                 </TouchableOpacity>}
-               { route?.params?.actualizar === true && <TouchableOpacity 
+               { response !== '' && route?.params?.actualizar === true && <TouchableOpacity 
                      //@ts-ignore
                      onPress={() => idDressApi()}
                 style={{

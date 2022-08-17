@@ -19,6 +19,7 @@ export const DetailComponent = ({productoObj, title, status = ''}: any) => {
           <View
             style={{
               width: '100%',
+              marginTop: 18,
               marginVertical: 0,
               display: 'flex',
               marginBottom: 10,
@@ -29,11 +30,16 @@ export const DetailComponent = ({productoObj, title, status = ''}: any) => {
             }}>
             <Text
               // style={{fontSize:20, color: "white",fontFamily: "JosefinSans-Italic-VariableFont_wght",}}
-              style={{fontSize: 20, color: 'white', fontFamily: 'Dosis'}}>
+              style={{
+                fontSize: 16,
+                color: '#2F2F2F',
+                fontFamily: 'Dosis',
+                fontWeight: 'bold',
+              }}>
               {title}{' '}
               {
                 <Text
-                  style={{fontSize: 15, color: 'yellow', fontWeight: 'bold'}}>
+                  style={{fontSize: 14, color: 'yellow', fontWeight: 'bold'}}>
                   {status}
                 </Text>
               }
@@ -52,22 +58,27 @@ export const DetailComponent = ({productoObj, title, status = ''}: any) => {
                   title: title,
                 })
               }>
-              <Text style={{color: '#C8D3E5'}}>{`Ver todos`}</Text>
+              <Text style={{color: '#F9AD47'}}>{`Ver todos`}</Text>
               <Icon
                 name="chevron-forward-outline"
                 type="ionicon"
-                color="white"
+                color="#F9AD47"
                 size={19}
               />
             </TouchableOpacity>
           </View>
           <ScrollView
             style={{width: Dimensions.get('window').width}}
+            showsHorizontalScrollIndicator={false}
             horizontal={true}>
             {productoObj.map((producto: any, index: any) => {
               return (
                 <TouchableOpacity
-                  onPress={() =>navigation.navigate('DetailProduct', {dataProduct: producto})}
+                  onPress={() =>
+                    navigation.navigate('DetailProduct', {
+                      dataProduct: producto,
+                    })
+                  }
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -75,11 +86,11 @@ export const DetailComponent = ({productoObj, title, status = ''}: any) => {
                     height: 135,
                     borderRadius: 16,
                     marginRight: 22,
-                    marginVertical:6,
-                    shadowColor: "#000",
+                    marginVertical: 6,
+                    shadowColor: '#CECECE',
                     shadowOffset: {
-                        width: 0,
-                        height: 0.5,
+                      width: 0,
+                      height: 1,
                     },
                     shadowOpacity: 0.22,
                     shadowRadius: 2.22,

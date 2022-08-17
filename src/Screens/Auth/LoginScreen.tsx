@@ -14,13 +14,14 @@ import {
   Image,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
-import {Icon} from 'react-native-elements';
+import {Icon, Input, Overlay} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import WellCome from '../../Components/WellCome';
 import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
-import newApi, {valueHttps} from '../../Services/LoginApiValues';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import newApi from '../../Services/LoginApiValues';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -34,6 +35,68 @@ export default function LoginScreen() {
   const [dataLogin, setdataLogin] = useState<any>('');
   const [showPassword, setShowPassword] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+  const [modal, setModal] = useState(false);
+  const [colorBordefocusCorreo, setcolorBordefocusCorreo] = useState<string>('white');
+  const [colorBordefocusCodigo, setcolorBordefocusCodigo] = useState<string>('gray');
+  const [codigo, setCodigo] = useState<string>('');
+
+  useEffect(() => {
+    GoogleSignin.configure({
+        //  androidClientId: "809801253751-q5bod5pd5l8oa5t45jibje1nrnmd8fq4.apps.googleusercontent.com",//debug
+       androidClientId: "434136853035-etvgruinh9jlr444v560j51st7n1ho5a.apps.googleusercontent.com"
+    })
+}, [])
+
+const signGoogle = async () => {
+  try {
+    setloadingLogin(true);
+    await GoogleSignin.hasPlayServices();
+    const {user}: any = await GoogleSignin.signIn();
+    console.log('userInfo', user);
+    const resp:any = await newApi.post('auth/googleAuth-user', {
+      name: user.name,
+      id: user.id,
+      email: user.email
+    });
+    console.log('auth/googleAuth-user',resp);
+    if (resp) {
+      await AsyncStorage.setItem('tokenNew', resp.data.accessToken);
+      const respAnswers = await newApi.get('users/check-first-answers');
+      if (respAnswers?.data?.isComplete === true ) {
+        setloadingLogin(false);
+        console.log('respAnswers',respAnswers,'pasa');
+        navigation.navigate('Root');
+      }else {
+        setloadingLogin(false);
+          navigation.navigate('IntroScreen');
+      }
+    }
+    // setTimeout(() => {
+    //     Alert.alert("token recibido datos correctos desde firebase",userInfo.idToken )
+    // }, 1000);
+    // signInGoogle(userInfo);
+  } catch (error: any) {
+    console.log('errores', error);
+
+    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      console.log('Login cancelado');
+      setloadingLogin(false);
+      // user cancelled the login flow
+    } else if (error.code === statusCodes.IN_PROGRESS) {
+      // operation (e.g. sign in) is in progress already
+      setloadingLogin(false);
+    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      // play services not available or outdated
+      setloadingLogin(false);
+      console.log('No cuentas con los servicios de Google');
+    } else {
+      // some other error happened
+      setloadingLogin(false);
+      console.log('errores else', error);
+      // Alert.alert('error')
+    }
+  }
+};
 
   const login = async (email: string, password: string) => {
     try {
@@ -45,8 +108,15 @@ export default function LoginScreen() {
       await AsyncStorage.setItem('tokenNew', resp.data.accessToken);
       console.log('resp.data)', resp.data.accessToken);
       if (resp) {
-        setloadingLogin(false);
-        navigation.navigate('IntroScreen');
+        const respAnswers = await newApi.get('users/check-first-answers');
+        if (respAnswers?.data?.isComplete === true ) {
+          setloadingLogin(false);
+          console.log('respAnswers',respAnswers,'pasa');
+          navigation.navigate('Root');
+        }else {
+          setloadingLogin(false);
+            navigation.navigate('IntroScreen');
+        }
       }
     } catch (error) {
       setloadingLogin(false);
@@ -240,7 +310,7 @@ export default function LoginScreen() {
           }}>
           <View
             style={{width: '42%', backgroundColor: 'white', height: 1}}></View>
-              {loadingLogin && <ActivityIndicator color={'white'} size="large" />}
+              {loadingLogin && <ActivityIndicator color={'white'} />}
           <View
             style={{
               height: 10,
@@ -259,7 +329,7 @@ export default function LoginScreen() {
           onPress={handleSubmit(onSubmit)}>
           <Text style={styles.text}>Iniciar Sesión</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.buttonGoogle}
           onPress={handleSubmit(onSubmit)}>
           <Icon
@@ -271,10 +341,11 @@ export default function LoginScreen() {
             tvParallaxProperties={undefined}
           />
           <Text style={styles.textGoogle}>Iniciar sesión con Facebook</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           style={styles.buttonGoogle}
-          onPress={handleSubmit(onSubmit)}>
+          onPress={signGoogle}
+          >
           <Icon
             size={26}
             name="google"
@@ -458,3 +529,4 @@ const styles = StyleSheet.create({
 });
 
 //login
+

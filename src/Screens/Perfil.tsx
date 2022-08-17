@@ -41,20 +41,24 @@ export const Perfil = () => {
             <LinearGradient opacity={1} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: "100%"}} />
             <Text style={{
                 position: "absolute",
-                top:10,
+                top:15,
                 color: "white",
-                fontSize: 20
+                fontSize: 18
             }}>Mis Datos</Text>
             <TouchableOpacity
                 onPress={()=> navigation.goBack()} 
                 style={{ position: "absolute", top: 10, left: 15}}
             >
-                <Icon
-                    name='arrow-back-outline'
-                    type='ionicon'
-                    color='white'
-                    size={25}
-                />
+                 <View style={{
+                width: 28, height: 28, flexDirection: 'row',
+                backgroundColor: 'white', justifyContent: 'center',
+                alignItems: 'center', marginBottom: 20, borderRadius: 30, marginTop: 3
+            }}>
+
+               <Icon size={18} name='arrow-left' type='feather' tvParallaxProperties={undefined}
+                    color='#444444'>
+                </Icon>
+                        </View>
             </TouchableOpacity>
 
             <Text
@@ -62,7 +66,7 @@ export const Perfil = () => {
             >Nombre:</Text>
             <TextInput
                 style={{
-                    backgroundColor: "#4952BF", width: "70%", alignSelf: "center", textAlign: "center",
+                     width: "70%", alignSelf: "center", textAlign: "center",
                     borderRadius: 10, borderWidth: 1, borderColor: "white", marginTop: 5
                 }}
             >
@@ -80,7 +84,7 @@ export const Perfil = () => {
             >Correo:</Text>
             <TextInput
                 style={{
-                    backgroundColor: "#4952BF", width: "70%", alignSelf: "center", textAlign: "center", marginTop: 5,
+                    width: "70%", alignSelf: "center", textAlign: "center", marginTop: 5,
                     borderRadius: 10, borderWidth: 1, borderColor: "white", color: "white", fontWeight: "bold",
                     fontSize: 16
                 }}

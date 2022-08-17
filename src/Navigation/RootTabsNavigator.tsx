@@ -32,7 +32,7 @@ export const RootTabsNavigator = ({route}) => {
         const data =await newApi.get(`/users/profile-user`)
         console.log(data.data.dataUser);
         setUser(data.data.dataUser)
-        setTitleLoading(`Bienvenido ${data?.data?.dataUser?.username}, estoy buscando las mejores recomendaciones para ti…`)
+        setTitleLoading(`Bienvenida ${data?.data?.dataUser?.username}, estoy buscando las mejores recomendaciones para ti…`)
     }
 
     useEffect(() => {
@@ -144,8 +144,8 @@ export const RootTabsNavigator = ({route}) => {
                     {
                         tabBarIcon: ({ color }) => screenOptionsAndroid(route, color),
                         // tabBarBadgeStyle: { backgroundColor: '#DB0A57' },
-                        tabBarInactiveTintColor: '#BDCBF7',
-                        tabBarActiveTintColor: '#BDCBF7',
+                        tabBarInactiveTintColor: 'white',
+                        tabBarActiveTintColor: '#FFB266',
                         tabBarStyle: {
                             paddingBottom: 5,
                             // backgroundColor: "#184679",
@@ -157,7 +157,7 @@ export const RootTabsNavigator = ({route}) => {
                             zIndex: 8
                         },
                         tabBarBackground: () => (
-                            <LinearGradient opacity={1} colors={['#707EF4', "#26339A",]}
+                            <LinearGradient opacity={1} colors={['#202020','#202020']}
                                 style={{
                                     position: "absolute", width: Dimensions.get("window").width,
                                     height: 65,
