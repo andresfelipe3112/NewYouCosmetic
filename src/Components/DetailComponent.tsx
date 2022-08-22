@@ -97,6 +97,7 @@ export const DetailComponent = ({productoObj, title, status = ''}: any) => {
                     elevation: 3,
                   }}>
                   <Image
+                    resizeMode='cover'
                     key={index}
                     style={{
                       width: 130,

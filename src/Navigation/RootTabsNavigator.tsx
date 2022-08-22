@@ -100,9 +100,15 @@ export const RootTabsNavigator = ({route}) => {
     },[route?.params?.reRender])
 
      useEffect(() => {
-        console.log(route?.params?.reRender);
+        console.log('route',route?.params?.reRender);
         route?.params?.reRender === "render" && firstCategoryDataRefresh()
      },[route?.params?.reRender])
+
+
+     useEffect(() => {
+        console.log(route?.params?.render);
+        route?.params?.render === "initialRender" && firstCategoryDataRefresh()
+     },[route?.params?.render])
 
     useEffect(() => {
         if (renderNewCategoria === true ) {
@@ -120,7 +126,7 @@ export const RootTabsNavigator = ({route}) => {
         )
     }
     return (
-        <Tab.Navigator initialRouteName={root}
+        <Tab.Navigator initialRouteName={'Para tí'}
             screenOptions={({ route }) => (
                 Platform.OS === 'ios' ?
                     {

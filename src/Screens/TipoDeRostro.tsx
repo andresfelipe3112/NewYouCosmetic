@@ -8,6 +8,7 @@ import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import DawnLogo from '../Components/DawnLogo';
 import newApi from '../Services/LoginApiValues';
+import { CustomToast } from '../utils/customToast';
 
 
 const videoA = require('../Assets/video/casual.mp4');
@@ -47,6 +48,7 @@ const TipoDeRostro = ({ route }) => {
     const [colorCheckG, setcolorCheckG] = useState(false);
     const [data, setData] = useState("");
     const [categoryName, setCategoryName] = useState();
+    const {showToast} = CustomToast();
 
     useEffect(() => {
         console.log(route?.params?.category);
@@ -60,13 +62,18 @@ const TipoDeRostro = ({ route }) => {
                 "typeFace": data
             })
             if (resp) {
-                const respCategori = !route?.params?.actualizar && await newApi.get(`products/third-category/${categoryName}`)
+                const respCategori =
+                  !route?.params?.actualizar &&
+                  (await newApi.get(`/products/newCategory/${categoryName}`));
                 if (respCategori) {
-                    !route?.params?.actualizar && navigation.navigate("Root", { reRender: "COLLAR" })
+                  !route?.params?.actualizar &&
+                    navigation.navigate('Root', {reRender: categoryName});
                 }
-            }
+              }
         } catch (error) {
             console.log(error);
+            !route?.params?.actualizar && navigation.navigate('Root');
+            showToast('Esta categoría aún no tiene productos ');
         }
     }
 
@@ -202,7 +209,7 @@ const TipoDeRostro = ({ route }) => {
     return (
         <View
         >
-            <LinearGradient opacity={1} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+            <LinearGradient opacity={1} colors={['white', 'white', 'white']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             <ScrollView>
                 <Text
                     style={styles.textTitle}
@@ -215,7 +222,7 @@ const TipoDeRostro = ({ route }) => {
                 >
 
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckA ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckA ? '#F9AD47' : 'white' }]}
                         //@ts-ignore
                         onPress={() => {
                             colorA("ovalado");
@@ -227,13 +234,13 @@ const TipoDeRostro = ({ route }) => {
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckA ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckA ? "white" : 'black' }]}
                         >Ovalado</Text>
                     </TouchableOpacity>
 
-                    <DawnLogo render={statusInfo} text="Al igual que el rostro redondo, nos encontramos con una forma de cara en la que prevalecen las curvas, si bien el rostro es más alargado que ancho. La barbilla tiende a ser más corta que la frente y suelen marcarse mucho las mejillas." />
+                    <DawnLogo colorVideoText={false} render={statusInfo} text="Al igual que el rostro redondo, nos encontramos con una forma de cara en la que prevalecen las curvas, si bien el rostro es más alargado que ancho. La barbilla tiende a ser más corta que la frente y suelen marcarse mucho las mejillas." />
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckB ? '#F9AD47' : 'white' }]}
                         //@ts-ignore
                         onPress={() => colorB("rectangular")}
                     >
@@ -243,12 +250,12 @@ const TipoDeRostro = ({ route }) => {
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckB ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckB ? "white" : 'black'}]}
                         >Rectangular</Text>
                     </TouchableOpacity>
-                    <DawnLogo render={statusInfo} text=" A menudo es difícil de distinguir del cuadrado (aunque su barbilla suele ser más redondeada) y del ovalado." />
+                    <DawnLogo colorVideoText={false} render={statusInfo} text=" A menudo es difícil de distinguir del cuadrado (aunque su barbilla suele ser más redondeada) y del ovalado." />
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckC ? '#F9AD47' : 'white' }]}
                         //@ts-ignore
                         onPress={() => colorC("redondo")}
                     >
@@ -258,12 +265,12 @@ const TipoDeRostro = ({ route }) => {
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckC ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckC ? "white" : 'black' }]}
                         >Redondo</Text>
                     </TouchableOpacity>
-                    <DawnLogo text="Este tipo de rostro se caracteriza por tener aproximadamente la misma altura que anchura, generando una figura circular en la que no se observan formas angulosas sino curvas y en la que las mejillas se acercan al mentón, además de pómulos anchos." />
+                    <DawnLogo colorVideoText={false} text="Este tipo de rostro se caracteriza por tener aproximadamente la misma altura que anchura, generando una figura circular en la que no se observan formas angulosas sino curvas y en la que las mejillas se acercan al mentón, además de pómulos anchos." />
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckD ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckD ? '#F9AD47' : 'white' }]}
                         //@ts-ignore
                         onPress={() => colorD("alargado")}
                     >
@@ -273,12 +280,12 @@ const TipoDeRostro = ({ route }) => {
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckD ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckD ?  "white" : 'black' }]}
                         >Alargado</Text>
                     </TouchableOpacity>
                     <DawnLogo text="En él vemos una frente por lo general larga, pómulos altos y rasgos no muy marcados. " />
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckE ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckE ? '#F9AD47' : 'white' }]}
                         //@ts-ignore
                         onPress={() => colorE("triangulo")}
                     >
@@ -288,12 +295,12 @@ const TipoDeRostro = ({ route }) => {
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckE ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckE ?  "white" : 'black'  }]}
                         >Triangular</Text>
                     </TouchableOpacity>
                     <DawnLogo text="El rostro triangular se caracteriza por una mandíbula amplia y una frente estrecha en comparación, con los pómulos en una situación intermedia." />
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckF? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckF? '#F9AD47' : 'white' }]}
                         //@ts-ignore
                         onPress={() => colorF("trianguloInvertido")}
                     >
@@ -303,12 +310,12 @@ const TipoDeRostro = ({ route }) => {
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckF ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckF ?  "white" : 'black'  }]}
                         >Triangular invertido</Text>
                     </TouchableOpacity>
                     <DawnLogo text="El rostro triangular se caracteriza por una mandíbula amplia y una frente estrecha en comparación, con los pómulos en una situación intermedia." />
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckG? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckG? '#F9AD47' : 'white' }]}
                         //@ts-ignore
                         onPress={() => colorG("diamante")}
                     >
@@ -318,7 +325,7 @@ const TipoDeRostro = ({ route }) => {
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckG ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckG ?  "white" : 'black'  }]}
                         >Diamante</Text>
                     </TouchableOpacity>
                     <DawnLogo text="El rostro triangular se caracteriza por una mandíbula amplia y una frente estrecha en comparación, con los pómulos en una situación intermedia." />
@@ -326,7 +333,7 @@ const TipoDeRostro = ({ route }) => {
             </ScrollView>
             <View
                 style={{
-                    position: "absolute", top: Dimensions.get("window").height * 0.015, display: "flex", flexDirection: "row",
+                    position: "absolute", top: Dimensions.get("window").height * 0.90, display: "flex", flexDirection: "row",
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
                 }}
             >
@@ -340,12 +347,12 @@ const TipoDeRostro = ({ route }) => {
                 <Icon
                     name='arrow-left'
                     type='evilicon'
-                    color='#7C8499'
-                    size={50}
+                    color='white'
+                    size={45}
                     tvParallaxProperties={undefined}
                     onPress={() => navigation.goBack()}
                 />
-              { !route?.params?.actualizar && <TouchableOpacity
+              {data !== '' && !route?.params?.actualizar && <TouchableOpacity
                     //@ts-ignore
                     onPress={addCategory}
                     //  onPress={() => navigation.navigate("Root", {
@@ -353,14 +360,14 @@ const TipoDeRostro = ({ route }) => {
                     //     params:{current:"Camisas"}
                     // })}
                     style={{
-                        width: 200,
+                        width: 130,
                         display: "flex",
                         flexDirection: "row",
                         alignSelf: "flex-end",
                         alignItems: "center",
                         justifyContent: "flex-end",
                         padding: 3,
-                        backgroundColor: "#19181C",
+                        backgroundColor: '#F9AD47',
                         borderRadius: 20,
                         shadowColor: "#000",
                         shadowOffset: {
@@ -372,12 +379,12 @@ const TipoDeRostro = ({ route }) => {
                         elevation: 12,
                     }}>
                     <Text
-                        style={{ color: '#D4D7EE', }}
+                        style={{ color: 'white', }}
                     >Finalizar</Text>
                     <Icon
                         name='arrow-right'
                         type='evilicon'
-                        color='#D4D7EE'
+                        color='white'
                         size={40}
                         tvParallaxProperties={undefined}
                     />
@@ -406,14 +413,15 @@ export default TipoDeRostro;
 
 const styles = StyleSheet.create({
     textTitle: {
-        color: "white",
-        fontSize: 25,
+        color: "black",
+        fontSize: 19,
+        fontWeight: "bold",
         textAlign: "center",
         fontFamily: "Dosis",
         marginVertical: 20,
         borderRadius: 25,
         opacity: 0.6, display: "flex",
-        marginTop: 70
+        marginTop: 30
     },
     text: {
         fontSize: 15,
@@ -429,7 +437,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderColor: "white",
         borderWidth: 1,
-        margin: 10
+        margin: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+
     },
     containerStyle: {
         width: 110,

@@ -23,7 +23,7 @@ const Pecas = ({route}) => {
     const [colorCheckInvierno, setcolorCheckInvierno] = useState(false);
     const [colorCheckOtono, setcolorCheckOtono] = useState(false);
     const [colorCheckPrimavera, setcolorCheckPrimavera] = useState(false);
-    const [response, setResponse] = useState('');
+    const [response, setResponse] = useState<any>('');
 
     const veganApi = async (response: Boolean,) => {
         try {
@@ -37,6 +37,23 @@ const Pecas = ({route}) => {
             console.log(error);
         }
     }
+
+    useEffect(() => {
+        console.log('route', route?.params);
+    },[route?.params])
+
+    useEffect(() => {
+        if (route?.params?.data) {         
+            colorVerano();
+            setResponse(true)
+        }
+        if (route?.params?.data === false) {         
+            colorOtono();
+            setResponse(false)
+        }
+    },[
+        'route', route?.params?.data
+    ])
     
     const colorVerano = () => {
         if (colorCheckVerano) {
@@ -84,7 +101,7 @@ const Pecas = ({route}) => {
         <View
             style={{ width: '100%', height: Dimensions.get("screen").height }}
         >
-            <LinearGradient opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+            <LinearGradient opacity={0.9} colors={['white', 'white', 'white']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             <ScrollView>
                 <View
                     style={{
@@ -96,7 +113,7 @@ const Pecas = ({route}) => {
                         style={styles.textTitle}
                     >¿Tienes pecas?</Text>
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckVerano ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckVerano ? '#F9AD47' : 'transparent'}]}
                         //@ts-ignore
                         onPress={()=> {
                             colorVerano();
@@ -104,11 +121,11 @@ const Pecas = ({route}) => {
                         }}
                     >
                         <Text
-                            style={[styles.text, { color: colorCheckVerano ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckVerano ? 'white' : '#F9AD47'}]}
                         >Si</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckOtono ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckOtono ? '#F9AD47' : 'transparent' }]}
                         //@ts-ignore
                         onPress={()=> {
                             colorOtono();
@@ -116,7 +133,7 @@ const Pecas = ({route}) => {
                         }}
                     >
                         <Text
-                            style={[styles.text, { color: colorCheckOtono ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckOtono ? 'white' : '#F9AD47'}]}
                         >No</Text>
                     </TouchableOpacity>
                     {/* <TouchableOpacity
@@ -175,13 +192,25 @@ const Pecas = ({route}) => {
                       }}
                     style={{
                         width: 100,
+                        marginTop:-5,
+                        marginBottom: 5,
                         display: "flex",
                         flexDirection: "row",
+                        justifyContent: "center",
+                        borderRadius:15,
+                        backgroundColor:'white',
                         alignItems: "center",
-
+                        shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+elevation: 5,
                     }}>
                     <Text
-                        style={{ color: 'white', borderRadius:10, borderColor: "gray", borderWidth: 1, padding:10}}
+                        style={{ color: 'gray', borderColor: "gray"}}
                     >Actualizar</Text>
                 </TouchableOpacity>}
             </View>
@@ -194,8 +223,9 @@ export default Pecas;
 
 const styles = StyleSheet.create({
     textTitle: {
-        color: "white",
-        fontSize: 25,
+        color: "black",
+        fontSize: 20,
+        fontWeight: 'bold',
         textAlign: "center",
         fontFamily: "Dosis",
         marginVertical: 20,
@@ -214,7 +244,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        borderColor: "white",
+        borderColor: '#F9AD47',
         borderWidth: 1,
         marginVertical: 10
     },

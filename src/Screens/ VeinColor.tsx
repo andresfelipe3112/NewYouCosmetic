@@ -16,9 +16,9 @@ const VideoC = require('../Assets/video/cocktail.mp4');
 const VideoD = require('../Assets/video/blackTie.mp4');
 const VideoE = require('../Assets/video/white.mp4');
 
-const imagenA = require('../Assets/Img/moradoAzul.jpeg')
-const ImagenB = require('../Assets/Img/venasVerdes.jpeg')
-const imagenC = require('../Assets/Img/verdeAzul.jpeg')
+const imagenA = require('../Assets/Img/Morado_azul.png')
+const ImagenB = require('../Assets/Img/Verde.png')
+const imagenC = require('../Assets/Img/Verde_Azul.png')
 const imagenD = require('../Assets/Img/tipo4.jpg')
 const imagenE = require('../Assets/Img/tipo5.jpg')
 const imagenF = require('../Assets/Img/tipo6.jpg')
@@ -37,7 +37,7 @@ const  VeinColor = ({route}) => {
     const [loadingLogin, setloadingLogin] = useState<Boolean>(false);
     
     useEffect(() => {
-        console.log(route?.params);
+        console.log('route',route?.params);
     },[route])
  
 
@@ -160,7 +160,7 @@ const  VeinColor = ({route}) => {
     return (
         <View
         >
-            <LinearGradient opacity={1} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+            <LinearGradient opacity={1} colors={['white','white']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             <ScrollView>
                 <Text
                     style={styles.textTitle}
@@ -172,7 +172,7 @@ const  VeinColor = ({route}) => {
                     }}
                 >
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckA ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckA ? '#F9AD47' : 'white'}]}
                         //@ts-ignore
                         onPress={()=>{
                             colorA();
@@ -183,15 +183,15 @@ const  VeinColor = ({route}) => {
                             source={imagenA}
                             containerStyle={styles.containerStyle}
                             PlaceholderContent={<ActivityIndicator />}   
-                            resizeMode='stretch'                     
+                            resizeMode='stretch'                    
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckA ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckA ? "white" : 'gray' }]}
                         >Morado - Azul</Text>
                         </TouchableOpacity>
                            {/* <DawnLogo  render={statusInfo} text="Este tipo de piel es de razas albina, caucásica, de cabello rojo o rubio, ojos azules, con pecas, piel rosada o muy pálida. Común en escandinavos y célticos. Suelen quemarse con mucha facilidad durante la exposición al sol, nunca se broncean, por ello, son los que más cuidados requieren y quienes deben usar los bloqueador solares con la máxima protección, mayor de 75 fps." /> */}
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckB ? '#F9AD47' : 'white' }]}
                         //@ts-ignore
                         onPress={()=> {
                             colorB();
@@ -199,17 +199,18 @@ const  VeinColor = ({route}) => {
                         }}
                     >
                         <Image
+                            resizeMode='stretch'  
                             source={ImagenB}
                             containerStyle={styles.containerStyle}
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckB ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckB ? "white" : 'gray' }]}
                         >Verdes</Text>
                     </TouchableOpacity>
                     {/* <DawnLogo  render={statusInfo} text="Este tipo de piel es de razas caucásicas, pieles blancas, cabello rubio, ojos azules, verdes o avellana. Suelen quemarse también con facilidad, sin embargo, pueden llegar a broncearse lentamente, llegando a adoptar un tono levemente moreno, casi imperceptible en la mayoría de los casos, requieren protección solar mayor de 50 fps." /> */}
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckC ? '#F9AD47' : 'white'}]}
                         //@ts-ignore
                         onPress={()=> {
                             colorC();
@@ -219,17 +220,18 @@ const  VeinColor = ({route}) => {
                         <Image
                             source={imagenC}
                             containerStyle={styles.containerStyle}
+                            resizeMode='stretch'  
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckC ? "black" : 'white' }]}
-                        >Verdes - Azul</Text>
+                            style={[styles.text, { color: colorCheckC ? "white" : 'gray' }]}
+                        >Verde - Azul</Text>
                     </TouchableOpacity>                  
                 </View>
             </ScrollView>
             <View
                 style={{
-                    position: "absolute", top: Dimensions.get("window").height * 0.015, display: "flex", flexDirection: "row",
+                    position: "absolute", top: Dimensions.get("window").height * 0.90, display: "flex", flexDirection: "row",
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
                 }}
             >
@@ -293,38 +295,57 @@ export default VeinColor;
 
 const styles = StyleSheet.create({
     textTitle: {
-        color: "white",
-        fontSize: 25,
-        textAlign: "center",
-        fontFamily: "Dosis",
+        color: 'black',
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        fontFamily: 'Dosis',
         marginVertical: 20,
         borderRadius: 25,
-        opacity: 0.6, display: "flex",
-        marginTop: 70
-    },
+        opacity: 0.6,
+        display: 'flex',
+        marginTop: 30,
+        marginBottom:15  },
     text: {
         fontSize: 15,
         color: 'white',
         fontWeight: 'bold',
     },
     button: {
-        width: 170,
+        width: 150,
         color: 'white',
-        height: 200,
+        height: 180,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
         // borderColor: "white",
-        // borderWidth: 1,
-        margin: 2
-        
-    },
-    containerStyle: {
-        width: 130,
-        height: 120,
+        margin: 2,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 3,
+        },
+        shadowOpacity: 0.29,
+        shadowRadius: 4.65,
+        elevation: 8,
+        marginBottom:18
+      },
+      containerStyle: {
+        width: 110,
+        height: 110,
         margin: 15,
-        borderRadius: 15,        
-    },
+        padding:2,
+        borderRadius: 15,
+        backgroundColor: "white",
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 3,
+        },
+        shadowOpacity: 0.29,
+        shadowRadius: 4.65,
+        elevation: 6,
+      },
     textInput:{
         color: 'white',
         paddingHorizontal:25,

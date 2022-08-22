@@ -49,7 +49,7 @@ export const DetailComponentVertical = ({productoObj, index}: any) => {
                 ></Image>
       <Text
         style={{
-          color: '#C8D3E5',
+          color: 'gray',
           width: 135,
           textAlign: 'center',
           fontSize: 13,

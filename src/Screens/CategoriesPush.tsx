@@ -216,11 +216,44 @@ const CategoriesPush = () => {
         <View
             style={{ width: '100%', height: Dimensions.get("screen").height }}
         >
-            <LinearGradient opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+            <LinearGradient opacity={0.9} colors={['white', 'white', 'white']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+            <View
+          style={{
+            width: Dimensions.get('window').width * 0.9,
+            flexWrap: 'wrap',
+            display: 'flex',
+            flexDirection: 'row',
+            marginBottom: 10,
+            position: "absolute",
+          }}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{
+              width:30,
+              borderRadius: 50,
+              margin:15,
+              backgroundColor: 'white',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+           
+            }}>
+            <Icon
+              containerStyle={{borderRadius: 50, width: 40}}
+              name="arrow-left"
+              type="evilicon"
+              color="gray"
+              size={35}
+              tvParallaxProperties={undefined}
+              //@ts-ignore
+            />
+          </TouchableOpacity>
+        </View>
+            
                 <View
                     style={{
                         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                        width: Dimensions.get("window").width, height: Dimensions.get("window").height,  marginTop:50,
+                        width: Dimensions.get("window").width, height: Dimensions.get("window").height,  marginTop:80,
                     }}
                     >
                     <Text
@@ -231,7 +264,7 @@ const CategoriesPush = () => {
                         marginHorizontal:10,
                         alignSelf: "center",
                         textAlign: "center",
-                        color: "#BFCEE0",
+                        color: "black",
                         marginBottom:13
                     }}
                     >Te solicitaremos alguna información adicional</Text>
@@ -246,78 +279,78 @@ const CategoriesPush = () => {
                     }}
                     >
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckPrimavera ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckPrimavera ? '#F9AD47' : "#ECECEC",}]}
                         //@ts-ignore
                         onPress={()=> camisas("b15")}
                     >
                         <Text
-                            style={[styles.text, { color: colorCheckPrimavera ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckPrimavera ? "white" : 'black' }]}
                         >Camisas</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckVerano ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckVerano ? '#F9AD47' : "#ECECEC",}]}
                         //@ts-ignore
                         onPress={()=>{
                             pantalones("b17")
                             }}
                     >
                         <Text
-                            style={[styles.text, { color: colorCheckVerano ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckVerano ? "white" : 'black' }]}
                         >Pantalones</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckInvierno ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckInvierno ? '#F9AD47' : "#ECECEC",}]}
                         //@ts-ignore
                         onPress={()=> botas("b24")}
                     >
                         <Text
-                            style={[styles.text, { color: colorCheckInvierno ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckInvierno ? "white" : 'black' }]}
                         >Botas-botines</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckOtono ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckOtono ? '#F9AD47' : "#ECECEC",}]}
                         //@ts-ignore
                         onPress={()=>collares("c11")}
                         >
                         <Text
-                            style={[styles.text, { color: colorCheckOtono ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckOtono ? "white" : 'black' }]}
                             >Collares</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                            style={[styles.button, { backgroundColor: checkA ? 'white' : "transparent" }]}
+                            style={[styles.button, { backgroundColor: checkA ? '#F9AD47' : "#ECECEC",}]}
                             //@ts-ignore
                             onPress={()=>zapatos("b21")}
                             >
             
                         <Text
-                            style={[styles.text, { color: checkA ? "black" : 'white' }]}
+                            style={[styles.text, { color: checkA  ? "white" : 'black' }]}
                             >Zapatos</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: checkB ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: checkB ? '#F9AD47' : "#ECECEC",}]}
                         //@ts-ignore
                         onPress={()=>blusas("b11")}
                         >
                         <Text
-                           style={[styles.text, { color: checkB ? "black" : 'white' }]}
+                           style={[styles.text, { color: checkB  ? "white" : 'black' }]}
                            >Blusas</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                           style={[styles.button, { backgroundColor: checkC? 'white' : "transparent" }]}
+                           style={[styles.button, { backgroundColor: checkC? '#F9AD47' : "#ECECEC",}]}
                            //@ts-ignore
                            onPress={()=> Poleras("b13")}
                            >
                         <Text
-                            style={[styles.text, { color: checkC ? "black" : 'white' }]}
+                            style={[styles.text, { color: checkC ? "white" : 'black' }]}
                             >Poleras</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: checkD? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: checkD ? '#F9AD47' : "#ECECEC",}]}
                         //@ts-ignore
                           onPress={()=> Aros("c12")}
                         >
                         <Text
-                            style={[styles.text, { color: checkD ? "black" : 'white' }]}
+                            style={[styles.text, { color: checkD  ? "white" : 'black' }]}
                         >Aros</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -340,9 +373,9 @@ const CategoriesPush = () => {
                     </TouchableOpacity>
             </ScrollView>
                 </View>
-            <View
+            {/* <View
                 style={{
-                    position: "absolute", top: Dimensions.get("window").height * 0.91, display: "flex", flexDirection: "row",
+                    position: "absolute", top: Dimensions.get("window").height * 0.85, display: "flex", flexDirection: "row",
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
                 }}
             >
@@ -374,7 +407,7 @@ const CategoriesPush = () => {
                         tvParallaxProperties={undefined}
                     />
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
 
     )
@@ -384,7 +417,7 @@ export default CategoriesPush;
 
 const styles = StyleSheet.create({
     textTitle: {
-        color: "white",
+        color: "black",
         fontSize: 20,
         textAlign: "center",
         marginVertical: 5,
@@ -405,8 +438,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        borderColor: "white",
-        borderWidth: 1,
         marginVertical: 10
     },
     containerStyle: {

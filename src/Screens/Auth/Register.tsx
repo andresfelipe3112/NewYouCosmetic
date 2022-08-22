@@ -11,9 +11,10 @@ import {
   TouchableOpacity,
   ImageBackground,
   ActivityIndicator,
+  Image
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
-import {Icon, Image} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import newApi from '../../Services/LoginApiValues';
@@ -26,6 +27,7 @@ export default function Register() {
   const [colorBordefocusPass, setcolorBordefocusPass] =
     useState<string>('white');
   const [loadingLogin, setloadingLogin] = useState<Boolean>(false);
+  const [showPassword, setShowPassword] = useState(true);
 
   const {
     handleSubmit,
@@ -87,7 +89,7 @@ export default function Register() {
       }}>
       <LinearGradient
         opacity={0.9}
-        colors={['#4847a2', '#395ea1', '#4847a2']}
+        colors={['white', 'white', 'white']}
         style={{position: 'absolute', width: '100%', height: '100%'}}
       />
       <ScrollView
@@ -115,7 +117,7 @@ export default function Register() {
             <View style={styles.containerInput}>
               <Icon
                 size={35}
-                name="envelope"
+                name="user"
                 type="evilicon"
                 color="white"
                 style={{marginLeft: 13}}
@@ -173,15 +175,39 @@ export default function Register() {
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
             <View style={styles.containerInput}>
-              <Icon
+              {/* <Icon
                 size={35}
                 name="lock"
                 type="evilicon"
-                color="white"
+                color="#9bafc7"
                 style={{marginLeft: 13}}
                 tvParallaxProperties={undefined}
-              />
+              /> */}
+              {showPassword ? (
+                <TouchableOpacity
+                  style={{padding: 6}}
+                  onPress={() => {
+                    setShowPassword(!showPassword);
+                  }}>
+                  <Image
+                    style={{margin: 15}}
+                    source={require('../../Assets/Img/unShowPassword.png')}
+                  />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={{padding: 6}}
+                  onPress={() => {
+                    setShowPassword(!showPassword);
+                  }}>
+                  <Image
+                    style={{margin: 15}}
+                    source={require('../../Assets/Img/showPassword.png')}
+                  />
+                </TouchableOpacity>
+              )}
               <TextInput
+                secureTextEntry={showPassword}
                 placeholder="Constraseña"
                 style={[styles.input, {borderColor: colorBordefocusUser}]}
                 onBlur={onBlur}
@@ -206,33 +232,34 @@ export default function Register() {
             alignItems: 'center',
           }}>
           <View
-            style={{width: '42%', backgroundColor: 'white', height: 1}}></View>
-          {loadingLogin && <ActivityIndicator color={'white'} />}
+            style={{width: '42%', backgroundColor: 'gray', height: 1}}></View>
+          {loadingLogin ? <ActivityIndicator color={'gray'} />:
           <View
-            style={{
-              height: 10,
-              width: 10,
-              borderRadius: 5,
-              borderColor: 'white',
-              borderWidth: 1,
-              marginHorizontal: 10,
-            }}></View>
+          style={{
+            height: 10,
+            width: 10,
+            borderRadius: 5,
+            borderColor: 'gray',
+            borderWidth: 1,
+            marginHorizontal: 10,
+          }}></View>
+        }
           <View
-            style={{width: '42%', backgroundColor: 'white', height: 1}}></View>
+            style={{width: '42%', backgroundColor: 'gray', height: 1}}></View>
         </View>
 
         <TouchableOpacity
           style={styles.button}
           //@ts-ignore
           onPress={handleSubmit(onSubmit)}>
-          <Text style={styles.text}>Continuar</Text>
+          <Text style={styles.text}>Crear cuenta</Text>
         </TouchableOpacity>
         <Text
           style={{
             alignSelf: 'center',
             width: Dimensions.get('window').width * 0.7,
             fontSize: 14,
-            color: 'white',
+            color: 'gray',
             fontFamily: 'EvilIcons',
             textAlign: 'center',
             marginTop: 25,
@@ -245,7 +272,7 @@ export default function Register() {
       <View
         style={{
           position: 'absolute',
-          top: Dimensions.get('window').height * 0.91,
+          top: Dimensions.get('window').height * 0.89,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -284,32 +311,37 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
-
   containerInput: {
     width: Dimensions.get('window').width * 0.9,
     height: 55,
-    backgroundColor: 'black',
+    backgroundColor: '#FFA31E',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
     alignSelf: 'center',
-    borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 30,
     borderColor: '#9bafc7',
     marginBottom: 10,
-    opacity: 0.5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   button: {
     marginTop: 25,
-    color: 'white',
+    color: 'gray',
     height: 45,
     // backgroundColor: "#EED4F3",
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 100,
-    borderColor: 'white',
+    marginHorizontal: 10,
+    borderColor: 'gray',
     borderWidth: 1,
   },
   buttonFacebook: {
@@ -351,8 +383,9 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   textTitle: {
-    color: 'white',
-    fontSize: 25,
+    color: 'gray',
+    fontSize: 19,
+    fontWeight: 'bold',
     textAlign: 'center',
     fontFamily: 'Dosis',
     height: 85,
@@ -373,8 +406,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   text: {
-    fontSize: 15,
-    color: 'white',
+    fontSize: 14,
+    color: 'gray',
     fontWeight: 'bold',
   },
   textFacebook: {
@@ -384,7 +417,7 @@ const styles = StyleSheet.create({
   },
   textError: {
     fontSize: 18,
-    color: 'white',
+    color: 'gray',
     fontFamily: 'Dosis',
     alignSelf: 'center',
     marginBottom: 3,

@@ -20,7 +20,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import WellCome from '../../Components/WellCome';
 import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
-import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 import newApi from '../../Services/LoginApiValues';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -36,67 +39,70 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [modal, setModal] = useState(false);
-  const [colorBordefocusCorreo, setcolorBordefocusCorreo] = useState<string>('white');
-  const [colorBordefocusCodigo, setcolorBordefocusCodigo] = useState<string>('gray');
+  const [colorBordefocusCorreo, setcolorBordefocusCorreo] =
+    useState<string>('white');
+  const [colorBordefocusCodigo, setcolorBordefocusCodigo] =
+    useState<string>('gray');
   const [codigo, setCodigo] = useState<string>('');
 
   useEffect(() => {
     GoogleSignin.configure({
-        //  androidClientId: "809801253751-q5bod5pd5l8oa5t45jibje1nrnmd8fq4.apps.googleusercontent.com",//debug
-       androidClientId: "434136853035-etvgruinh9jlr444v560j51st7n1ho5a.apps.googleusercontent.com"
-    })
-}, [])
-
-const signGoogle = async () => {
-  try {
-    setloadingLogin(true);
-    await GoogleSignin.hasPlayServices();
-    const {user}: any = await GoogleSignin.signIn();
-    console.log('userInfo', user);
-    const resp:any = await newApi.post('auth/googleAuth-user', {
-      name: user.name,
-      id: user.id,
-      email: user.email
+      //  androidClientId: "809801253751-q5bod5pd5l8oa5t45jibje1nrnmd8fq4.apps.googleusercontent.com",//debug
+      androidClientId:
+        '434136853035-etvgruinh9jlr444v560j51st7n1ho5a.apps.googleusercontent.com',
     });
-    console.log('auth/googleAuth-user',resp);
-    if (resp) {
-      await AsyncStorage.setItem('tokenNew', resp.data.accessToken);
-      const respAnswers = await newApi.get('users/check-first-answers');
-      if (respAnswers?.data?.isComplete === true ) {
-        setloadingLogin(false);
-        console.log('respAnswers',respAnswers,'pasa');
-        navigation.navigate('Root');
-      }else {
-        setloadingLogin(false);
+  }, []);
+
+  const signGoogle = async () => {
+    try {
+      setloadingLogin(true);
+      await GoogleSignin.hasPlayServices();
+      const {user}: any = await GoogleSignin.signIn();
+      console.log('userInfo', user);
+      const resp: any = await newApi.post('auth/googleAuth-user', {
+        name: user.name,
+        id: user.id,
+        email: user.email,
+      });
+      console.log('auth/googleAuth-user', resp);
+      if (resp) {
+        await AsyncStorage.setItem('tokenNew', resp.data.accessToken);
+        const respAnswers = await newApi.get('users/check-first-answers');
+        if (respAnswers?.data?.isComplete === true) {
+          setloadingLogin(false);
+          console.log('respAnswers', respAnswers, 'pasa');
+          navigation.navigate('Root',{render:"initialRender"});
+        } else {
+          setloadingLogin(false);
           navigation.navigate('IntroScreen');
+        }
+      }
+      // setTimeout(() => {
+      //     Alert.alert("token recibido datos correctos desde firebase",userInfo.idToken )
+      // }, 1000);
+      // signInGoogle(userInfo);
+    } catch (error: any) {
+      console.log('errores', error);
+
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log('Login cancelado');
+        setloadingLogin(false);
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+        setloadingLogin(false);
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+        setloadingLogin(false);
+        console.log('No cuentas con los servicios de Google');
+      } else {
+        // some other error happened
+        setloadingLogin(false);
+        console.log('errores else', error);
+        // Alert.alert('error')
       }
     }
-    // setTimeout(() => {
-    //     Alert.alert("token recibido datos correctos desde firebase",userInfo.idToken )
-    // }, 1000);
-    // signInGoogle(userInfo);
-  } catch (error: any) {
-    console.log('errores', error);
-
-    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-      console.log('Login cancelado');
-      setloadingLogin(false);
-      // user cancelled the login flow
-    } else if (error.code === statusCodes.IN_PROGRESS) {
-      // operation (e.g. sign in) is in progress already
-      setloadingLogin(false);
-    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-      // play services not available or outdated
-      setloadingLogin(false);
-      console.log('No cuentas con los servicios de Google');
-    } else {
-      // some other error happened
-      setloadingLogin(false);
-      console.log('errores else', error);
-      // Alert.alert('error')
-    }
-  }
-};
+  };
 
   const login = async (email: string, password: string) => {
     try {
@@ -109,19 +115,22 @@ const signGoogle = async () => {
       console.log('resp.data)', resp.data.accessToken);
       if (resp) {
         const respAnswers = await newApi.get('users/check-first-answers');
-        if (respAnswers?.data?.isComplete === true ) {
+        if (respAnswers?.data?.isComplete === true) {
           setloadingLogin(false);
-          console.log('respAnswers',respAnswers,'pasa');
-          navigation.navigate('Root');
-        }else {
+          console.log('respAnswers', respAnswers, 'pasa');
+          navigation.navigate('Root',{render:"initialRender"});
+        } else {
           setloadingLogin(false);
-            navigation.navigate('IntroScreen');
+          navigation.navigate('IntroScreen');
         }
       }
     } catch (error) {
       setloadingLogin(false);
       console.log('error api', error?.response?.data);
-      setErrorMessage(error?.response?.data?.realErrorMsg || error?.response?.data?.dataError?.message);
+      setErrorMessage(
+        error?.response?.data?.realErrorMsg ||
+          error?.response?.data?.dataError?.message,
+      );
     }
   };
   const {
@@ -134,11 +143,11 @@ const signGoogle = async () => {
   } = useForm({
     defaultValues: {
       Gmail: '',
-      Constraseña: '',
+      Contraseña: '',
     },
   });
   const onSubmit = (data: any) => {
-    login(data.Gmail, data.Constraseña);
+    login(data.Gmail, data.Contraseña);
     console.log(data);
     console.log('errors', errors);
   };
@@ -154,7 +163,7 @@ const signGoogle = async () => {
 
   return (
     <>
-      <Video
+      {/* <Video
         // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
         source={require('../../Assets/video/intro2.mp4')}
         resizeMode={'stretch'}
@@ -179,10 +188,10 @@ const signGoogle = async () => {
           bottom: 0,
           right: 0,
         }}
-      />
+      /> */}
       <LinearGradient
-        opacity={0.9}
-        colors={['#378bc1', '#395ea1', '#4847a2']}
+        opacity={0.7}
+        colors={['white', 'white', 'white']}
         style={{
           position: 'absolute',
           width: '100%',
@@ -199,7 +208,6 @@ const signGoogle = async () => {
             marginBottom: 20,
             marginTop: 110,
           }}>
-
           <Text style={styles.textTitle}>
             Inicia sesión en tu cuenta de NewYou
           </Text>
@@ -215,7 +223,7 @@ const signGoogle = async () => {
                 size={27}
                 name="envelope"
                 type="evilicon"
-                color="#9bafc7"
+                color="white"
                 style={{marginLeft: 13, marginRight: 20}}
                 tvParallaxProperties={undefined}
               />
@@ -223,19 +231,20 @@ const signGoogle = async () => {
                 placeholder="Correo electrónico"
                 style={[styles.input, {borderColor: colorBordefocusUser}]}
                 onBlur={onBlur}
-                placeholderTextColor="#8e9bb7"
+                placeholderTextColor="white"
                 onChangeText={onChange}
                 value={value}
                 onFocus={({nativeEvent: LayoutEvent}) => {
                   setcolorBordefocusUser('#9933FF');
                   setcolorBordefocusPass('white');
-                }}></TextInput>
+                }}
+              />
             </View>
           )}
           name="Gmail"
           rules={{required: true}}
         />
-        {errors.Constraseña && (
+        {errors.Contraseña && (
           <Text style={styles.textError}>La constraseña es requerida.</Text>
         )}
         <Controller
@@ -275,10 +284,10 @@ const signGoogle = async () => {
               )}
               <TextInput
                 secureTextEntry={showPassword}
-                placeholder="Constraseña"
+                placeholder="Contraseña"
                 style={[styles.input, {borderColor: colorBordefocusUser}]}
                 onBlur={onBlur}
-                placeholderTextColor="#8e9bb7"
+                placeholderTextColor="white"
                 onChangeText={onChange}
                 value={value}
                 onFocus={({nativeEvent: LayoutEvent}) => {
@@ -287,12 +296,12 @@ const signGoogle = async () => {
                 }}></TextInput>
             </View>
           )}
-          name="Constraseña"
+          name="Contraseña"
           rules={{required: true}}
         />
-        <Text
-        style={{ alignSelf: "center", color: "white" }}
-        >{errorMessage}</Text>
+        <Text style={{alignSelf: 'center', color: 'gray'}}>
+          {errorMessage}
+        </Text>
         <TouchableOpacity
           style={styles.buttonConstraseñaOlvido}
           onPress={goForgotPassword}>
@@ -309,19 +318,21 @@ const signGoogle = async () => {
             alignItems: 'center',
           }}>
           <View
-            style={{width: '42%', backgroundColor: 'white', height: 1}}></View>
-              {loadingLogin && <ActivityIndicator color={'white'} />}
+            style={{width: '42%', backgroundColor: 'gray', height: 1}}></View>
+          {loadingLogin ? <ActivityIndicator color={'gray'} /> :
+          
           <View
-            style={{
-              height: 10,
-              width: 10,
-              borderRadius: 5,
-              borderColor: 'white',
-              borderWidth: 1,
-              marginHorizontal: 10,
-            }}></View>
+          style={{
+            height: 10,
+            width: 10,
+            borderRadius: 5,
+            borderColor: 'gray',
+            borderWidth: 1,
+            marginHorizontal: 10,
+          }}></View>
+        }
           <View
-            style={{width: '42%', backgroundColor: 'white', height: 1}}></View>
+            style={{width: '42%', backgroundColor: 'gray', height: 1}}></View>
         </View>
         <TouchableOpacity
           style={styles.button}
@@ -342,10 +353,7 @@ const signGoogle = async () => {
           />
           <Text style={styles.textGoogle}>Iniciar sesión con Facebook</Text>
         </TouchableOpacity> */}
-        <TouchableOpacity
-          style={styles.buttonGoogle}
-          onPress={signGoogle}
-          >
+        <TouchableOpacity style={styles.buttonGoogle} onPress={signGoogle}>
           <Icon
             size={26}
             name="google"
@@ -361,7 +369,7 @@ const signGoogle = async () => {
             alignSelf: 'center',
             width: Dimensions.get('window').width * 0.7,
             fontSize: 14,
-            color: '#c0bfe7',
+            color: 'gray',
             fontFamily: 'EvilIcons',
             textAlign: 'center',
             marginTop: 25,
@@ -404,16 +412,24 @@ const styles = StyleSheet.create({
   containerInput: {
     width: Dimensions.get('window').width * 0.9,
     height: 55,
-    backgroundColor: '#2d507a',
+    marginVertical:5,
+    backgroundColor: '#FFA31E',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
     alignSelf: 'center',
-    borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 40,
     borderColor: '#9bafc7',
     marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
 
   button: {
@@ -425,8 +441,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 18,
+    backgroundColor: '#F9AD47',
     borderColor: 'white',
-    borderWidth: 1,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   buttonFacebook: {
     marginTop: 10,
@@ -437,6 +462,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'row',
+    borderColor: '#1B1A18',
   },
   buttonGoogle: {
     width: Dimensions.get('window').width * 0.9,
@@ -450,6 +476,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'row',
     paddingLeft: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   textGoogle: {
     fontSize: 15,
@@ -467,10 +502,11 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   textTitle: {
-    color: 'white',
-    fontSize: 25,
+    color: 'gray',
+    fontSize: 20,
     textAlign: 'center',
     fontFamily: 'Dosis',
+    fontWeight:'bold',
   },
   buttonConstraseñaOlvido: {
     marginVertical: 10,
@@ -480,7 +516,7 @@ const styles = StyleSheet.create({
   },
   textOlvidoContraseña: {
     textDecorationLine: 'underline',
-    color: 'white',
+    color: 'gray',
     fontWeight: 'bold',
     fontSize: 16,
     fontFamily: 'Dosis',
@@ -498,7 +534,7 @@ const styles = StyleSheet.create({
   },
   textError: {
     fontSize: 18,
-    color: 'white',
+    color: 'gray',
     fontFamily: 'Dosis',
     alignSelf: 'center',
     marginBottom: 3,
@@ -529,4 +565,3 @@ const styles = StyleSheet.create({
 });
 
 //login
-

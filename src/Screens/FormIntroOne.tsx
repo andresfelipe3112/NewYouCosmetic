@@ -237,7 +237,7 @@ export default function FormIntroOne() {
 
 
             <Text
-                style={[styles.title, { fontWeight: "normal", fontSize: 25, marginTop: 30, marginBottom: 10 }]}
+                style={[styles.title, { fontWeight: "normal", fontSize: 25, marginTop: 30, marginBottom: 10, }]}
             >Color de cabello natural</Text>
             <View
                 style={{

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, TextInput, Button, ScrollView, Alert, Dimensions, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
+import { Text, View, TextInput, Button, ScrollView, Alert, Dimensions, StyleSheet, TouchableOpacity, ImageBackground, ActivityIndicator } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { Icon, Image } from 'react-native-elements';
+import { FAB, Icon, Image } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -10,17 +10,16 @@ import LinearGradient from 'react-native-linear-gradient';
 export default function Start() {
     const navigation = useNavigation();
 
-    useEffect(() => {
-
+     useEffect(() => {
         setTimeout(() => {
-            //@ts-ignore
-            navigation.navigate("Seasons")
-        }, 5000)
-    }, [])
+             //@ts-ignore
+             navigation.navigate("Seasons")
+         }, 3500)
+     }, [])
+
 
     return (
         <View>
-            <LinearGradient opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             <View
                 style={{
                     width: Dimensions.get("window").width * 0.8,
@@ -33,13 +32,15 @@ export default function Start() {
                 }}
             >
                 <Text
-                    style={{ color: 'white', fontSize: 30 }}
+                    style={{ color: 'gray', fontSize: 30, marginTop:-30 }}
                 >¡Hola!</Text>
                 <Text
                     style={styles.textTitle}
-                >Con tan solo 8 preguntas te brindaremos algunas recomendaciones .</Text>
+                >Con tan solo 7 preguntas te brindaremos algunas recomendaciones .</Text>
+                <ActivityIndicator color="gray" style={{marginTop:30}} />
             </View>
-            <View
+            
+            {/* <View
                 style={{
                     position: "absolute", top: Dimensions.get("window").height * 0.89, display: "flex", flexDirection: "row",
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
@@ -62,7 +63,7 @@ export default function Start() {
                     onPress={() => navigation.navigate("Seasons")}
                     tvParallaxProperties={undefined}
                 />
-            </View>
+            </View> */}
         </View>
     );
 
@@ -146,8 +147,9 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         marginTop: 10,
-        color: "white",
-        fontSize: 23,
+        color: "gray",
+        fontWeight: 'bold',
+        fontSize: 19,
         textAlign: "center",
         fontFamily: "Dosis"
     },

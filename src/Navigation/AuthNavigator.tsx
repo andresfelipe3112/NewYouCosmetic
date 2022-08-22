@@ -62,237 +62,245 @@ export const AuthNavigator = () => {
       }}>
       <Stack.Screen name="Wellcome" component={WellCome} />
 
-      <Stack.Screen name="ColorCabello" component={ColorCabello} options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }} />
+      <Stack.Screen name="ColorCabello" component={ColorCabello} 
+      
+      //  options={{
+      //     transitionSpec: {
+      //       open: config,
+      //       close: closeConfig,
+      //     },
+      //     gestureDirection: 'vertical-inverted',
+      //     cardStyleInterpolator:
+      //       CardStyleInterpolators.forFadeFromBottomAndroid,
+      //   }} 
+        
+        />
 
 
 
 
-      <Stack.Screen name="Bronceado" component={Bronceado} options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }} />
+      <Stack.Screen name="Bronceado" component={Bronceado} 
+      // options={{
+      //     transitionSpec: {
+      //       open: config,
+      //       close: closeConfig,
+      //     },
+      //     gestureDirection: 'vertical-inverted',
+      //     cardStyleInterpolator:
+      //       CardStyleInterpolators.forFadeFromBottomAndroid,
+      //   }} 
+        />
 
-      <Stack.Screen name="Pecas" component={Pecas}  options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }} />
+      <Stack.Screen name="Pecas" component={Pecas}  
+      // options={{
+      //     transitionSpec: {
+      //       open: config,
+      //       close: closeConfig,
+      //     },
+      //     gestureDirection: 'vertical-inverted',
+      //     cardStyleInterpolator:
+      //       CardStyleInterpolators.forFadeFromBottomAndroid,
+      //   }} 
+        />
 
       <Stack.Screen
         name="VeinColor"
         component={VeinColor}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
 
       <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="Register"
         component={Register}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="DetailProduct"
         component={DetailProduct}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="DetailProductStore"
         component={DetailProductStore}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="RecoveryPassword"
         component={RecoveryPasswordScreen}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
       <Stack.Screen
         name="IntroScreen"
         component={IntroScreen}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'horizontal',
-          gestureVelocityImpact: 1000,
-          cardStyleInterpolator:
-            CardStyleInterpolators.forRevealFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'horizontal',
+        //   gestureVelocityImpact: 1000,
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forRevealFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="Start"
         component={Start}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="Seasons"
         component={Seasons}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'horizontal',
-          gestureVelocityImpact: 1000,
-          cardStyleInterpolator:
-            CardStyleInterpolators.forRevealFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'horizontal',
+        //   gestureVelocityImpact: 1000,
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forRevealFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="Gender"
         component={Gender}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="Age"
         component={Age}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="Perfil"
         component={Perfil}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="VeganOption"
         component={VeganOption}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="StyleOption"
         component={StyleOption} //
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="ColorHearOption"
         component={ColorHearOption}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="colorOjos"
@@ -310,107 +318,107 @@ export const AuthNavigator = () => {
       <Stack.Screen
         name="TipoDeRostro"
         component={TipoDeRostro}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
 
       <Stack.Screen
         name="LoadingHome"
         component={LoadingHome}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="Root"
         component={RootTabsNavigator}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="AllProducts"
         component={AllProducts}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="CategoriesPush"
         component={CategoriesPush}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="Altura"
         component={Altura}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="LargoDeCuello"
         component={LargoDeCuello}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen
         name="TipoDeCuerpo"
         component={TipoDeCuerpo}
-        options={{
-          transitionSpec: {
-            open: config,
-            close: closeConfig,
-          },
-          gestureDirection: 'vertical-inverted',
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        // options={{
+        //   transitionSpec: {
+        //     open: config,
+        //     close: closeConfig,
+        //   },
+        //   gestureDirection: 'vertical-inverted',
+        //   cardStyleInterpolator:
+        //     CardStyleInterpolators.forFadeFromBottomAndroid,
+        // }}
       />
       <Stack.Screen name="CurrentResponse" component={CurrentResponse} />
       {/* <Stack.Screen name="Home" component={Home} /> 

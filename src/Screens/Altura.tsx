@@ -86,7 +86,7 @@ export default function Altura({ route }) {
 
     return (
         <View>
-            <LinearGradient opacity={0.9} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+            <LinearGradient opacity={0.9} colors={['white', 'white', 'white']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             <View
                 style={{
                     width: Dimensions.get("window").width * 0.8,
@@ -99,7 +99,7 @@ export default function Altura({ route }) {
                 }}
             >
                 <Text
-                    style={{ color: 'white', fontSize: 30, fontFamily: "Dosis", }}
+                    style={{ color: 'gray', fontSize: 20, fontWeight: "bold", fontFamily: "Dosis", marginTop:-100, }}
                 >Selecciona tu altura</Text>
                 <View
                     opacity={0.7}
@@ -116,7 +116,7 @@ export default function Altura({ route }) {
                         <Picker selectedValue={state.age}
                             onValueChange={updateAge}
                             onFocus={async () => route?.params?.data && await render()}
-                            style={{ backgroundColor: "white", borderRadius: 20, fontWeight: "bold", fontSize: 40, }}
+                            style={{ borderRadius: 20, fontWeight: "bold", fontSize: 40, }}
                         >{
                                 age.map((item, key) => (
                                     <Picker.Item key={key} label={item} value={state.age === 0 + " centímetros" && route?.params?.data ? route?.params?.data :item} />
@@ -129,7 +129,7 @@ export default function Altura({ route }) {
 
             <View
                 style={{
-                    position: "absolute", top: Dimensions.get("window").height * 0.91, display: "flex", flexDirection: "row",
+                    position: "absolute", top: Dimensions.get("window").height * 0.88, display: "flex", flexDirection: "row",
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
                 }}
             >
@@ -212,7 +212,9 @@ const styles = StyleSheet.create({
         width: 200,
         alignSelf: "center",
         justifyContent: 'center',
-        marginTop: -20
+        marginTop: -20,
+        backgroundColor:'#F9AD47',
+        borderRadius:30
     },
     button: {
         marginTop: 25,

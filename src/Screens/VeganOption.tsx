@@ -86,16 +86,8 @@ const Seasons = ({route}) => {
   };
 
   return (
-    <View style={{width: '100%', height: Dimensions.get('screen').height}}>
-      <LinearGradient
-        opacity={0.9}
-        colors={['#378bc1', '#395ea1', '#4847a2']}
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: Dimensions.get('window').height,
-        }}
-      />
+    <View style={{width: '100%', height: Dimensions.get('screen').height, backgroundColor:'white'}}>
+     
       <ScrollView>
         <View
           style={{
@@ -111,7 +103,7 @@ const Seasons = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckVerano ? 'white' : 'transparent'},
+              {backgroundColor: colorCheckVerano ? '#F9AD47' : 'transparent'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -121,7 +113,7 @@ const Seasons = ({route}) => {
             <Text
               style={[
                 styles.text,
-                {color: colorCheckVerano ? 'black' : 'white'},
+                {color: colorCheckVerano ? 'white' : '#F9AD47'},
               ]}>
               Si
             </Text>
@@ -129,7 +121,7 @@ const Seasons = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckOtono ? 'white' : 'transparent'},
+              {backgroundColor: colorCheckOtono ? '#F9AD47' : 'transparent'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -139,7 +131,7 @@ const Seasons = ({route}) => {
             <Text
               style={[
                 styles.text,
-                {color: colorCheckOtono ? 'black' : 'white'},
+                {color: colorCheckOtono ? 'white' : '#F9AD47'},
               ]}>
               No
             </Text>
@@ -228,8 +220,9 @@ export default Seasons;
 
 const styles = StyleSheet.create({
   textTitle: {
-    color: 'white',
-    fontSize: 25,
+    color: '#2F2F2F',
+    fontWeight: 'bold',
+    fontSize: 23,
     textAlign: 'center',
     fontFamily: 'Dosis',
     marginVertical: 20,
@@ -248,7 +241,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: 'white',
+    borderColor: '#F9AD47',
     borderWidth: 1,
     marginVertical: 10,
   },

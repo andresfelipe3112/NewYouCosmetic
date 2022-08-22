@@ -172,7 +172,7 @@ const StyleOption = ({route}) => {
                     }}
                 >
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckA ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckA ?  '#F9AD47' : 'transparent'}]}
                         //@ts-ignore
                         onPress={()=>{
                             colorA();
@@ -185,12 +185,12 @@ const StyleOption = ({route}) => {
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckA ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckA ? "white" : 'white' }]}
                         >Romantico</Text>
                         </TouchableOpacity>
-                           <DawnLogo  render={statusInfo} text="El vestido romántico tiene multitud de posibilidades a la hora de combinarlo. Puedes optar por romper la delicadeza de la prenda con unas zapatillas deportivas y chaqueta biker. Si prefieres mantener esa inspiración clásica, un vestido de encaje en forma de A es la mejor opción. Añade unas espardeñas y bolso de mimbre." />
+                           <DawnLogo colorVideoText={true} render={statusInfo} text="El vestido romántico tiene multitud de posibilidades a la hora de combinarlo. Puedes optar por romper la delicadeza de la prenda con unas zapatillas deportivas y chaqueta biker. Si prefieres mantener esa inspiración clásica, un vestido de encaje en forma de A es la mejor opción. Añade unas espardeñas y bolso de mimbre." />
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckB ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckB ? '#F9AD47' : 'transparent' }]}
                         //@ts-ignore
                         onPress={()=>{
                             colorB();
@@ -203,12 +203,12 @@ const StyleOption = ({route}) => {
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckB ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckB ? "white" : 'white' }]}
                         >Clásico</Text>
                     </TouchableOpacity>
-                    <DawnLogo  render={statusInfo} text="Cuando hablamos de estilo clásico nos referimos a simetría, lujo, comodidad, calidad y elegancia en el diseño. Este estilo se acerca al romántico, ya que utiliza materiales puros, accesorios elaborados y colores intensos." />
+                    <DawnLogo colorVideoText={true}  render={statusInfo} text="Cuando hablamos de estilo clásico nos referimos a simetría, lujo, comodidad, calidad y elegancia en el diseño. Este estilo se acerca al romántico, ya que utiliza materiales puros, accesorios elaborados y colores intensos." />
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckC ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckC ? '#F9AD47' : 'transparent' }]}
                         //@ts-ignore
                         onPress={()=>{
                             colorC();
@@ -221,12 +221,12 @@ const StyleOption = ({route}) => {
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckC ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckC ? "white" : 'white' }]}
                         >Creativo</Text>
                     </TouchableOpacity>
-                    <DawnLogo text=" Es una forma de proyección personal basada en máxima expresión de individualidad, diferenciación, creatividad y capacidad de asumir riesgos que transforman las viejas ideas en aventuras poco convencionales."/>
+                    <DawnLogo colorVideoText={true} text=" Es una forma de proyección personal basada en máxima expresión de individualidad, diferenciación, creatividad y capacidad de asumir riesgos que transforman las viejas ideas en aventuras poco convencionales."/>
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckD ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckD ? '#F9AD47' : 'transparent' }]}
                         //@ts-ignore
                         onPress={()=>{
                             colorD();
@@ -239,12 +239,12 @@ const StyleOption = ({route}) => {
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckD ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckD ? "white" : 'white' }]}
                         >Sensual</Text>
                     </TouchableOpacity>
                     <DawnLogo text="Las personas de estilo sexy o sensual buscan valorar las formas de su cuerpo, especialmente con piezas que hacen que el cuerpo sea aún más curvilíneo."/>
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colorCheckE ? 'white' : "transparent" }]}
+                        style={[styles.button, { backgroundColor: colorCheckE ? '#F9AD47' : 'transparent'}]}
                         //@ts-ignore
                         onPress={()=>{
                             colorE();
@@ -257,15 +257,15 @@ const StyleOption = ({route}) => {
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text
-                            style={[styles.text, { color: colorCheckE ? "black" : 'white' }]}
+                            style={[styles.text, { color: colorCheckE ? "white" : 'white' }]}
                         >City Chick</Text>
                     </TouchableOpacity>
-                    <DawnLogo text="El estilo city chic es saber combinar con gusto el estilo casual con varios detalles llamativos que son el ultimo grito de la moda. Es el estilo de la chica de la cuidad grande que va bien para la oficina, paseos o una cita con amigos."/>
+                    <DawnLogo colorVideoText={true} text="El estilo city chic es saber combinar con gusto el estilo casual con varios detalles llamativos que son el ultimo grito de la moda. Es el estilo de la chica de la cuidad grande que va bien para la oficina, paseos o una cita con amigos."/>
                 </View>
             </ScrollView>
             <View
                 style={{
-                    position: "absolute", top: Dimensions.get("window").height * 0.015, display: "flex", flexDirection: "row",
+                    position: "absolute", top: Dimensions.get("window").height * 0.90, display: "flex", flexDirection: "row",
                     justifyContent: "space-between", width: Dimensions.get("window").width * 0.9, alignSelf: "center",
                 }}
             >
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         borderRadius: 25,
         opacity: 0.6, display: "flex",
-        marginTop: 70
+        marginTop: 30
     },
     text: {
         fontSize: 15,
@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        borderColor: "white",
+        borderColor: '#F9AD47',
         borderWidth: 1,
         margin: 10
     },

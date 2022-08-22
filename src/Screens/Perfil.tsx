@@ -31,18 +31,18 @@ export const Perfil = () => {
     }
 
     useEffect(() => {
-        dataUser()
+        dataUser();
     },[])
 
     return (
         <View
             style={{ width: "100%", height: "100%", display:"flex", justifyContent: "center", alignItems: 'center'}}
         >
-            <LinearGradient opacity={1} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: "100%"}} />
+            <LinearGradient opacity={1} colors={['white', 'white', 'white']} style={{ position: "absolute", width: "100%", height: "100%"}} />
             <Text style={{
                 position: "absolute",
                 top:15,
-                color: "white",
+                color: "black",
                 fontSize: 18
             }}>Mis Datos</Text>
             <TouchableOpacity
@@ -62,12 +62,12 @@ export const Perfil = () => {
             </TouchableOpacity>
 
             <Text
-                style={{ color: 'white', textAlign: "left", width:"65%", marginTop:-350 }}
+                style={{ color: 'gray', textAlign: "left", width:"65%", marginTop:-350 }}
             >Nombre:</Text>
             <TextInput
                 style={{
-                     width: "70%", alignSelf: "center", textAlign: "center",
-                    borderRadius: 10, borderWidth: 1, borderColor: "white", marginTop: 5
+                     width: "70%", alignSelf: "center", textAlign: "center", 
+                     marginTop: 5, backgroundColor:'black', borderRadius:30
                 }}
             >
                 <Text
@@ -80,13 +80,13 @@ export const Perfil = () => {
 
 
             <Text
-                style={{ color: 'white', textAlign: "left", marginTop:15, width:"65%" }}
+                style={{ color: 'gray', textAlign: "left", marginTop:15, width:"65%" }}
             >Correo:</Text>
             <TextInput
                 style={{
                     width: "70%", alignSelf: "center", textAlign: "center", marginTop: 5,
-                    borderRadius: 10, borderWidth: 1, borderColor: "white", color: "white", fontWeight: "bold",
-                    fontSize: 16
+                    borderRadius: 30, color: "white", fontWeight: "bold",
+                    fontSize: 16, backgroundColor: "black",
                 }}
             >
                       <Text

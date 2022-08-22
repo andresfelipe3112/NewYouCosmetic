@@ -24,7 +24,7 @@ export const LoadingHome = ({title}) => {
                 flexDirection: "column", alignItems: 'center', justifyContent: 'center',
             }}
         >
-            <LinearGradient opacity={1} colors={['#378bc1', '#3F3E98', '#2E2D89']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+            <LinearGradient opacity={1} colors={['white', 'white', 'white']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             {/* <Text
                 style={{ color: "white", fontSize: 30, fontWeight: "bold", marginTop: 30, fontFamily: 'EvilIcons', }}>BIENVENIDO</Text>
             <View
@@ -92,13 +92,13 @@ export const LoadingHome = ({title}) => {
                 style={{ width: "100%", alignItems: 'center', justifyContent: 'center', marginTop: 20 }}
             >
                 <Image
-                    source={require("../Assets/Img/logo_NewYou.png")}
+                    source={require("../Assets/Img/new_logo_rd.png")}
                     style={{ width: 70, height: 60, }}
                 ></Image>
             </View>
 
             <Text
-                style={{ color: "white", fontSize: 17, fontWeight: "bold", marginTop: 20,
+                style={{ color: "gray", fontSize: 17, marginTop: 20,
                  marginHorizontal:30, alignSelf: "center", fontFamily: "Fontisto", textAlign:"center" }}>
                 {title}
             </Text>
@@ -107,7 +107,7 @@ export const LoadingHome = ({title}) => {
                 visible={visible}
                 icon={{ name: 'add', color: 'white' }}
                 size="large"
-                color='#17165D'
+                color='#FFA31E'
                 style={{ width: 50, height: 50, alignSelf: "center", backgroundColor: "red", marginTop: 20 }}
             />
 

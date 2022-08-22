@@ -45,13 +45,13 @@ export const Home = ({route}: any) => {
       position: 2,
       color: '#F9AD47',
     },
-    {
-      text: 'Cerrar sesión',
-      icon: require('../Assets/Img/import.png'),
-      name: 'Cerrar sesión',
-      position: 3,
-      color: '#F9AD47',
-    },
+    // {
+    //   text: 'Cerrar sesión',
+    //   icon: require('../Assets/Img/import.png'),
+    //   name: 'Cerrar sesión',
+    //   position: 3,
+    //   color: '#F9AD47',
+    // },
   ];
 
   const navigation = useNavigation();
@@ -241,10 +241,7 @@ export const Home = ({route}: any) => {
         onPressItem={name => {
           if (name === 'Agregar Recomendación') {
             navigation.navigate('CategoriesPush');
-          } else if (name === 'Cerrar sesión') {
-            LoginOutThunk();
-            navigation.navigate('LoginScreen');
-          } else if (name === 'Refrescar categorías') {
+          } else if(name === 'Refrescar categorías') {
             refresh();
           }
         }}

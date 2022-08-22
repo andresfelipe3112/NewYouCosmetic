@@ -92,7 +92,7 @@ export const AllProducts = ({route}: any) => {
             alignItems: 'center',
             justifyContent: 'flex-end',
             padding: 3,
-            backgroundColor: '#0B72A9',
+            backgroundColor: '#F9AD47',
             borderRadius: 20,
             margin: 5,
             shadowColor: '#000',
@@ -104,11 +104,11 @@ export const AllProducts = ({route}: any) => {
             shadowRadius: 7.49,
             elevation: 12,
           }}>
-          <Text style={{color: '#D4D7EE'}}>Eliminar Categoria</Text>
+          <Text style={{color: 'white'}}>Eliminar Categoria</Text>
           <Icon
             name="minus"
             type="evilicon"
-            color="#D4D7EE"
+            color="white"
             size={40}
             tvParallaxProperties={undefined}
             //@ts-ignore
@@ -164,7 +164,7 @@ export const AllProducts = ({route}: any) => {
               }}>
               <Text
                 style={{
-                  backgroundColor: '#809BBB',
+                  backgroundColor: '#F9AD47',
                   fontWeight: 'bold',
                   borderRadius: 5,
                   padding: 2,
@@ -172,11 +172,11 @@ export const AllProducts = ({route}: any) => {
                 }}>
                 Patrocinado
               </Text>
-              <Text style={{color: 'white', fontWeight: 'bold', margin: 2}}>
+              <Text style={{color: 'gray', fontWeight: 'bold', margin: 2}}>
                 {' '}
                 ADIDAS
               </Text>
-              <Text style={{color: 'white', margin: 2}}>Polera Adidas</Text>
+              <Text style={{color: 'gray', margin: 2}}>Polera Adidas</Text>
             </View>
             <Title text={dataParams.title} />
             <View
@@ -193,7 +193,9 @@ export const AllProducts = ({route}: any) => {
           flexDirection: 'column',
           display: 'flex',
           alignItems: 'center',
+
         }}
+        style={{marginBottom:40}}
         numColumns={2}
         data={dataParams.data}
         renderItem={({item}: any) => (

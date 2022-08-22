@@ -19,6 +19,11 @@ export const CurrentResponse = ({navigation}) => {
         { pregunta:"Tipo de cuerpo", navigation:"TipoDeCuerpo" },
         { pregunta:"Altura", navigation:"Altura" },
         { pregunta:"Cuello", navigation:"LargoDeCuello" },
+
+        { pregunta:"Color de venas", navigation:"VeinColor" },
+        { pregunta:"Bronceado", navigation:"Bronceado" },
+        { pregunta:"Pecas", navigation:"Pecas" },
+        { pregunta:"Color de cabello", navigation:"ColorCabello" },
     ]
 
     const [dataResponse, setDataResponse] = useState<any>([])
@@ -45,7 +50,7 @@ export const CurrentResponse = ({navigation}) => {
           height: 50,
           borderRadius: 25,
           borderColor: "white",
-          backgroundColor: "white",
+          backgroundColor: "black",
           borderWidth: 1.5,
           alignSelf: "center",
           margin: 10,
@@ -57,7 +62,7 @@ export const CurrentResponse = ({navigation}) => {
         onPress={() => navigation.navigate(item.navigation, { actualizar: true , data: data })}
       >
         <Text
-          style={{ fontSize: 15, fontWeight: "bold" }}
+          style={{ fontSize: 14, fontWeight: "bold", color: "#e1e1e1"}}
         >{item.pregunta}</Text>
       </TouchableOpacity>
       )
@@ -66,7 +71,7 @@ export const CurrentResponse = ({navigation}) => {
 
     return(
         <>
-            <LinearGradient opacity={1} colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
+            <LinearGradient opacity={1} colors={['white', 'white', 'white']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
             <View
             style={{
               width: Dimensions.get('window').width * 0.9,
@@ -75,8 +80,8 @@ export const CurrentResponse = ({navigation}) => {
               flexDirection: "row",
             }}
           >
-                 <View
-        style={{
+        <View
+         style={{
           position: "absolute",
           height: 50,
           left: Dimensions.get('window').width * 0.4,
@@ -84,7 +89,7 @@ export const CurrentResponse = ({navigation}) => {
           alignItems: 'center',
         }}>
         <Text
-        style={{ fontSize:16, color: 'white'}}
+        style={{ fontSize:18, color: 'black', fontWeight: 'bold' }}
         >Respuestas</Text>
       </View>
                    <View
@@ -109,7 +114,7 @@ export const CurrentResponse = ({navigation}) => {
             </View>
           </View>
           </View>
-          {loadingLogin && <ActivityIndicator style={{ alignItems: 'center'}} color={'white'} />}
+          {loadingLogin && <ActivityIndicator style={{ alignItems: 'center'}} color={'gray'} />}
           <ScrollView>
             <View>
             {dataResponse?.dataUser?.season && <Button item={data[0]} data={dataResponse?.dataUser?.season} ></Button> }
@@ -120,6 +125,12 @@ export const CurrentResponse = ({navigation}) => {
             {dataResponse?.dataUser?.style && <Button item={data[3]}  data={dataResponse?.dataUser?.style}></Button> }
             {dataResponse?.dataUser?.typeBody && <Button item={data[6]} data={dataResponse?.dataUser?.typeBody} ></Button> }
             {dataResponse?.dataUser?.typeFace && <Button item={data[5]} data={dataResponse?.dataUser?.typeFace} ></Button> }
+
+            {dataResponse?.dataUser?.veins && <Button item={data[9]} data={dataResponse?.dataUser?.veins} ></Button> }
+            {dataResponse?.dataUser?.sunTanning && <Button item={data[10]} data={dataResponse?.dataUser?.sunTanning} ></Button> }
+            {dataResponse?.dataUser?.freckles === true || dataResponse?.dataUser?.freckles === false && <Button item={data[11]} data={dataResponse?.dataUser?.freckles} ></Button> }
+            {dataResponse?.dataUser?.hair && <Button item={data[12]} data={dataResponse?.dataUser?.hair} ></Button> }
+
             </View>
           </ScrollView>
         </>

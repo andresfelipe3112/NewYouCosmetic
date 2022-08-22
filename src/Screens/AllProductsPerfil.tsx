@@ -136,7 +136,7 @@ export const AllProductsPerfil = ({route}: any) => {
           style={{
             alignSelf: 'center',
             marginTop: 70,
-            color: 'white',
+            color: 'gray',
           }}>
           No hay elementos en tu armario
         </Text>

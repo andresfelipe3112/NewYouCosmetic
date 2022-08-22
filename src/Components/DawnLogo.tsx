@@ -4,7 +4,7 @@ import { Image } from 'react-native-elements/dist/image/Image';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 
-const DawnLogo = ({ text, render }: any) => {
+const DawnLogo = ({ text, render, colorVideoText}: any) => {
 
     const dawnLogo = require('../Assets/Img/down.png');
     const speed = 500;
@@ -169,7 +169,7 @@ const DawnLogo = ({ text, render }: any) => {
                         active()
                     }}>
                     <Text
-                        style={styles.textInput}
+                        style={[styles.textInput,{color: colorVideoText ? 'white' :'#2F2F2F'}]}
                     >{text}</Text>
                 </AnimatedPressable>
             </>
@@ -191,7 +191,6 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 15,
-        color: 'white',
         fontWeight: 'bold',
     },
     button: {
@@ -221,7 +220,8 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     textInput: {
-        color: 'white',
+        color: '#2F2F2F',
         paddingHorizontal: 25,
+        textAlign: 'center',
     },
 })

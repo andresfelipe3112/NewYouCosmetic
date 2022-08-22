@@ -173,7 +173,7 @@ export const DetailProduct = ({route}: any) => {
           height: 360,
         }}
         // source={{uri: item.url}}
-        source={require('../Assets/Img/pruebaImg.jpg')}
+        source={require('../Assets/Img/pruebaCImg.jpeg')}
         resizeMode="stretch"
         containerStyle={{
           backgroundColor: 'black',
@@ -195,60 +195,106 @@ export const DetailProduct = ({route}: any) => {
 
   return (
     <View style={{backgroundColor: 'white', width: '100%', height: '100%'}}>
-      <ScrollView>
-        <View
+       <View
           style={{
-            alignSelf: 'center',
-            height: Dimensions.get('window').height * 0.85,
-            backgroundColor: 'white',
-            marginBottom: 30,
+            width: Dimensions.get('window').width * 0.9,
+            flexWrap: 'wrap',
+            display: 'flex',
+            flexDirection: 'row',
+            marginBottom: 10,
           }}>
-         
-          <Image
-            containerStyle={{
-              padding: 15,
-              width: Dimensions.get('window').width,
-            }}
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
             style={{
-              width: Dimensions.get('window').width,
-              height: Dimensions.get('window').height * 0.85,
-              // borderBottomLeftRadius: 60,
-              // borderBottomRightRadius: 60,
-              // position: 'absolute',
-            }}
-            // source={{uri: item.url}}
-            source={require('../Assets/Img/pruebabImg.jpg')}
-            // resizeMode="stretch"
-            // PlaceholderContent={<ActivityIndicator />}
-          />
+              width:30,
+              borderRadius: 50,
+              marginLeft: 45,
+              marginTop: 50,
+              backgroundColor: 'white',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,
+            }}>
+            <Icon
+              containerStyle={{borderRadius: 50, width: 40}}
+              name="arrow-left"
+              type="evilicon"
+              color="gray"
+              size={40}
+              tvParallaxProperties={undefined}
+              //@ts-ignore
+            />
+          </TouchableOpacity>
         </View>
+      <ScrollView>
+      {
+        dataProduct.media.map((item:any,index:any)=>{
+          return(
+            <View
+            style={{
+              alignSelf: 'center',
+              height: Dimensions.get('window').height * 0.85,
+              backgroundColor: 'white',
+              marginBottom: 30,
+            }}>
+            <Image
+              containerStyle={{
+                padding: 15,
+                width: Dimensions.get('window').width,
+              }}
+              style={{
+                width: Dimensions.get('window').width,
+                height: Dimensions.get('window').height * 0.85,
+                // borderBottomLeftRadius: 60,
+                // borderBottomRightRadius: 60,
+                // position: 'absolute',
+              }}
+                  source={{uri: item.url}}
+              //  source={require('../Assets/Img/pruebaImg.jpg')}
+              //  source={require('../Assets/Img/pruebaCImg.jpeg')}
+              // resizeMode="stretch"
+              // PlaceholderContent={<ActivityIndicator />}
+            />
+          </View>
+          )
+        })
+      }
       </ScrollView>
       <LinearGradient
-          opacity={1}
-          colors={['transparent',
+        opacity={1}
+        colors={[
+          'transparent',
           // '#FFE5CC',
-          'white']}
-          style={{
-            position: 'absolute',
-            width: '100%',
-            // height: Dimensions.get('window').height * 0.8,
-            height: 140,
-            bottom: 190,
-            // borderBottomLeftRadius: 60,
-            // borderBottomRightRadius: 60,
-            // shadowColor: '#000',
-            // shadowOffset: {
-            //   width:0,
-            //   height: 0,
-            // },
-            // shadowOpacity: 0.25,
-            // shadowRadius: 3.84,
-            // elevation: 5,
-          }}
-        />
+          'white',
+        ]}
+        style={{
+          position: 'absolute',
+          width: '100%',
+          // height: Dimensions.get('window').height * 0.8,
+          height: 140,
+          bottom: 190,
+          // borderBottomLeftRadius: 60,
+          // borderBottomRightRadius: 60,
+          // shadowColor: '#000',
+          // shadowOffset: {
+          //   width:0,
+          //   height: 0,
+          // },
+          // shadowOpacity: 0.25,
+          // shadowRadius: 3.84,
+          // elevation: 5,
+        }}
+      />
       <Button
         title="Buscar tiendas"
-        
         onPress={() =>
           navigation.navigate('DetailProductStore', {data: dataShop})
         }
@@ -278,6 +324,14 @@ export const DetailProduct = ({route}: any) => {
           right: 0,
           marginTop: 8,
           marginRight: 10,
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 4,
         }}
         buttonStyle={{
           backgroundColor: !iconHeart ? 'white' : '#FF9933',
@@ -296,35 +350,33 @@ export const DetailProduct = ({route}: any) => {
             tvParallaxProperties={false}
           />
         }></Button>
-        <View
-        style={{                
-          backgroundColor:'white',
+      <View
+        style={{
+          backgroundColor: 'white',
           position: 'absolute',
-        top: Dimensions.get('window').height * 0.70 ,
-        paddingBottom:36
-      }}
-        >
-
-             <Text
-              style={{
-                width: Dimensions.get('window').width ,
-                textAlign: 'center',
-                fontSize: 25,
-                fontWeight: 'bold',
-              }}>
-              {dataProduct?.nameProduct}
-            </Text>
-             <Text
-              style={{
-
-                width: Dimensions.get('window').width ,
-                paddingHorizontal:25,
-                textAlign: 'center',
-                fontSize: 15,
-              }}>
-              Prenda exterior de vestir , con mangas y abierta por delante , que llega por debajo de la cadera .
-            </Text>
-          </View>
+          top: Dimensions.get('window').height * 0.7,
+          paddingBottom: 36,
+        }}>
+        <Text
+          style={{
+            width: Dimensions.get('window').width,
+            textAlign: 'center',
+            fontSize: 25,
+            fontWeight: 'bold',
+          }}>
+          {dataProduct?.nameProduct}
+        </Text>
+        <Text
+          style={{
+            width: Dimensions.get('window').width,
+            paddingHorizontal: 25,
+            textAlign: 'center',
+            fontSize: 15,
+          }}>
+          Prenda exterior de vestir , con mangas y abierta por delante , que
+          llega por debajo de la cadera .
+        </Text>
+      </View>
       <Icon
         containerStyle={{
           width: 30,

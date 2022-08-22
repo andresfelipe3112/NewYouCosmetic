@@ -1,248 +1,332 @@
-import React, { useState } from 'react'
-import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Modal, Dimensions } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient'
-import { useNavigation } from '@react-navigation/native'
-import { Input, Overlay, Icon } from 'react-native-elements';
-import { Controller, useForm } from 'react-hook-form';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Modal,
+  Dimensions,
+  ActivityIndicator,
+} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
+import {Input, Overlay, Icon} from 'react-native-elements';
+import {Controller, useForm} from 'react-hook-form';
 
-import { ArrowBackButton } from '../../Components/ArrowBackButton';
+import {ArrowBackButton} from '../../Components/ArrowBackButton';
+import newApi from '../../Services/LoginApiValues';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const RecoveryPasswordScreen = () => {
+  const navigation = useNavigation();
 
-    const navigation = useNavigation();
+  const [colorBordefocusCorreo, setcolorBordefocusCorreo] =
+    useState<string>('white');
+  const [colorBordefocusCodigo, setcolorBordefocusCodigo] =
+    useState<string>('gray');
+  const [loadingLogin, setloadingLogin] = useState<Boolean>(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [emailState, setemailState] = useState('');
 
-    const [colorBordefocusCorreo, setcolorBordefocusCorreo] = useState<string>('white');
-    const [colorBordefocusCodigo, setcolorBordefocusCodigo] = useState<string>('gray');
+  const {
+    setValue,
+    handleSubmit,
+    control,
+    reset,
+    formState: {errors},
+  } = useForm({
+    defaultValues: {
+      correo: '',
+      codigo: '',
+    },
+  });
 
-    const { setValue, handleSubmit, control, reset, formState: { errors } } = useForm({
-        defaultValues: {
-            correo: '',
-            codigo: '',
-        }
-    });
+  const RecoveryPasswordApi = async (email: string) => {
+    setemailState(email);
+    try {
+      setloadingLogin(true);
+      const resp = await newApi.post('/auth/recover-user', {
+        email: email,
+      });
+      if (resp) {
+        setloadingLogin(false);
+        setModal(true);
+      }
+    } catch (error) {
+      setloadingLogin(false);
+      console.log('error api', error?.response?.data); //5090370
+      //   setErrorMessage(error?.response?.data?.realErrorMsg || error?.response?.data?.dataError?.message);
+    }
+  };
+  const RecoverCodeApi = async (codigo: number | string) => {
+    try {
+      setloadingLogin(true);
+      const resp = await newApi.post('/auth/recover-code', {
+        email: emailState,
+        code: codigo,
+      });
+      if (resp) {
+        await AsyncStorage.setItem('tokenNew', resp.data.accessToken);
+        setloadingLogin(false);
+        setModal(true);
+      }
+    } catch (error) {
+      setloadingLogin(false);
+      console.log('error api', error?.response?.data);
+      //   setErrorMessage(error?.response?.data?.realErrorMsg || error?.response?.data?.dataError?.message);
+    }
+  };
 
-    const onSubmit = (data: any) => {
-        console.log(data);
+  const onSubmit = (data: any) => {
+    console.log(data);
+    RecoveryPasswordApi(data.correo);
+  }; //
+
+  const onChange = (arg: any) => {
+    return {
+      value: arg.nativeEvent.text,
     };
+  };
 
-    const onChange = (arg: any) => {
-        return {
-            value: arg.nativeEvent.text,
-        };
-    };
+  // Funciones modal código
 
-    // Funciones modal código
+  const [modal, setModal] = useState(false);
 
-    const [modal, setModal] = useState(false);
+  const [codigo, setCodigo] = useState<string>('');
 
-    const [codigo, setCodigo] = useState<string>('');
+  const onSubmitCode = async () => {
+    console.log('change', codigo);
+    await RecoverCodeApi(Number(codigo));
+    setModal(false);
+    //@ts-ignore
+    navigation.navigate('ChangePassword');
+  };
 
-    const onSubmitCode = () => {
-        console.log('change', codigo);
-        setModal(false);
-        //@ts-ignore
-        navigation.navigate('ChangePassword')
-    };
-
-    return (
-        <>
-        <LinearGradient  colors={['#378bc1', '#395ea1', '#4847a2']} style={{ position: "absolute", width: "100%", height: Dimensions.get("window").height }} />
-            <ArrowBackButton route={navigation}></ArrowBackButton>
-            <ScrollView>
-                <View style={styles.container}>
-                    <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <Input
-                                placeholder="Correo"
-                                textContentType="emailAddress"
-                                textAlign="center"
-                                containerStyle={[styles.input1, { borderColor: colorBordefocusCorreo }]}
-                                inputContainerStyle={{ borderBottomWidth: 0, justifyContent: 'center' }}
-                                onChangeText={(value) => onChange(value)}
-                                value={value}
-                                autoCapitalize={'none'}
-                                autoCorrect={false}
-                                onFocus={() => setcolorBordefocusCorreo('#9933FF')}
-                                onBlur={() => setcolorBordefocusCorreo('white')}
-                                autoCompleteType={undefined}
-                                rightIcon={<Icon
-                                    type="material-community"
-                                    name="email" tvParallaxProperties={undefined}
-                                ></Icon>}
-                            ></Input>
-                        )}
-                        name="correo"
-                        rules={{ required: true }}
-                    />
-                    {errors.correo && <Text style={styles.text2} >El correo es requerido.</Text>}
-                    <TouchableOpacity
-                        style={styles.containerTextCodigo}
-                        onPress={() => setModal(true)}
-                    >
-                        <Text
-                            style={styles.text2}
-                        >Ya tengo un código</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-          style={styles.buttonGoogle}
-          onPress={handleSubmit(onSubmit)}>
-         
-          <Text style={{alignSelf: "center",textAlign: "center", width:Dimensions.get('window').width * 0.65}} >Recuperar contraseña</Text>
-        </TouchableOpacity>
-                </View>
-            </ScrollView>
-            <ScrollView>
-                <Overlay
-                    isVisible={modal}
-                    overlayStyle={styles.overlayModalCode}>
-                    <View style={styles.viewCodeContainer}>
-                        <Text style={{ color: 'black', fontSize: 15, paddingBottom: 10 }}>Ingrese el código recibido:</Text>
-                        <Input
-                            placeholder="Codigo"
-                            textContentType="creditCardNumber"
-                            textAlign="center"
-                            containerStyle={[styles.input1, { borderColor: colorBordefocusCodigo, borderWidth: 1 }]}
-                            inputContainerStyle={{ borderBottomWidth: 0, justifyContent: 'center' }}
-                            onChangeText={(value) => setCodigo(value)}
-                            value={codigo}
-                            autoCapitalize={'none'}
-                            autoCorrect={false}
-                            onFocus={() => setcolorBordefocusCodigo('#9933FF')}
-                            onBlur={() => setcolorBordefocusCodigo('gray')}
-                            autoCompleteType={undefined}
-                        ></Input>
-                        {/* <Text style={[styles.text2, { color: 'gray', paddingBottom: 10 }]} >El código es requerido.</Text> */}
-                    </View>
-                    <View style={styles.viewCodeFooter}>
-                        <TouchableOpacity
-                            style={styles.buttonCancel}
-                            onPress={() => setModal(false)}
-                        >
-                            <Text style={[styles.text, { marginHorizontal: 20 }]}>
-                                Cancelar
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={onSubmitCode}
-                        >
-                            <Text style={[styles.text, { marginHorizontal: 20 }]}>
-                                Validar Código
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </Overlay>
-            </ScrollView>
-        </>
-    )
-}
+  return (
+    <>
+      <LinearGradient
+        colors={['#FFA31E', '#FFA31E', '#FFA31E']}
+        opacity={0.9}
+        style={{
+          position: 'absolute',
+          width: '100%',
+          height: Dimensions.get('window').height,
+        }}
+      />
+      <ArrowBackButton route={navigation}></ArrowBackButton>
+      <ScrollView>
+        <View style={styles.container}>
+          {loadingLogin && <ActivityIndicator color={'white'} size="large" />}
+          <Controller
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <Input
+                placeholder="Correo"
+                style={{fontSize:15}}
+                textContentType="emailAddress"
+                textAlign="center"
+                containerStyle={[
+                  styles.input1,
+                  {borderColor: colorBordefocusCorreo},
+                ]}
+                inputContainerStyle={{
+                  borderBottomWidth: 0,
+                  justifyContent: 'center',
+                }}
+                onChangeText={value => onChange(value)}
+                value={value}
+                autoCapitalize={'none'}
+                autoCorrect={false}
+                onFocus={() => setcolorBordefocusCorreo('#9933FF')}
+                onBlur={() => setcolorBordefocusCorreo('white')}
+                autoCompleteType={undefined}
+                rightIcon={
+                  <Icon
+                    type="material-community"
+                    name="email"
+                    tvParallaxProperties={undefined}></Icon>
+                }></Input>
+            )}
+            name="correo"
+            rules={{required: true}}
+          />
+          {errors.correo && (
+            <Text style={styles.text2}>El correo es requerido.</Text>
+          )}
+          <TouchableOpacity
+            style={styles.containerTextCodigo}
+            onPress={() => setModal(true)}>
+            <Text style={styles.text2}>Ya tengo un código</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonGoogle}
+            onPress={handleSubmit(onSubmit)}>
+            <Text
+              style={{
+                alignSelf: 'center',
+                textAlign: 'center',
+                width: Dimensions.get('window').width * 0.65,
+              }}>
+              Recuperar contraseña
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+      <ScrollView>
+        <Overlay isVisible={modal} overlayStyle={styles.overlayModalCode}>
+          <View style={styles.viewCodeContainer}>
+            <Text style={{color: 'black', fontSize: 15, paddingBottom: 10}}>
+              Ingrese el código recibido:
+            </Text>
+            <Input
+              placeholder="Codigo"
+              textContentType="creditCardNumber"
+              textAlign="center"
+              containerStyle={[
+                styles.input1,
+                {borderColor: colorBordefocusCodigo, borderWidth: 1},
+              ]}
+              inputContainerStyle={{
+                borderBottomWidth: 0,
+                justifyContent: 'center',
+              }}
+              onChangeText={value => setCodigo(value)}
+              value={codigo}
+              autoCapitalize={'none'}
+              autoCorrect={false}
+              onFocus={() => setcolorBordefocusCodigo('#9933FF')}
+              onBlur={() => setcolorBordefocusCodigo('gray')}
+              autoCompleteType={undefined}></Input>
+            {/* <Text style={[styles.text2, { color: 'gray', paddingBottom: 10 }]} >El código es requerido.</Text> */}
+          </View>
+          <View style={styles.viewCodeFooter}>
+            <TouchableOpacity
+              style={styles.buttonCancel}
+              onPress={() => setModal(false)}>
+              <Text style={[styles.text, {marginHorizontal: 20}]}>
+                Cancelar
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={onSubmitCode}>
+              <Text style={[styles.text, {marginHorizontal: 20}]}>
+                Validar Código
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Overlay>
+      </ScrollView>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
-    text: {
-        fontSize: 15,
-        color: 'gray',
-    },
-    containerTextCodigo: {
-        marginTop: 10,
-        color: 'white',
-        height: 45,
-        borderRadius: 13,
-        alignItems: 'flex-end',
-        justifyContent: 'flex-start',
-    },
-    text2: {
-        fontSize: 15,
-        color: 'white',
-    },
-    container: {
-        flex: 1,
-        display: "flex",
-        justifyContent: 'center',
-        padding: 8,
-        // backgroundColor: '#0e101c',
-        marginHorizontal: 40,
-        // borderWidth:1,
-        borderColor: 'white',
-        paddingHorizontal: 20,
-        marginVertical: "60%",
-        borderRadius: 40,
-        paddingVertical: 40
-    },
-    input1: {
-        backgroundColor: 'white',
-        borderWidth: 2,
-        height: 50,
-        // padding: 10,
-        borderRadius: 20,
-        // marginVertical: 8,
-        fontSize: 16
-    },
-    input2: {
-        backgroundColor: 'white',
-        borderWidth: 2,
-        height: 50,
-        padding: 10,
-        borderRadius: 13,
-        marginVertical: 8,
-        fontSize: 16
-    },
-    buttonGoogle: {
-        width: Dimensions.get('window').width * 0.7,
-        alignSelf: 'center',
-        marginTop: 10,
-        color: 'white',
-        height: 45,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        flexDirection: 'row',
-        paddingLeft: 15,
-        borderColor:'gray',
-        borderWidth:1
-      },
-    button: {
-        marginTop: 10,
-        color: 'white',
-        height: 45,
-        // backgroundColor: '#9933FF',
-        borderRadius: 13,
-        borderWidth: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderColor: 'gray',
-    },
-    buttonCancel: {
-        width: Dimensions.get('window').width * 0.3,
-        alignSelf: 'center',
-        marginTop: 10,
-        color: 'white',
-        height: 45,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        flexDirection: 'row',
-        paddingLeft: 15,
-    },
-    // Modal
-    overlayModalCode: {
-        height: Dimensions.get('screen').height * 0.25,
-        width: '90%',
-        backgroundColor: "#fff",
-        borderRadius: 10,
-    },
-    viewCodeContainer: {
-        flex: Dimensions.get('screen').height * 0.65,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    viewCodeFooter: {
-        flex: Dimensions.get('screen').height * 0.35,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-evenly",
-        marginTop: '2%'
-    },
+  text: {
+    fontSize: 15,
+    color: 'gray',
+  },
+  containerTextCodigo: {
+    marginTop: 10,
+    color: 'white',
+    height: 45,
+    borderRadius: 13,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+  },
+  text2: {
+    fontSize: 15,
+    color: 'white',
+    textDecorationLine: 'underline'
+  },
+  container: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    padding: 8,
+    // backgroundColor: '#0e101c',
+    marginHorizontal: 40,
+    // borderWidth:1,
+    borderColor: 'white',
+    paddingHorizontal: 20,
+    marginVertical: '60%',
+    borderRadius: 40,
+    paddingVertical: 40,
+  },
+  input1: {
+    backgroundColor: 'white',
+    borderWidth: 2,
+    height: 50,
+    // padding: 10,
+    borderRadius: 20,
+    // marginVertical: 8,
+    fontSize: 16,
+  },
+  input2: {
+    backgroundColor: 'white',
+    borderWidth: 2,
+    height: 50,
+    padding: 10,
+    borderRadius: 13,
+    marginVertical: 8,
+    fontSize: 16,
+  },
+  buttonGoogle: {
+    width: Dimensions.get('window').width * 0.7,
+    alignSelf: 'center',
+    marginTop: 10,
+    color: 'white',
+    height: 45,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    paddingLeft: 15,
+    // borderColor: 'gray',
+    // borderWidth: 1,
+  },
+  button: {
+    marginTop: 10,
+    color: 'white',
+    height: 45,
+    // backgroundColor: '#9933FF',
+    borderRadius: 13,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'gray',
+  },
+  buttonCancel: {
+    width: Dimensions.get('window').width * 0.3,
+    alignSelf: 'center',
+    marginTop: 10,
+    color: 'white',
+    height: 45,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    paddingLeft: 15,
+  },
+  // Modal
+  overlayModalCode: {
+    height: Dimensions.get('screen').height * 0.25,
+    width: '90%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+  },
+  viewCodeContainer: {
+    flex: Dimensions.get('screen').height * 0.65,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  viewCodeFooter: {
+    flex: Dimensions.get('screen').height * 0.35,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    marginTop: '2%',
+  },
 });
