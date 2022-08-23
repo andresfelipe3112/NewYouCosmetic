@@ -305,7 +305,7 @@ const ColorCabello = ({route}) => {
           <View
             style={{
               position: 'absolute',
-              top: Dimensions.get('window').height * 0.6,
+              top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.69 : Dimensions.get('window').height * 0.63,
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',

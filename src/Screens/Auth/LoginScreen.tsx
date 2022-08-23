@@ -48,8 +48,10 @@ export default function LoginScreen() {
   useEffect(() => {
     GoogleSignin.configure({
       //  androidClientId: "809801253751-q5bod5pd5l8oa5t45jibje1nrnmd8fq4.apps.googleusercontent.com",//debug
+      // webClientId:'434136853035-8e5kh9gknnm7hgqq7vbd6p0pc5q0jc2v.apps.googleusercontent.com', // release
       androidClientId:
-        '434136853035-etvgruinh9jlr444v560j51st7n1ho5a.apps.googleusercontent.com',
+        '434136853035-5ldqda3vf9e5nbkun5hnppjd684mtckl.apps.googleusercontent.com',
+      // '434136853035-8e5kh9gknnm7hgqq7vbd6p0pc5q0jc2v.apps.googleusercontent.com'
     });
   }, []);
 

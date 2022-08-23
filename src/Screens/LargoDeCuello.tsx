@@ -340,7 +340,7 @@ export default function LargoDeCuello({route}) {
           <View
             style={{
               position: 'absolute',
-              top: Dimensions.get('window').height * 0.57,
+              top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.63 : Dimensions.get('window').height * 0.57,
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',

@@ -327,7 +327,7 @@ const Bronceado = ({route}) => {
           <View
             style={{
               position: 'absolute',
-              top: Dimensions.get('window').height * 0.56,
+              top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.635 : Dimensions.get('window').height * 0.56,
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
@@ -342,17 +342,19 @@ const Bronceado = ({route}) => {
               onPress={() => navigation.goBack()}
               tvParallaxProperties={undefined}
             />
-            {valueInput !== '' && route?.params?.actualizar !== true && <Icon
-                    name='arrow-right'
-                    type='evilicon'
-                    color='#7C8499'
-                    size={50}
-                    //@ts-ignore
-                    onPress={() =>{
-                        genderApi(valueInput)
-                    }}
-                    tvParallaxProperties={undefined}
-                /> }
+            {valueInput !== '' && route?.params?.actualizar !== true && (
+              <Icon
+                name="arrow-right"
+                type="evilicon"
+                color="#7C8499"
+                size={50}
+                //@ts-ignore
+                onPress={() => {
+                  genderApi(valueInput);
+                }}
+                tvParallaxProperties={undefined}
+              />
+            )}
             {valueInputApi !== '' && route?.params?.actualizar === true && (
               <Button
                 title="Actualizar"

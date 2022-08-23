@@ -119,7 +119,7 @@ export const CurrentResponse = ({navigation}) => {
             <View>
             {dataResponse?.dataUser?.season && <Button item={data[0]} data={dataResponse?.dataUser?.season} ></Button> }
             {dataResponse?.dataUser?.gender && <Button item={data[1]} data={dataResponse?.dataUser?.gender}></Button> }
-            {dataResponse?.dataUser?.height && <Button item={data[7]} data={dataResponse?.dataUser?.height} ></Button> }
+            {dataResponse?.dataUser?.height && <Button item={data[7]} data={dataResponse?.dataUser?.realHeight} ></Button> }
             {dataResponse?.dataUser?.neckLength && <Button item={data[8]} data={dataResponse?.dataUser?.neckLength} ></Button> }
             {dataResponse?.dataUser?.skinColor && <Button item={data[4]} data={dataResponse?.dataUser?.skinColor} ></Button> }
             {dataResponse?.dataUser?.style && <Button item={data[3]}  data={dataResponse?.dataUser?.style}></Button> }

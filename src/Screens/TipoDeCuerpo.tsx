@@ -292,7 +292,7 @@ const TipoDeCuerpo = ({route}) => {
       <View
         style={{
           position: 'absolute',
-          top: Dimensions.get('window').height * 0.90,
+          top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.938 : Dimensions.get('window').height * 0.9,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
