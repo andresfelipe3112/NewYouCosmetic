@@ -5,6 +5,7 @@ import {DetailComponentVertical} from '../Components/DetailComponentVertical';
 import {
   ActivityIndicator,
   Dimensions,
+  Platform,
   StyleSheet,
   Text,
   View,
@@ -195,7 +196,9 @@ export const DetailProduct = ({route}: any) => {
 
   return (
     <View style={{ width: '100%', height: '100%'}}>
-      <ScrollView>
+      <ScrollView
+      alwaysBounceVertical={false}
+      >
       {
         dataProduct.media.map((item:any,index:any)=>{
           return(
@@ -226,6 +229,35 @@ export const DetailProduct = ({route}: any) => {
         })
       }
       </ScrollView>
+      { Platform.OS === 'ios' ? 
+      
+      <LinearGradient
+      opacity={1}
+      colors={[
+        'rgba(255, 255, 255, 0.06)',
+        'white',
+        'white',
+      ]}
+      style={{
+        position: 'absolute',
+        width: '100%',
+        // height: Dimensions.get('window').height * 0.8,
+        height: 315,
+        bottom: Dimensions.get('window').height > 720 ?  0: 0,
+        // borderBottomLeftRadius: 60,
+        // borderBottomRightRadius: 60,
+        // shadowColor: '#000',
+        // shadowOffset: {
+        //   width:0,
+        //   height: 0,
+        // },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 3.84,
+        // elevation: 5,
+      }}
+    />
+      
+      :
       <LinearGradient
         opacity={1}
         colors={[
@@ -250,7 +282,7 @@ export const DetailProduct = ({route}: any) => {
           // shadowRadius: 3.84,
           // elevation: 5,
         }}
-      />
+      />}
       
       <Button
         onPress={() => {
@@ -263,7 +295,7 @@ export const DetailProduct = ({route}: any) => {
           borderColor: !iconHeart ? '#1A0349' : 'white',
           position: 'absolute',
           right: 0,
-          marginTop: 8,
+          marginTop: Platform.OS === 'ios'? 35 : 10,
           marginRight: 10,
           shadowColor: '#000',
           shadowOffset: {
@@ -304,6 +336,8 @@ export const DetailProduct = ({route}: any) => {
             textAlign: 'center',
             fontSize: 24,
             fontWeight: 'bold',
+            marginBottom:Platform.OS === 'ios'? 10: 0,
+            color: Platform.OS === 'ios'? 'gray': 'black'
           }}>
           {dataProduct?.nameProduct}
         </Text>
@@ -313,6 +347,7 @@ export const DetailProduct = ({route}: any) => {
             paddingHorizontal: 25,
             textAlign: 'center',
             fontSize: 15,
+            color: Platform.OS === 'ios'? 'gray': 'black'
           }}>
          {dataProduct?.description}
           </Text>
@@ -326,7 +361,7 @@ export const DetailProduct = ({route}: any) => {
           borderRadius: 30,
           width: 200,
           alignSelf: 'center',
-          margin: 30,
+          margin:Platform.OS === 'ios'?40: 30,
           backgroundColor: '#FFB266',
           padding: 5,
           position: 'absolute',
@@ -339,7 +374,7 @@ export const DetailProduct = ({route}: any) => {
         containerStyle={{
           width: 30,
           position: 'absolute',
-          top: 10,
+          top: Platform.OS === 'ios'? 35 : 10,
           backgroundColor: 'white',
           borderRadius: 20,
           padding: 5,

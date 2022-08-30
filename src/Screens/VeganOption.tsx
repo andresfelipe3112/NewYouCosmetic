@@ -2,6 +2,7 @@ import React, {Component, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Dimensions,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -152,9 +153,9 @@ const Seasons = ({route}) => {
           position: 'absolute',
           bottom:
           Dimensions.get('window').height > 810
-            ? 50
+            ? Platform.OS === 'ios'? 15 : 50
             : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
-            ? 55
+            ? Platform.OS === 'ios'? 10 : 55
             : 60,
           display: 'flex',
           flexDirection: 'row',

@@ -8,6 +8,7 @@ import {
   TextInput,
   ScrollView,
   Dimensions,
+  Platform,
 } from 'react-native';
 import {Button, Icon, Text} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -192,7 +193,7 @@ const ColorCabello = ({route}) => {
         style={{
           width: Dimensions.get('window').width * 0.8,
           alignSelf: 'center',
-          marginTop: '50%',
+          marginTop: Platform.OS === 'ios'? '55%' :'50%',
         }}>
         <Text style={[styles.textTitle, {marginTop: -40}]}>
           ¿De que color es tu cabello natural?

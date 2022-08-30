@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
   Pressable,
+  Platform,
 } from 'react-native';
 //@ts-ignore
 import Video from 'react-native-video';
@@ -259,7 +260,7 @@ const VeinColor = ({route}) => {
           position: 'absolute',
           bottom:
           Dimensions.get('window').height > 810
-            ? 10
+            ? Platform.OS === 'ios'? -10 : 10
             : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
             ? 10
             : 10,

@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Dimensions, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import newApi from '../Services/LoginApiValues';
@@ -78,6 +78,7 @@ export const CurrentResponse = ({navigation}) => {
               flexWrap: "wrap",
               display: "flex",
               flexDirection: "row",
+              marginTop:Platform.OS === 'ios'? 30 : 0
             }}
           >
         <View
@@ -89,7 +90,7 @@ export const CurrentResponse = ({navigation}) => {
           alignItems: 'center',
         }}>
         <Text
-        style={{ fontSize:18, color: 'black', fontWeight: 'bold' }}
+        style={{ fontSize:18, color: 'black', fontWeight: 'bold', marginLeft:Platform.OS === 'ios'? -15 : 0 }}
         >Respuestas</Text>
       </View>
                    <View
@@ -106,7 +107,7 @@ export const CurrentResponse = ({navigation}) => {
             <View style={{
                 width: 28, height: 28, flexDirection: 'row',
                 backgroundColor: 'white', justifyContent: 'center',
-                alignItems: 'center', marginBottom: 20, borderRadius: 30, marginTop: 3
+                alignItems: 'center', marginBottom: 20, borderRadius: 30, marginTop: Platform.OS === 'ios'? 0 : 3
             }}>
                 <Icon size={18} name='arrow-left' type='feather' tvParallaxProperties={undefined}
                     color='#444444' onPress={() => navigation.goBack()}>

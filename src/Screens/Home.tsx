@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {Tab} from '../Components/Tab';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {DetailComponent} from '../Components/DetailComponent';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, Platform, StyleSheet, Text, View} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
@@ -109,7 +109,9 @@ export const Home = ({route}: any) => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <ScrollView style={{width: '100%', marginBottom: 50}}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{width: '100%', marginBottom: Platform.OS === 'ios' ? 80 : 50, marginTop:Platform.OS === 'ios' ? 25 : 0}}>
         <Video
           // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
           source={promo2}
@@ -241,7 +243,7 @@ export const Home = ({route}: any) => {
         onPressItem={name => {
           if (name === 'Agregar Recomendación') {
             navigation.navigate('CategoriesPush');
-          } else if(name === 'Refrescar categorías') {
+          } else if (name === 'Refrescar categorías') {
             refresh();
           }
         }}

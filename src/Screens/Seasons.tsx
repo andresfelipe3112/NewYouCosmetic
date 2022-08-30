@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Dimensions,
   PixelRatio,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -275,9 +276,9 @@ const Seasons = ({route}) => {
           // top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.918 : Dimensions.get('window').height * 0.9,
           bottom:
             Dimensions.get('window').height > 810
-              ? 50
+              ? Platform.OS === 'ios'? 15 : 50
               : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
-              ? 55
+              ? Platform.OS === 'ios'? 10 : 55
               : 115,
           display: 'flex',
           flexDirection: 'row',
@@ -365,6 +366,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     borderRadius: 25,
     opacity: 0.6,
+    marginTop: Platform.OS === 'ios'? "15%" : 0
   },
   text: {
     fontSize: 15,

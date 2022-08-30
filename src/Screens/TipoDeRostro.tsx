@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
   Pressable,
+  Platform,
 } from 'react-native';
 //@ts-ignore
 import Video from 'react-native-video';
@@ -378,10 +379,12 @@ const TipoDeRostro = ({route}) => {
       <View
         style={{
           position: 'absolute',
-          top:
-            Dimensions.get('window').height > 720
-              ? Dimensions.get('window').height * 0.913
-              : Dimensions.get('window').height * 0.9,
+          bottom:
+          Dimensions.get('window').height > 810
+            ? Platform.OS === 'ios'? 15 : 40
+            : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
+            ? Platform.OS === 'ios'? 15 : 35
+            : 15,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -484,7 +487,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     opacity: 0.6,
     display: 'flex',
-    marginTop: 30,
+    marginTop: Platform.OS === 'ios'? 60 : 30,
   },
   text: {
     fontSize: 15,

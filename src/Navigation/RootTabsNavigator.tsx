@@ -139,25 +139,25 @@ export const RootTabsNavigator = ({route}) => {
     return (
         <Tab.Navigator initialRouteName={'Para tí'}
             screenOptions={({ route }) => (
-                Platform.OS === 'ios' ?
-                    {
-                        tabBarIcon: ({ color }) => screenOptionsIos(route, color),
-                        tabBarBadgeStyle: { backgroundColor: '#DB0A57', },
-                        // tabBarInactiveTintColor: '#5A6EAE',
-                        // tabBarActiveTintColor: '#BDCBF7',
-                        tabBarStyle: {
-                            paddingBottom: Dimensions.get('window').height > 800 ? 23 : 5,
-                            backgroundColor: "#184679",
-                            borderTopLeftRadius: 20,
-                            borderTopRightRadius: 20,
-                            position: 'absolute',
-                            borderTopWidth: 0,
-                            elevation: 0,
-                            width: Dimensions.get('window').width,
-                        },
-                        headerShown: false,
-                    }
-                    :
+                // Platform.OS === 'ios' ?
+                //     {
+                //         tabBarIcon: ({ color }) => screenOptionsIos(route, color),
+                //         tabBarBadgeStyle: { backgroundColor: '#DB0A57', },
+                //         // tabBarInactiveTintColor: '#5A6EAE',
+                //         // tabBarActiveTintColor: '#BDCBF7',
+                //         tabBarStyle: {
+                //             paddingBottom: Dimensions.get('window').height > 800 ? 23 : 5,
+                //             backgroundColor: "#184679",
+                //             borderTopLeftRadius: 20,
+                //             borderTopRightRadius: 20,
+                //             position: 'absolute',
+                //             borderTopWidth: 0,
+                //             elevation: 0,
+                //             width: Dimensions.get('window').width,
+                //         },
+                //         headerShown: false,
+                //     }
+                //     :
                     {
                         tabBarIcon: ({ color }) => screenOptionsAndroid(route, color),
                         // tabBarBadgeStyle: { backgroundColor: '#DB0A57' },

@@ -2,6 +2,7 @@ import React, {Component, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Dimensions,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -175,10 +176,10 @@ const Pecas = ({route}) => {
           position: 'absolute',
           bottom:
             Dimensions.get('window').height > 810
-              ? 50
+              ? Platform.OS === 'ios'? 15 : 50
               : Dimensions.get('window').height < 780 &&
                 Dimensions.get('window').height < 740
-              ? 50
+              ? Platform.OS === 'ios'? 10 : 50
               : 110,
           display: 'flex',
           flexDirection: 'row',

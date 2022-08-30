@@ -41,11 +41,9 @@ export default function LoginScreen() {
 
   useEffect(() => {
     GoogleSignin.configure({
-      //  androidClientId: "809801253751-q5bod5pd5l8oa5t45jibje1nrnmd8fq4.apps.googleusercontent.com",//debug
-      // webClientId:'434136853035-8e5kh9gknnm7hgqq7vbd6p0pc5q0jc2v.apps.googleusercontent.com', // release
       androidClientId:
         '434136853035-5ldqda3vf9e5nbkun5hnppjd684mtckl.apps.googleusercontent.com',
-      // '434136853035-8e5kh9gknnm7hgqq7vbd6p0pc5q0jc2v.apps.googleusercontent.com'
+        iosClientId:'434136853035-6riujmakt7ut2a0pbjckmok5cimpssch.apps.googleusercontent.com'
     });
   }, []);
 
@@ -195,14 +193,14 @@ export default function LoginScreen() {
         }}
       />
       <ScrollView
-      // style={{backgroundColor:"black"}}
+        // style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}
       >
         <View
           style={{
             width: Dimensions.get('window').width * 0.8,
             alignSelf: 'center',
             marginBottom: 20,
-            marginTop: Platform.OS === 'ios' ? 170 : 110,
+            marginTop: Platform.OS === 'ios' ? Dimensions.get('window').height > 750 ? 160 : 110 : 110,
           }}>
           <Text style={styles.textTitle}>
             Inicia sesión en tu cuenta de NewYou

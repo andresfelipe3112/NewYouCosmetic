@@ -7,6 +7,7 @@ import { Icon, Image, Text } from "react-native-elements";
 import { ComponentImag } from "../Components/ComponentImag";
 import LinearGradient from "react-native-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 
 export const Info = () => {
@@ -27,7 +28,7 @@ export const Info = () => {
           console.log(`Keys: ${keys}`); // Just to see what's going on
           // navigation.navigate('LoginScreen');
         navigation.replace('LoginScreen')
-          
+        await GoogleSignin.signOut()  
 
         } catch (error) {
           console.log('LoginOutThunk', error);

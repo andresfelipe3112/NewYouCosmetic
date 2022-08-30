@@ -168,9 +168,9 @@ export default function Altura({route}) {
           position: 'absolute',
           bottom:
           Dimensions.get('window').height > 810
-            ? 40
+            ? Platform.OS === 'ios'? 15 : 40
             : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
-            ? 35
+            ? Platform.OS === 'ios'? 15 : 35
             : 15,
           display: 'flex',
           flexDirection: 'row',

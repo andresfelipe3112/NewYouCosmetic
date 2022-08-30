@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { Dimensions, SafeAreaView, StyleSheet, TouchableOpacity, View, Image } from 'react-native'
+import { Dimensions, SafeAreaView, StyleSheet, TouchableOpacity, View, Image, Platform } from 'react-native'
 import { Text } from 'react-native-elements'
 import { Button } from 'react-native-elements/dist/buttons/Button'
 
@@ -42,7 +42,7 @@ export const IntroScreen = () => {
     <View style={{ backgroundColor:`${array[first].color}`, width: "100%", height: "100%"}}>
         <Text
         style={{color:"white", alignSelf:"center", fontSize: 20,
-                fontWeight: 'bold', marginTop:"10%"}}
+                fontWeight: 'bold', marginTop:Dimensions.get("window").height > 750 && Platform.OS === 'ios'? "20%" : "10%"}}
         >
             {array[first].title}
         </Text>

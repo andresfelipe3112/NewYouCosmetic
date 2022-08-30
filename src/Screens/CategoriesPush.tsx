@@ -2,6 +2,7 @@ import React, {Component, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Dimensions,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -237,6 +238,7 @@ const CategoriesPush = () => {
           flexDirection: 'row',
           marginBottom: 10,
           position: 'absolute',
+          marginTop:Platform.OS === 'ios' ? 28 : 0,
         }}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -251,10 +253,10 @@ const CategoriesPush = () => {
           }}>
           <Icon
             containerStyle={{borderRadius: 50, width: 40}}
-            name="arrow-left"
-            type="evilicon"
+            name='arrow-left'
+             type='feather'
             color="gray"
-            size={35}
+            size={20}
             tvParallaxProperties={undefined}
             //@ts-ignore
           />
@@ -269,7 +271,7 @@ const CategoriesPush = () => {
           justifyContent: 'center',
           width: Dimensions.get('window').width,
           height: Dimensions.get('window').height,
-          marginTop: 50,
+          marginTop:Platform.OS === 'ios' ? 70 : 50,
         }}>
         <Text style={styles.textTitle}>¿Qué quieres que te recomendemos?</Text>
         <Text
