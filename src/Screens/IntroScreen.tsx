@@ -8,7 +8,7 @@ import { Button } from 'react-native-elements/dist/buttons/Button'
 const array = [
     {
         title:"CREA TU PERFIL",
-        subTitle:"Puedes crear tu perfil, con esto te podre conocer y recomendar lo que necesitas",
+        subTitle:"Puedes tu perfil, con esto te podre conocer y recomendar lo que necesitas",
         img:require("../Assets/Img/pruebaA.jpg"),
         color:"#911757"
     },
@@ -20,7 +20,7 @@ const array = [
     },
     {
         title:"ARMA TU OUTFIT",
-        subTitle:"Crear tu mejor outfit para aquella ocasión o sino simplemente deja sorprenderte",
+        subTitle:"tu mejor outfit para aquella ocasión o sino simplemente deja sorprenderte",
         img:require("../Assets/Img/pruebaC.jpg"),
         color:"#3c188c"
     },

@@ -181,7 +181,7 @@ const StyleOption = ({route}) => {
             alignItems: 'center',
             justifyContent: 'center',
             width: Dimensions.get('window').width,
-            marginBottom: 40,
+            marginBottom: 100,
           }}>
           <TouchableOpacity
             style={[
@@ -277,7 +277,10 @@ const StyleOption = ({route}) => {
               Sensual
             </Text>
           </TouchableOpacity>
-          <DawnLogo text="Las personas de estilo sexy o sensual buscan valorar las formas de su cuerpo, especialmente con piezas que hacen que el cuerpo sea aún más curvilíneo." />
+          <DawnLogo
+            colorVideoText={true}
+            text="Las personas de estilo sexy o sensual buscan valorar las formas de su cuerpo, especialmente con piezas que hacen que el cuerpo sea aún más curvilíneo."
+          />
           <TouchableOpacity
             style={[
               styles.button,
@@ -307,7 +310,12 @@ const StyleOption = ({route}) => {
       <View
         style={{
           position: 'absolute',
-          top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.938 : Dimensions.get('window').height * 0.9,
+          bottom:
+          Dimensions.get('window').height > 810
+            ? 10
+            : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
+            ? 10
+            : 10,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -320,19 +328,31 @@ const StyleOption = ({route}) => {
           style={{
             position: 'absolute',
             width: Dimensions.get('window').width * 1.5,
-            height: 65,
+            height: 100,
             marginHorizontal: -100,
-            marginTop: -13,
+            marginTop: -18,
           }}
         />
-        <Icon
-          name="arrow-left"
-          type="evilicon"
-          color="#7C8499"
-          size={50}
-          tvParallaxProperties={undefined}
-          onPress={() => navigation.goBack()}
-        />
+        {!route?.params?.actualizar && (
+          <Icon
+            name="arrow-left"
+            type="evilicon"
+            color="#7C8499"
+            size={50}
+            tvParallaxProperties={undefined}
+            onPress={() => navigation.goBack()}
+          />
+        )}
+        {route?.params?.actualizar && (
+          <Icon
+            name="arrow-left"
+            type="evilicon"
+            color="#7C8499"
+            size={50}
+            tvParallaxProperties={undefined}
+            onPress={() => navigation.navigate('CurrentResponse')}
+          />
+        )}
         {response !== '' && !route?.params?.actualizar && (
           <TouchableOpacity
             //@ts-ignore
@@ -343,9 +363,9 @@ const StyleOption = ({route}) => {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <Text style={{color: 'white'}}>Siguiente</Text>
+            <Text style={{color: 'transparent'}}>Siguiente</Text>
             <Icon
-              name="arrow-right"
+              name="check"
               type="evilicon"
               color="#7C8499"
               size={50}

@@ -12,7 +12,9 @@ import {Button, Image, Text} from 'react-native-elements';
 export const DetailComponentVertical = ({productoObj, index}: any) => {
   const navigation = useNavigation();
 
-  const {nombre, nameProduct, media} = productoObj;
+  const {nombre, nameProduct, media,imageCover } = productoObj;
+  console.log(productoObj);
+  
 
   useEffect(() => {
     console.log('productoObj', productoObj);
@@ -32,6 +34,7 @@ export const DetailComponentVertical = ({productoObj, index}: any) => {
         justifyContent: 'flex-start',
         alignItems: 'center',
         margin: 20,
+        marginBottom:25,
         shadowColor: '#CECECE',
         shadowOffset: {
           width: 0,
@@ -44,7 +47,8 @@ export const DetailComponentVertical = ({productoObj, index}: any) => {
       <Image
                     key={index}
                     style={{ width: 135, height: 135, borderRadius: 16 }}
-                    source={{uri:media[0].url}}
+                    source={{uri:imageCover}}
+                    // source={require(`../Assets/Img/vestido4.jpg`)}
                     PlaceholderContent={<ActivityIndicator />}
                 ></Image>
       <Text
@@ -54,8 +58,9 @@ export const DetailComponentVertical = ({productoObj, index}: any) => {
           textAlign: 'center',
           fontSize: 13,
           marginTop:6,
+          marginBottom:6,
         }}>
-        {nameProduct}
+        {nameProduct.slice(0,40)+'...'}
       </Text>
       <Text style={{color: '#99ABC8', fontSize: 12}}>{nombre}</Text>
     </TouchableOpacity>

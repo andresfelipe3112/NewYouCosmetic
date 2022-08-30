@@ -173,21 +173,39 @@ const Pecas = ({route}) => {
       <View
         style={{
           position: 'absolute',
-          top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.938 : Dimensions.get('window').height * 0.9,
+          bottom:
+            Dimensions.get('window').height > 810
+              ? 50
+              : Dimensions.get('window').height < 780 &&
+                Dimensions.get('window').height < 740
+              ? 50
+              : 110,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
           width: Dimensions.get('window').width * 0.9,
           alignSelf: 'center',
         }}>
-        <Icon
-          name="arrow-left"
-          type="evilicon"
-          color="#7C8499"
-          size={50}
-          tvParallaxProperties={undefined}
-          onPress={() => navigation.goBack()}
-        />
+        {route?.params?.actualizar !== true && (
+          <Icon
+            name="arrow-left"
+            type="evilicon"
+            color="#7C8499"
+            size={50}
+            tvParallaxProperties={undefined}
+            onPress={() => navigation.goBack()}
+          />
+        )}
+        {route?.params?.actualizar === true && (
+          <Icon
+            name="arrow-left"
+            type="evilicon"
+            color="#7C8499"
+            size={50}
+            tvParallaxProperties={undefined}
+            onPress={() => navigation.navigate('CurrentResponse')}
+          />
+        )}
         {response !== '' && !route?.params?.actualizar && (
           <TouchableOpacity
             //@ts-ignore

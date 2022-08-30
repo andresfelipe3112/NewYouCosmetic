@@ -305,21 +305,36 @@ const ColorCabello = ({route}) => {
           <View
             style={{
               position: 'absolute',
-              top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.69 : Dimensions.get('window').height * 0.63,
+              top:
+                Dimensions.get('window').height > 720
+                  ? Dimensions.get('window').height * 0.69
+                  : Dimensions.get('window').height * 0.63,
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
               width: Dimensions.get('window').width * 0.9,
               alignSelf: 'center',
             }}>
-            <Icon
-              name="arrow-left"
-              type="evilicon"
-              color="#7C8499"
-              size={50}
-              onPress={() => navigation.goBack()}
-              tvParallaxProperties={undefined}
-            />
+            {!route?.params?.actualizar && (
+              <Icon
+                name="arrow-left"
+                type="evilicon"
+                color="#7C8499"
+                size={50}
+                onPress={() => navigation.goBack()}
+                tvParallaxProperties={undefined}
+              />
+            )}
+            {route?.params?.actualizar && (
+              <Icon
+                name="arrow-left"
+                type="evilicon"
+                color="#7C8499"
+                size={50}
+                onPress={() => navigation.navigate('CurrentResponse')}
+                tvParallaxProperties={undefined}
+              />
+            )}
             {valueInput !== '' && !route?.params?.actualizar && (
               <Icon
                 name="arrow-right"

@@ -39,7 +39,8 @@ const Seasons = ({route}) => {
     try {
       setloadingLogin(false);
       !route?.params?.actualizar && navigation.navigate('VeganOption');
-      route?.params?.actualizar === true && navigation.goBack();
+      route?.params?.actualizar === true &&
+        navigation.navigate('CurrentResponse');
       const resp = await newApi.post('users/season', {season: dataLogin});
       console.log('respSeaso', resp.data);
       // if (resp) {
@@ -48,6 +49,10 @@ const Seasons = ({route}) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    console.log(Dimensions.get('window').height);
+  }, []);
 
   const colorVerano = () => {
     if (colorCheckVerano) {
@@ -145,7 +150,7 @@ const Seasons = ({route}) => {
         }}
       />
       <ScrollView>
-        <Text style={styles.textTitle}>Selecciona la estación del año. </Text>
+        <Text style={styles.textTitle}>Selecciona la estación del año.</Text>
         <View
           style={{
             display: 'flex',
@@ -266,8 +271,14 @@ const Seasons = ({route}) => {
       </ScrollView>
       <View
         style={{
-          position: 'absolute',
-          top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.938 : Dimensions.get('window').height * 0.9,
+          position: 'absolute', //pequeño 715, mediano 771 , grande 881
+          // top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.918 : Dimensions.get('window').height * 0.9,
+          bottom:
+            Dimensions.get('window').height > 810
+              ? 50
+              : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
+              ? 55
+              : 115,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -295,7 +306,7 @@ const Seasons = ({route}) => {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <Text style={{color: 'white'}}>Siguiente</Text>
+            <Text style={{color: 'transparent'}}>Siguiente</Text>
             <Icon
               name="arrow-right"
               type="evilicon"
@@ -312,7 +323,7 @@ const Seasons = ({route}) => {
             color="#7C8499"
             size={50}
             tvParallaxProperties={undefined}
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate('CurrentResponse')}
           />
         )}
         {route?.params?.actualizar === true && (

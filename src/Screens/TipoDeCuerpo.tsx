@@ -59,12 +59,18 @@ const TipoDeCuerpo = ({route}) => {
         typeBody: data,
       });
       if (resp) {
-        const respCategori =
-          !route?.params?.actualizar &&
-          (await newApi.get(`/products/newCategory/${categoryName}`));
-        if (respCategori) {
-          !route?.params?.actualizar &&
-            navigation.navigate('Root', {reRender: categoryName});
+        if (route?.params?.onlySecond === false) {
+          navigation.navigate('TipoDeRostro', {
+            category: categoryName,
+            onlySecond: route?.params?.onlySecond,
+          });
+        } else {
+          const respCategori = !route?.params?.actualizar &&
+            (await newApi.get(`/products/newCategory/${categoryName}`));
+          if (respCategori) {
+            !route?.params?.actualizar &&
+              navigation.navigate('Root', {reRender: categoryName});
+          }
         }
       }
     } catch (error) {
@@ -171,7 +177,7 @@ const TipoDeCuerpo = ({route}) => {
       colorD();
       setData('nervioso');
     }
-    console.log(route?.params?.data);
+    console.log(route?.params);
   }, [route?.params?.data]);
 
   return (
@@ -196,7 +202,7 @@ const TipoDeCuerpo = ({route}) => {
             alignItems: 'center',
             justifyContent: 'center',
             width: Dimensions.get('window').width,
-            marginBottom: 10,
+            marginBottom: 100,
           }}>
           <TouchableOpacity
             style={[
@@ -292,7 +298,12 @@ const TipoDeCuerpo = ({route}) => {
       <View
         style={{
           position: 'absolute',
-          top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.938 : Dimensions.get('window').height * 0.9,
+          bottom:
+          Dimensions.get('window').height > 810
+            ? 10
+            : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
+            ? 10
+            : 5,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -305,9 +316,9 @@ const TipoDeCuerpo = ({route}) => {
           style={{
             position: 'absolute',
             width: Dimensions.get('window').width * 1.5,
-            height: 65,
+            height: 100,
             marginHorizontal: -100,
-            marginTop: -13,
+            marginTop: -18,
           }}
         />
         <Icon
@@ -334,7 +345,6 @@ const TipoDeCuerpo = ({route}) => {
               alignItems: 'center',
               justifyContent: 'flex-end',
               padding: 3,
-              backgroundColor: '#F9AD47',
               borderRadius: 20,
               shadowColor: '#000',
               shadowOffset: {
@@ -345,12 +355,12 @@ const TipoDeCuerpo = ({route}) => {
               shadowRadius: 7.49,
               elevation: 12,
             }}>
-            <Text style={{color: 'white'}}>Finalizar</Text>
+            <Text style={{color: 'transparent'}}>{route?.params?.onlySecond === false ? 'Siguiente' : 'Finalizar' }</Text>
             <Icon
-              name="arrow-right"
+              name= {route?.params?.onlySecond === false ? "arrow-right" : 'check'}
               type="evilicon"
-              color="white"
-              size={40}
+              color= {route?.params?.onlySecond === false ?  "#7C8499" : "white"} 
+              size={45}
               tvParallaxProperties={undefined}
             />
           </TouchableOpacity>
@@ -387,7 +397,8 @@ export default TipoDeCuerpo;
 const styles = StyleSheet.create({
   textTitle: {
     color: 'gray',
-    fontSize: 23,
+    fontSize: 18,
+    fontWeight: 'bold',
     textAlign: 'center',
     fontFamily: 'Dosis',
     marginVertical: 20,

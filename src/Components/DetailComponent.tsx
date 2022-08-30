@@ -105,7 +105,11 @@ export const DetailComponent = ({productoObj, title, status = ''}: any) => {
                       borderRadius: 16,
                       marginRight: 22,
                     }}
-                    source={{uri: producto.media[0].url}}></Image>
+                    // source={require(`../Assets/Img/vestido4.jpg`)}
+                       source={{uri: producto.imageCover}}
+                    // source={{uri: producto.imageCover}}
+                    >
+                    </Image>
                   {/* <Text
                                         style={{ color: "#C8D3E5", fontWeight: "bold" }}
                                     >{producto.marca}</Text>

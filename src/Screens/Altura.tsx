@@ -61,7 +61,10 @@ export default function Altura({route}) {
       console.log('camisasApi', resp.data);
       if (resp) {
         !route?.params?.actualizar &&
-          navigation.navigate('LargoDeCuello', {category: categoryName});
+          navigation.navigate('LargoDeCuello', {
+            category: categoryName,
+            onlySecond: route?.params?.onlySecond,
+          });
       }
     } catch (error) {
       console.log(error);
@@ -163,7 +166,12 @@ export default function Altura({route}) {
       <View
         style={{
           position: 'absolute',
-          top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.938 : Dimensions.get('window').height * 0.9,
+          bottom:
+          Dimensions.get('window').height > 810
+            ? 40
+            : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
+            ? 35
+            : 15,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',

@@ -194,46 +194,7 @@ export const DetailProduct = ({route}: any) => {
   };
 
   return (
-    <View style={{backgroundColor: 'white', width: '100%', height: '100%'}}>
-       <View
-          style={{
-            width: Dimensions.get('window').width * 0.9,
-            flexWrap: 'wrap',
-            display: 'flex',
-            flexDirection: 'row',
-            marginBottom: 10,
-          }}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{
-              width:30,
-              borderRadius: 50,
-              marginLeft: 45,
-              marginTop: 50,
-              backgroundColor: 'white',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5,
-            }}>
-            <Icon
-              containerStyle={{borderRadius: 50, width: 40}}
-              name="arrow-left"
-              type="evilicon"
-              color="gray"
-              size={40}
-              tvParallaxProperties={undefined}
-              //@ts-ignore
-            />
-          </TouchableOpacity>
-        </View>
+    <View style={{ width: '100%', height: '100%'}}>
       <ScrollView>
       {
         dataProduct.media.map((item:any,index:any)=>{
@@ -242,23 +203,20 @@ export const DetailProduct = ({route}: any) => {
             style={{
               alignSelf: 'center',
               height: Dimensions.get('window').height * 0.85,
-              backgroundColor: 'white',
-              marginBottom: 30,
             }}>
             <Image
               containerStyle={{
-                padding: 15,
                 width: Dimensions.get('window').width,
               }}
               style={{
                 width: Dimensions.get('window').width,
-                height: Dimensions.get('window').height * 0.85,
+                height: Dimensions.get('window').height * 0.89,
                 // borderBottomLeftRadius: 60,
                 // borderBottomRightRadius: 60,
                 // position: 'absolute',
               }}
-                  source={{uri: item.url}}
-              //  source={require('../Assets/Img/pruebaImg.jpg')}
+                source={{uri: item.url}}
+                  // source={require(`../Assets/Img/vestido3.jpg`)}
               //  source={require('../Assets/Img/pruebaCImg.jpeg')}
               // resizeMode="stretch"
               // PlaceholderContent={<ActivityIndicator />}
@@ -272,15 +230,15 @@ export const DetailProduct = ({route}: any) => {
         opacity={1}
         colors={[
           'transparent',
-          // '#FFE5CC',
+          'white',
           'white',
         ]}
         style={{
           position: 'absolute',
           width: '100%',
           // height: Dimensions.get('window').height * 0.8,
-          height: 140,
-          bottom: 190,
+          height: 290,
+          bottom: Dimensions.get('window').height > 720 ?  0: 0,
           // borderBottomLeftRadius: 60,
           // borderBottomRightRadius: 60,
           // shadowColor: '#000',
@@ -293,24 +251,7 @@ export const DetailProduct = ({route}: any) => {
           // elevation: 5,
         }}
       />
-      <Button
-        title="Buscar tiendas"
-        onPress={() =>
-          navigation.navigate('DetailProductStore', {data: dataShop})
-        }
-        containerStyle={{
-          borderRadius: 30,
-          width: 200,
-          alignSelf: 'center',
-          margin: 30,
-          backgroundColor: '#FFB266',
-          padding: 5,
-          position: 'absolute',
-          bottom: 0,
-        }}
-        titleStyle={{color: 'white'}}
-        buttonStyle={{backgroundColor: '#FFB266'}}
-      />
+      
       <Button
         onPress={() => {
           setIconHeart(!iconHeart);
@@ -352,16 +293,16 @@ export const DetailProduct = ({route}: any) => {
         }></Button>
       <View
         style={{
-          backgroundColor: 'white',
+          // backgroundColor: 'white',
           position: 'absolute',
-          top: Dimensions.get('window').height * 0.7,
-          paddingBottom: 36,
+          top: Dimensions.get('window').height > 720 ?  Dimensions.get('window').height * 0.76 : Dimensions.get('window').height * 0.715,
+          paddingBottom: 60,
         }}>
         <Text
           style={{
             width: Dimensions.get('window').width,
             textAlign: 'center',
-            fontSize: 25,
+            fontSize: 24,
             fontWeight: 'bold',
           }}>
           {dataProduct?.nameProduct}
@@ -373,10 +314,27 @@ export const DetailProduct = ({route}: any) => {
             textAlign: 'center',
             fontSize: 15,
           }}>
-          Prenda exterior de vestir , con mangas y abierta por delante , que
-          llega por debajo de la cadera .
-        </Text>
+         {dataProduct?.description}
+          </Text>
       </View>
+      <Button
+        title="Buscar tiendas"
+        onPress={() =>
+          navigation.navigate('DetailProductStore', {data: dataShop})
+        }
+        containerStyle={{
+          borderRadius: 30,
+          width: 200,
+          alignSelf: 'center',
+          margin: 30,
+          backgroundColor: '#FFB266',
+          padding: 5,
+          position: 'absolute',
+          bottom: 0,
+        }}
+        titleStyle={{color: 'white'}}
+        buttonStyle={{backgroundColor: '#FFB266'}}
+      />
       <Icon
         containerStyle={{
           width: 30,

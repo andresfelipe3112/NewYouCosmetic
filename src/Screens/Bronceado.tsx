@@ -327,21 +327,34 @@ const Bronceado = ({route}) => {
           <View
             style={{
               position: 'absolute',
-              top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.635 : Dimensions.get('window').height * 0.56,
+              bottom:
+              Dimensions.get('window').height > 810
+                ? 60
+                : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
+                ? 60
+                : 60,
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
               width: Dimensions.get('window').width * 0.9,
               alignSelf: 'center',
             }}>
-            <Icon
+            {route?.params?.actualizar !== true && <Icon
               name="arrow-left"
               type="evilicon"
               color="#7C8499"
               size={50}
               onPress={() => navigation.goBack()}
               tvParallaxProperties={undefined}
-            />
+            />}
+            {route?.params?.actualizar === true && <Icon
+              name="arrow-left"
+              type="evilicon"
+              color="#7C8499"
+              size={50}
+              onPress={() => navigation.navigate('CurrentResponse')}
+              tvParallaxProperties={undefined}
+            />}
             {valueInput !== '' && route?.params?.actualizar !== true && (
               <Icon
                 name="arrow-right"

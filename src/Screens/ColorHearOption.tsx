@@ -30,7 +30,7 @@ const imagenA = require('../Assets/Img/alvina.webp');
 const ImagenB = require('../Assets/Img/tipo2.jpg');
 const imagenC = require('../Assets/Img/tipo3.jpg');
 const imagenD = require('../Assets/Img/tipo4.jpg');
-const imagenE = require('../Assets/Img/tipo5.jpg');
+const imagenE = require('../Assets/Img/TipoV.jpeg');
 const imagenF = require('../Assets/Img/tipo6.jpg');
 
 const ColorHearOption = ({route}) => {
@@ -50,7 +50,8 @@ const ColorHearOption = ({route}) => {
 
   const colorHearOptionApi = async () => {
     try {
-      route?.params?.actualizar === true && navigation.goBack();
+      route?.params?.actualizar === true &&
+        navigation.navigate('CurrentResponse');
       const resp = await newApi.post('users/skinColor', {skinColor: response});
       console.log('colorHearOptionApi', resp.data);
       if (resp) {
@@ -182,7 +183,7 @@ const ColorHearOption = ({route}) => {
             alignItems: 'center',
             justifyContent: 'center',
             width: Dimensions.get('window').width,
-            marginBottom: 10,
+            marginBottom: 100,
           }}>
           <TouchableOpacity
             style={[
@@ -321,7 +322,12 @@ const ColorHearOption = ({route}) => {
       <View
         style={{
           position: 'absolute',
-          top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.938 : Dimensions.get('window').height * 0.9,
+          bottom:
+          Dimensions.get('window').height > 810
+            ? 10
+            : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
+            ? 10
+            : 10,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -334,19 +340,31 @@ const ColorHearOption = ({route}) => {
           style={{
             position: 'absolute',
             width: Dimensions.get('window').width * 1.5,
-            height: 65,
+            height: 100,
             marginHorizontal: -100,
-            marginTop: -13,
+            marginTop: -18,
           }}
         />
-        <Icon
-          name="arrow-left"
-          type="evilicon"
-          color="#7C8499"
-          size={50}
-          tvParallaxProperties={undefined}
-          onPress={() => navigation.goBack()}
-        />
+        {route?.params?.actualizar && (
+          <Icon
+            name="arrow-left"
+            type="evilicon"
+            color="#7C8499"
+            size={50}
+            tvParallaxProperties={undefined}
+            onPress={() => navigation.navigate('CurrentResponse')}
+          />
+        )}
+        {!route?.params?.actualizar && (
+          <Icon
+            name="arrow-left"
+            type="evilicon"
+            color="#7C8499"
+            size={50}
+            tvParallaxProperties={undefined}
+            onPress={() => navigation.goBack()}
+          />
+        )}
         {response !== '' && !route?.params?.actualizar && (
           <TouchableOpacity
             onPress={() => colorHearOptionApi()}
@@ -356,7 +374,7 @@ const ColorHearOption = ({route}) => {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <Text style={{color: 'white'}}>Siguiente</Text>
+            <Text style={{color: 'transparent'}}>Siguiente</Text>
             <Icon
               name="arrow-right"
               type="evilicon"
@@ -408,7 +426,8 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     display: 'flex',
     marginTop: 30,
-    marginBottom:15  },
+    marginBottom: 15,
+  },
   text: {
     fontSize: 15,
     color: 'white',
@@ -436,9 +455,9 @@ const styles = StyleSheet.create({
     width: 130,
     height: 130,
     margin: 15,
-    padding:2,
+    padding: 2,
     borderRadius: 15,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

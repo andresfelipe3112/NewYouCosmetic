@@ -96,6 +96,17 @@ export const RootTabsNavigator = ({route}) => {
         route?.params?.reRender === "a14" && setrRenderNewCategoria(true) // pulseras
         route?.params?.reRender === "a12" && setrRenderNewCategoria(true) // relog
         route?.params?.reRender === "a13" && setrRenderNewCategoria(true) // pañuelos
+        route?.params?.reRender === "b19" && setrRenderNewCategoria(true) // vestidos
+        route?.params?.reRender === "b16" && setrRenderNewCategoria(true) // shors
+        route?.params?.reRender === "b22" && setrRenderNewCategoria(true) // sandalias
+        route?.params?.reRender === "b23" && setrRenderNewCategoria(true) // Zapatillas
+        route?.params?.reRender === "b20" && setrRenderNewCategoria(true) // Cinturón
+        route?.params?.reRender === "b18" && setrRenderNewCategoria(true) // Faldas
+        route?.params?.reRender === "b14" && setrRenderNewCategoria(true) // Sweater
+        route?.params?.reRender === "b12" && setrRenderNewCategoria(true) // Chaquetas
+        route?.params?.reRender === "c14" && setrRenderNewCategoria(true) // Peinados
+        route?.params?.reRender === "c16" && setrRenderNewCategoria(true) // Gafas
+        route?.params?.reRender === "c15" && setrRenderNewCategoria(true) // Cortes de cabello
         console.log(route?.params?.reRender);
     },[route?.params?.reRender])
 

@@ -231,7 +231,7 @@ const TipoDeRostro = ({route}) => {
             alignItems: 'center',
             justifyContent: 'center',
             width: Dimensions.get('window').width,
-            marginBottom: 40,
+            marginBottom: 100,
           }}>
           <TouchableOpacity
             style={[
@@ -378,7 +378,10 @@ const TipoDeRostro = ({route}) => {
       <View
         style={{
           position: 'absolute',
-          top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.938 : Dimensions.get('window').height * 0.9,
+          top:
+            Dimensions.get('window').height > 720
+              ? Dimensions.get('window').height * 0.913
+              : Dimensions.get('window').height * 0.9,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -391,15 +394,15 @@ const TipoDeRostro = ({route}) => {
           style={{
             position: 'absolute',
             width: Dimensions.get('window').width * 1.5,
-            height: 65,
+            height: 100,
             marginHorizontal: -100,
-            marginTop: -13,
+            marginTop: -18,
           }}
         />
         <Icon
           name="arrow-left"
           type="evilicon"
-          color="white"
+          color="#7C8499"
           size={45}
           tvParallaxProperties={undefined}
           onPress={() => navigation.goBack()}
@@ -420,7 +423,7 @@ const TipoDeRostro = ({route}) => {
               alignItems: 'center',
               justifyContent: 'flex-end',
               padding: 3,
-              backgroundColor: '#F9AD47',
+              // backgroundColor: '#F9AD47',
               borderRadius: 20,
               shadowColor: '#000',
               shadowOffset: {
@@ -431,12 +434,12 @@ const TipoDeRostro = ({route}) => {
               shadowRadius: 7.49,
               elevation: 12,
             }}>
-            <Text style={{color: 'white'}}>Finalizar</Text>
+            <Text style={{color: 'transparent'}}>Finalizar</Text>
             <Icon
-              name="arrow-right"
+              name="check"
               type="evilicon"
               color="white"
-              size={40}
+              size={45}
               tvParallaxProperties={undefined}
             />
           </TouchableOpacity>

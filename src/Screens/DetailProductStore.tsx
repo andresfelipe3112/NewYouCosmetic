@@ -356,36 +356,7 @@ export const DetailProductStore = ({route}: any) => {
             flexDirection: 'row',
             marginBottom: 10,
           }}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{
-              width:30,
-              borderRadius: 50,
-              marginLeft: 45,
-              marginTop: 50,
-              backgroundColor: 'white',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5,
-            }}>
-            <Icon
-              containerStyle={{borderRadius: 50, width: 40}}
-              name="arrow-left"
-              type="evilicon"
-              color="gray"
-              size={40}
-              tvParallaxProperties={undefined}
-              //@ts-ignore
-            />
-          </TouchableOpacity>
+         
         </View>
         {/* <View style={styles.container}>
       <MapView
@@ -442,6 +413,22 @@ export const DetailProductStore = ({route}: any) => {
           />
         </View>
       </ImageBackground>
+      <Icon
+        containerStyle={{
+          width: 30,
+          position: 'absolute',
+          top: 10,
+          backgroundColor: 'white',
+          borderRadius: 20,
+          padding: 5,
+          left: 10,
+        }}
+        size={18}
+        name="arrow-left"
+        type="feather"
+        tvParallaxProperties={undefined}
+        color="#444444"
+        onPress={() => navigation.goBack()}></Icon>
     </>
   );
 };

@@ -150,7 +150,12 @@ const Seasons = ({route}) => {
       <View
         style={{
           position: 'absolute',
-          top: Dimensions.get('window').height * 0.89,
+          bottom:
+          Dimensions.get('window').height > 810
+            ? 50
+            : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
+            ? 55
+            : 60,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',

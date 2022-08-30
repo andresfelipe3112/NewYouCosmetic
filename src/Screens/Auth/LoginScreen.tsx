@@ -3,29 +3,23 @@ import {
   Text,
   View,
   TextInput,
-  Button,
   ScrollView,
-  Alert,
   Dimensions,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
   ActivityIndicator,
   Image,
+  Platform,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
-import {Icon, Input, Overlay} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
-import WellCome from '../../Components/WellCome';
-import Video from 'react-native-video';
-import VideoPlayer from 'react-native-video-controls';
 import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import newApi from '../../Services/LoginApiValues';
-import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen() {
@@ -208,7 +202,7 @@ export default function LoginScreen() {
             width: Dimensions.get('window').width * 0.8,
             alignSelf: 'center',
             marginBottom: 20,
-            marginTop: 110,
+            marginTop: Platform.OS === 'ios' ? 170 : 110,
           }}>
           <Text style={styles.textTitle}>
             Inicia sesión en tu cuenta de NewYou

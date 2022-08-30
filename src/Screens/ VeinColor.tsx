@@ -185,7 +185,7 @@ const VeinColor = ({route}) => {
             alignItems: 'center',
             justifyContent: 'center',
             width: Dimensions.get('window').width,
-            marginBottom: 10,
+            marginBottom: 100,
           }}>
           <TouchableOpacity
             style={[
@@ -257,7 +257,12 @@ const VeinColor = ({route}) => {
       <View
         style={{
           position: 'absolute',
-          top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.938 : Dimensions.get('window').height * 0.9,
+          bottom:
+          Dimensions.get('window').height > 810
+            ? 10
+            : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
+            ? 10
+            : 10,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -270,19 +275,31 @@ const VeinColor = ({route}) => {
           style={{
             position: 'absolute',
             width: Dimensions.get('window').width * 1.5,
-            height: 65,
+            height: 100,
             marginHorizontal: -100,
-            marginTop: -13,
+            marginTop: -18,
           }}
         />
-        <Icon
-          name="arrow-left"
-          type="evilicon"
-          color="#7C8499"
-          size={50}
-          tvParallaxProperties={undefined}
-          onPress={() => navigation.goBack()}
-        />
+        {!route?.params?.actualizar && (
+          <Icon
+            name="arrow-left"
+            type="evilicon"
+            color="#7C8499"
+            size={50}
+            tvParallaxProperties={undefined}
+            onPress={() => navigation.goBack()}
+          />
+        )}
+        {route?.params?.actualizar && (
+          <Icon
+            name="arrow-left"
+            type="evilicon"
+            color="#7C8499"
+            size={50}
+            tvParallaxProperties={undefined}
+            onPress={() => navigation.navigate('CurrentResponse')}
+          />
+        )}
         {loadingLogin && (
           <ActivityIndicator style={{marginLeft: 165}} color={'white'} />
         )}
@@ -295,7 +312,7 @@ const VeinColor = ({route}) => {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <Text style={{color: 'white'}}>Siguiente</Text>
+            <Text style={{color: 'transparent'}}>Siguiente</Text>
             <Icon
               name="arrow-right"
               type="evilicon"
@@ -371,7 +388,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
     elevation: 8,
-    marginBottom: 18,
+    marginBottom: 30,
   },
   containerStyle: {
     width: 110,

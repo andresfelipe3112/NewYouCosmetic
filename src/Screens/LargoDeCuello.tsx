@@ -88,7 +88,7 @@ export default function LargoDeCuello({route}) {
       console.log('camisasApi', resp.data);
       if (resp) {
         !route?.params?.actualizar &&
-          navigation.navigate('TipoDeCuerpo', {category: categoryName});
+          navigation.navigate('TipoDeCuerpo', {category: categoryName,  onlySecond: route?.params?.onlySecond,});
       }
     } catch (error) {
       console.log(error);
@@ -210,6 +210,10 @@ export default function LargoDeCuello({route}) {
       setdataLogin('largo');
     }
   }, [route?.params]);
+
+  useEffect(() => {
+    console.log(route?.params);
+  },[route?.params])
 
   return (
     <>
@@ -340,7 +344,12 @@ export default function LargoDeCuello({route}) {
           <View
             style={{
               position: 'absolute',
-              top:Dimensions.get('window').height > 720 ? Dimensions.get('window').height * 0.63 : Dimensions.get('window').height * 0.57,
+              bottom:
+              Dimensions.get('window').height > 810
+                ? 70
+                : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
+                ? 70
+                : 70,
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',

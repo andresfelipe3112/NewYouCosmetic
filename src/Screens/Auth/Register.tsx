@@ -19,6 +19,7 @@ import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import newApi from '../../Services/LoginApiValues';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CustomToast } from '../../utils/customToast';
 
 export default function Register() {
   const navigation = useNavigation();
@@ -28,6 +29,7 @@ export default function Register() {
     useState<string>('white');
   const [loadingLogin, setloadingLogin] = useState<Boolean>(false);
   const [showPassword, setShowPassword] = useState(true);
+  const {showToast} = CustomToast();
 
   const {
     handleSubmit,
@@ -63,7 +65,7 @@ export default function Register() {
     username: string,
   ) => {
     try {
-      setloadingLogin(false);
+      setloadingLogin(true);
       const resp = await newApi.post('auth/register-user', {
         email: email,
         password: password,
@@ -71,11 +73,17 @@ export default function Register() {
         username: username,
       });
       if (resp) {
-        navigation.navigate('LoginScreen');
+        await AsyncStorage.setItem('tokenNew', resp.data.accessToken);
+        setloadingLogin(false);
+        navigation.navigate('IntroScreen');
       }
       console.log('Register', resp);
-      setloadingLogin(true);
-    } catch (error) {}
+      setloadingLogin(false);
+    } catch (error) {
+
+      showToast(error?.response?.data?.dataError?.message);
+      setloadingLogin(false);
+    }
   };
 
   return (
@@ -271,8 +279,13 @@ export default function Register() {
       </ScrollView>
       <View
         style={{
-          position: 'absolute',
-          top: Dimensions.get('window').height * 0.89,
+          position: 'relative',
+          bottom:
+          Dimensions.get('window').height > 810
+            ? 10
+            : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
+            ? 10
+            : 5,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
