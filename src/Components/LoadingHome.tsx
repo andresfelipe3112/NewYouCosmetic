@@ -3,6 +3,7 @@ import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
 import { FAB, Icon, Image } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import { colorA } from '../utils/colors';
 
 let obj = {
     name: "Andres Felipe",
@@ -107,7 +108,7 @@ export const LoadingHome = ({title}) => {
                 visible={visible}
                 icon={{ name: 'add', color: 'white' }}
                 size="large"
-                color='#FFA31E'
+                color={colorA}
                 style={{ width: 50, height: 50, alignSelf: "center", backgroundColor: "red", marginTop: 20 }}
             />
 

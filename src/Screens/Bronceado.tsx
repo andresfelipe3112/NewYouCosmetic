@@ -14,6 +14,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import newApi from '../Services/LoginApiValues';
+import { colorA, colorB } from '../utils/colors';
 
 const Bronceado = ({route}) => {
   console.log('route', route);
@@ -212,7 +213,7 @@ const Bronceado = ({route}) => {
               width: '70%',
               height: 60,
               display: 'flex',
-              backgroundColor: '#FFB266',
+              backgroundColor: colorA,
               justifyContent: 'center',
               borderRadius: 40,
               marginBottom: 5,
@@ -428,7 +429,7 @@ const styles = StyleSheet.create({
     fontFamily: 'FredokaOne',
   },
   inputOptions: {
-    backgroundColor: '#ffc378',
+    backgroundColor: colorB,
     width: '70%',
     marginVertical: 4,
     borderRadius: 20,

@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
   Pressable,
+  Platform,
 } from 'react-native';
 //@ts-ignore
 import Video from 'react-native-video';
@@ -20,6 +21,7 @@ import {useNavigation} from '@react-navigation/native';
 import DawnLogo from '../Components/DawnLogo';
 import newApi from '../Services/LoginApiValues';
 import {CustomToast} from '../utils/customToast';
+import { colorA } from '../utils/colors';
 
 const videoA = require('../Assets/video/casual.mp4');
 const VideoB = require('../Assets/video/formal.mp4');
@@ -84,7 +86,7 @@ const TipoDeCuerpo = ({route}) => {
     console.log('data', data);
   }, [data]);
 
-  const colorA = () => {
+  const ColorA = () => {
     if (colorCheckA) {
       setData('');
       return setcolorCheckA(false);
@@ -162,7 +164,7 @@ const TipoDeCuerpo = ({route}) => {
 
   useEffect(() => {
     if (route?.params?.data === 'linfatico') {
-      colorA();
+      ColorA();
       setData('linfatico');
     }
     if (route?.params?.data === 'sanguineo') {
@@ -207,11 +209,11 @@ const TipoDeCuerpo = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckA ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckA ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
-              colorA();
+              ColorA();
               setData('linfatico');
             }}>
             <Image
@@ -231,7 +233,7 @@ const TipoDeCuerpo = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckB ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckB ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -255,7 +257,7 @@ const TipoDeCuerpo = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckC ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckC ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -276,7 +278,7 @@ const TipoDeCuerpo = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckD ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckD ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -344,16 +346,8 @@ const TipoDeCuerpo = ({route}) => {
               alignSelf: 'flex-end',
               alignItems: 'center',
               justifyContent: 'flex-end',
-              padding: 3,
-              borderRadius: 20,
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 6,
-              },
-              shadowOpacity: 0.37,
-              shadowRadius: 7.49,
-              elevation: 12,
+
+            
             }}>
             <Text style={{color: 'transparent'}}>{route?.params?.onlySecond === false ? 'Siguiente' : 'Finalizar' }</Text>
             <Icon
@@ -407,6 +401,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     marginTop: 20,
     marginHorizontal: 20,
+    paddingTop: Platform.OS === 'ios' ? 30 : 0,
   },
   text: {
     fontSize: 15,

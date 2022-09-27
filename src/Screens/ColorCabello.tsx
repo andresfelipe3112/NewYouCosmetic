@@ -15,6 +15,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import newApi from '../Services/LoginApiValues';
+import { colorA, colorB } from '../utils/colors';
 
 const ColorCabello = ({route}) => {
   console.log('route', route);
@@ -193,7 +194,7 @@ const ColorCabello = ({route}) => {
         style={{
           width: Dimensions.get('window').width * 0.8,
           alignSelf: 'center',
-          marginTop: Platform.OS === 'ios'? '55%' :'50%',
+          marginTop: Platform.OS === 'ios'? '58%' :'50%',
         }}>
         <Text style={[styles.textTitle, {marginTop: -40}]}>
           ¿De que color es tu cabello natural?
@@ -211,7 +212,7 @@ const ColorCabello = ({route}) => {
               width: '70%',
               height: 60,
               display: 'flex',
-              backgroundColor: '#FFB266',
+              backgroundColor: colorA,
               justifyContent: 'center',
               borderRadius: 30,
               marginBottom: 5,
@@ -408,7 +409,7 @@ const styles = StyleSheet.create({
     fontFamily: 'FredokaOne',
   },
   inputOptions: {
-    backgroundColor: '#ffc378',
+    backgroundColor: colorB,
     width: '70%',
     marginVertical: 4,
     borderRadius: 20,

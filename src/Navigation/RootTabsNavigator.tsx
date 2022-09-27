@@ -11,12 +11,14 @@ import { AllProducts } from '../Screens/AllProducts';
 import { AllProductsPerfil } from '../Screens/AllProductsPerfil';
 import { LoadingHome } from '../Components/LoadingHome';
 import newApi from '../Services/LoginApiValues';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Info } from '../Screens/Info';
+import { colorA } from '../utils/colors';
 
 const Tab = createBottomTabNavigator();
 
 export const RootTabsNavigator = ({route}) => {
+    const navigation = useNavigation();
     const [currentIcon, setCurrentIcon] = useState("Home");
     const [stateCurrent, setStateCurrent] = useState(true);
     const [firtsData, setFirtsData] = useState([]);
@@ -33,6 +35,7 @@ export const RootTabsNavigator = ({route}) => {
         console.log(data.data.dataUser);
         setUser(data.data.dataUser)
         setTitleLoading(`Bienvenida ${data?.data?.dataUser?.username}, estoy buscando las mejores recomendaciones para ti…`)
+        navigation.reset()
     }
 
     useEffect(() => {
@@ -139,25 +142,35 @@ export const RootTabsNavigator = ({route}) => {
     return (
         <Tab.Navigator initialRouteName={'Para tí'}
             screenOptions={({ route }) => (
-                // Platform.OS === 'ios' ?
-                //     {
-                //         tabBarIcon: ({ color }) => screenOptionsIos(route, color),
-                //         tabBarBadgeStyle: { backgroundColor: '#DB0A57', },
-                //         // tabBarInactiveTintColor: '#5A6EAE',
-                //         // tabBarActiveTintColor: '#BDCBF7',
-                //         tabBarStyle: {
-                //             paddingBottom: Dimensions.get('window').height > 800 ? 23 : 5,
-                //             backgroundColor: "#184679",
-                //             borderTopLeftRadius: 20,
-                //             borderTopRightRadius: 20,
-                //             position: 'absolute',
-                //             borderTopWidth: 0,
-                //             elevation: 0,
-                //             width: Dimensions.get('window').width,
-                //         },
-                //         headerShown: false,
-                //     }
-                //     :
+                 Platform.OS === 'ios' ?
+                     {
+                         tabBarIcon: ({ color }) => screenOptionsAndroid(route, color),
+                         tabBarBadgeStyle: { backgroundColor: '#DB0A57', },
+                         tabBarInactiveTintColor: 'white',
+                         tabBarActiveTintColor: 'white',
+                         tabBarStyle: {
+                             paddingBottom: Dimensions.get('window').height > 800 ? 23 : 5,
+                             backgroundColor: "#184679",
+                             borderTopLeftRadius: 20,
+                             borderTopRightRadius: 20,
+                             position: 'absolute',
+                             borderTopWidth: 0,
+                             elevation: 0,
+                             zIndex: 8,
+                  
+                         },
+                         headerShown: false,
+                         tabBarBackground: () => (
+                            <LinearGradient opacity={1} colors={[colorA,colorA]}
+                                style={{
+                                    position: "absolute", width: Dimensions.get("window").width,
+                                    height: 90,
+                                    borderTopLeftRadius: 20,
+                                    borderTopRightRadius: 20,
+                                }} />
+                        ),
+                     }
+                     :
                     {
                         tabBarIcon: ({ color }) => screenOptionsAndroid(route, color),
                         // tabBarBadgeStyle: { backgroundColor: '#DB0A57' },

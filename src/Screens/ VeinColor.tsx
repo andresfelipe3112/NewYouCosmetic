@@ -20,6 +20,7 @@ import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import DawnLogo from '../Components/DawnLogo';
 import newApi from '../Services/LoginApiValues';
+import { colorA } from '../utils/colors';
 
 const videoA = require('../Assets/video/casual.mp4');
 const VideoB = require('../Assets/video/formal.mp4');
@@ -57,15 +58,13 @@ const VeinColor = ({route}) => {
       const resp = await newApi.post('/users/veins', {veins: response});
       console.log('/users/veins', resp.data);
       setloadingLogin(false);
-      if (resp) {
         !route?.params?.actualizar && navigation.navigate('Pecas');
-      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const colorA = () => {
+  const ColorA = () => {
     if (colorCheckA) {
       return setcolorCheckA(false);
     }
@@ -141,7 +140,7 @@ const VeinColor = ({route}) => {
 
   useEffect(() => {
     if (route?.params?.data === 'verdeMorado') {
-      colorA();
+      ColorA();
       setResponse('verdeMorado');
     }
     if (route?.params?.data === 'verde') {
@@ -191,11 +190,11 @@ const VeinColor = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckA ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckA ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
-              colorA();
+              ColorA();
               setResponse('verdeMorado');
             }}>
             <Image
@@ -213,7 +212,7 @@ const VeinColor = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckB ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckB ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -235,7 +234,7 @@ const VeinColor = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckC ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckC ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -258,12 +257,12 @@ const VeinColor = ({route}) => {
       <View
         style={{
           position: 'absolute',
-          bottom:
+          top:
           Dimensions.get('window').height > 810
-            ? Platform.OS === 'ios'? -10 : 10
+            ? Platform.OS === 'ios'? Dimensions.get('window').height * 0.93 : Dimensions.get('window').height * 0.91
             : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
-            ? 10
-            : 10,
+            ? Platform.OS === 'ios'? Dimensions.get('window').height * 0.93 : Dimensions.get('window').height * 0.9
+            : Dimensions.get('window').height * 0.9,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -301,9 +300,9 @@ const VeinColor = ({route}) => {
             onPress={() => navigation.navigate('CurrentResponse')}
           />
         )}
-        {loadingLogin && (
+        {/* {loadingLogin && (
           <ActivityIndicator style={{marginLeft: 165}} color={'white'} />
-        )}
+        )} */}
         {response !== '' && !route?.params?.actualizar && (
           <TouchableOpacity
             onPress={() => colorHearOptionApi()}
@@ -364,7 +363,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     opacity: 0.6,
     display: 'flex',
-    marginTop: 30,
+    paddingTop: Platform.OS === 'ios'? 60 : 30,
     marginBottom: 15,
   },
   text: {

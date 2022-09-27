@@ -22,6 +22,7 @@ import {Button, Icon, Image} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {Title} from '../Components/Title';
 import newApi from '../Services/LoginApiValues';
+import { colorA } from '../utils/colors';
 
 export const DetailProduct = ({route}: any) => {
   const [indexPagination, setIndexPagination] = React.useState(0);
@@ -195,95 +196,82 @@ export const DetailProduct = ({route}: any) => {
   };
 
   return (
-    <View style={{ width: '100%', height: '100%'}}>
-      <ScrollView
-      alwaysBounceVertical={false}
-      >
-      {
-        dataProduct.media.map((item:any,index:any)=>{
-          return(
+    <View style={{width: '100%', height: '100%'}}>
+      <ScrollView alwaysBounceVertical={false}>
+        {dataProduct.media.map((item: any, index: any) => {
+          return (
             <View
-            style={{
-              alignSelf: 'center',
-              height: Dimensions.get('window').height * 0.85,
-            }}>
-            <Image
-              containerStyle={{
-                width: Dimensions.get('window').width,
-              }}
               style={{
-                width: Dimensions.get('window').width,
-                height: Dimensions.get('window').height * 0.89,
-                // borderBottomLeftRadius: 60,
-                // borderBottomRightRadius: 60,
-                // position: 'absolute',
-              }}
+                alignSelf: 'center',
+                height: Dimensions.get('window').height * 0.85,
+              }}>
+              <Image
+                containerStyle={{
+                  width: Dimensions.get('window').width,
+                }}
+                style={{
+                  width: Dimensions.get('window').width,
+                  height: Dimensions.get('window').height * 0.89,
+                  // borderBottomLeftRadius: 60,
+                  // borderBottomRightRadius: 60,
+                  // position: 'absolute',
+                }}
                 source={{uri: item.url}}
-                  // source={require(`../Assets/Img/vestido3.jpg`)}
-              //  source={require('../Assets/Img/pruebaCImg.jpeg')}
-              // resizeMode="stretch"
-              // PlaceholderContent={<ActivityIndicator />}
-            />
-          </View>
-          )
-        })
-      }
+                // source={require(`../Assets/Img/vestido3.jpg`)}
+                //  source={require('../Assets/Img/pruebaCImg.jpeg')}
+                // resizeMode="stretch"
+                // PlaceholderContent={<ActivityIndicator />}
+              />
+            </View>
+          );
+        })}
       </ScrollView>
-      { Platform.OS === 'ios' ? 
-      
-      <LinearGradient
-      opacity={1}
-      colors={[
-        'rgba(255, 255, 255, 0.06)',
-        'white',
-        'white',
-      ]}
-      style={{
-        position: 'absolute',
-        width: '100%',
-        // height: Dimensions.get('window').height * 0.8,
-        height: 315,
-        bottom: Dimensions.get('window').height > 720 ?  0: 0,
-        // borderBottomLeftRadius: 60,
-        // borderBottomRightRadius: 60,
-        // shadowColor: '#000',
-        // shadowOffset: {
-        //   width:0,
-        //   height: 0,
-        // },
-        // shadowOpacity: 0.25,
-        // shadowRadius: 3.84,
-        // elevation: 5,
-      }}
-    />
-      
-      :
-      <LinearGradient
-        opacity={1}
-        colors={[
-          'transparent',
-          'white',
-          'white',
-        ]}
-        style={{
-          position: 'absolute',
-          width: '100%',
-          // height: Dimensions.get('window').height * 0.8,
-          height: 290,
-          bottom: Dimensions.get('window').height > 720 ?  0: 0,
-          // borderBottomLeftRadius: 60,
-          // borderBottomRightRadius: 60,
-          // shadowColor: '#000',
-          // shadowOffset: {
-          //   width:0,
-          //   height: 0,
-          // },
-          // shadowOpacity: 0.25,
-          // shadowRadius: 3.84,
-          // elevation: 5,
-        }}
-      />}
-      
+      {Platform.OS === 'ios' ? (
+        <LinearGradient
+          opacity={1}
+          colors={['rgba(255, 255, 255, 0.00)', 'white', 'white']}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            // height: Dimensions.get('window').height * 0.8,
+            height: 315,
+            bottom: Dimensions.get('window').height > 720 ? 0 : 0,
+            // borderBottomLeftRadius: 60,
+            // borderBottomRightRadius: 60,
+            // shadowColor: '#000',
+            // shadowOffset: {
+            //   width:0,
+            //   height: 0,
+            // },
+            // shadowOpacity: 0.25,
+            // shadowRadius: 3.84,
+            // elevation: 5,
+          }}
+        />
+      ) : (
+        <LinearGradient
+          opacity={1}
+          colors={['transparent', 'white', 'white']}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            // height: Dimensions.get('window').height * 0.8,
+            height: 290,
+            bottom: Dimensions.get('window').height > 720 ? 0 : 0,
+            // borderBottomLeftRadius: 60,
+            // borderBottomRightRadius: 60,
+            // shadowColor: '#000',
+            // shadowOffset: {
+            //   width:0,
+            //   height: 0,
+            // },
+            // shadowOpacity: 0.25,
+            // shadowRadius: 3.84,
+            // elevation: 5,
+          }}
+        />
+      )}
+
       <Button
         onPress={() => {
           setIconHeart(!iconHeart);
@@ -295,7 +283,7 @@ export const DetailProduct = ({route}: any) => {
           borderColor: !iconHeart ? '#1A0349' : 'white',
           position: 'absolute',
           right: 0,
-          marginTop: Platform.OS === 'ios'? 35 : 10,
+          marginTop: Platform.OS === 'ios' ? 55 : 10,
           marginRight: 10,
           shadowColor: '#000',
           shadowOffset: {
@@ -307,7 +295,7 @@ export const DetailProduct = ({route}: any) => {
           elevation: 4,
         }}
         buttonStyle={{
-          backgroundColor: !iconHeart ? 'white' : '#FF9933',
+          backgroundColor: !iconHeart ? 'white' : colorA,
           borderRadius: 20,
           borderColor: !iconHeart ? '#1A0349' : 'white',
           width: 60,
@@ -327,7 +315,10 @@ export const DetailProduct = ({route}: any) => {
         style={{
           // backgroundColor: 'white',
           position: 'absolute',
-          top: Dimensions.get('window').height > 720 ?  Dimensions.get('window').height * 0.76 : Dimensions.get('window').height * 0.715,
+          top:
+            Dimensions.get('window').height > 720
+              ? Dimensions.get('window').height * 0.76
+              : Dimensions.get('window').height * 0.715,
           paddingBottom: 60,
         }}>
         <Text
@@ -336,8 +327,8 @@ export const DetailProduct = ({route}: any) => {
             textAlign: 'center',
             fontSize: 24,
             fontWeight: 'bold',
-            marginBottom:Platform.OS === 'ios'? 10: 0,
-            color: Platform.OS === 'ios'? 'gray': 'black'
+            marginBottom: Platform.OS === 'ios' ? 10 : 0,
+            color: Platform.OS === 'ios' ? 'gray' : 'black',
           }}>
           {dataProduct?.nameProduct}
         </Text>
@@ -347,10 +338,10 @@ export const DetailProduct = ({route}: any) => {
             paddingHorizontal: 25,
             textAlign: 'center',
             fontSize: 15,
-            color: Platform.OS === 'ios'? 'gray': 'black'
+            color: Platform.OS === 'ios' ? 'gray' : 'black',
           }}>
-         {dataProduct?.description}
-          </Text>
+          {dataProduct?.description}
+        </Text>
       </View>
       <Button
         title="Buscar tiendas"
@@ -361,20 +352,20 @@ export const DetailProduct = ({route}: any) => {
           borderRadius: 30,
           width: 200,
           alignSelf: 'center',
-          margin:Platform.OS === 'ios'?40: 30,
-          backgroundColor: '#FFB266',
+          margin: Platform.OS === 'ios' ? 40 : 30,
+          backgroundColor: colorA,
           padding: 5,
           position: 'absolute',
           bottom: 0,
         }}
         titleStyle={{color: 'white'}}
-        buttonStyle={{backgroundColor: '#FFB266'}}
+        buttonStyle={{backgroundColor: colorA}}
       />
       <Icon
         containerStyle={{
           width: 30,
           position: 'absolute',
-          top: Platform.OS === 'ios'? 35 : 10,
+          top: Platform.OS === 'ios' ? 55 : 10,
           backgroundColor: 'white',
           borderRadius: 20,
           padding: 5,

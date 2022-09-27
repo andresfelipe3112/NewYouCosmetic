@@ -16,6 +16,7 @@ import {Image} from 'react-native-elements/dist/image/Image';
 import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import newApi from '../Services/LoginApiValues';
+import { colorA } from '../utils/colors';
 
 const invierno = require('../Assets/video/invierno.mp4');
 const otono = require('../Assets/video/otono.mp4');
@@ -104,7 +105,7 @@ const Seasons = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckVerano ? '#F9AD47' : 'transparent'},
+              {backgroundColor: colorCheckVerano ? colorA : 'transparent'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -114,7 +115,7 @@ const Seasons = ({route}) => {
             <Text
               style={[
                 styles.text,
-                {color: colorCheckVerano ? 'white' : '#F9AD47'},
+                {color: colorCheckVerano ? 'white' : colorA},
               ]}>
               Si
             </Text>
@@ -122,7 +123,7 @@ const Seasons = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckOtono ? '#F9AD47' : 'transparent'},
+              {backgroundColor: colorCheckOtono ? colorA : 'transparent'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -132,7 +133,7 @@ const Seasons = ({route}) => {
             <Text
               style={[
                 styles.text,
-                {color: colorCheckOtono ? 'white' : '#F9AD47'},
+                {color: colorCheckOtono ? 'white' : colorA},
               ]}>
               No
             </Text>
@@ -247,7 +248,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#F9AD47',
+    borderColor: colorA,
     borderWidth: 1,
     marginVertical: 10,
   },

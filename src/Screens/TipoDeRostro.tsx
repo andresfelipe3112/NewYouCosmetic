@@ -21,6 +21,7 @@ import {useNavigation} from '@react-navigation/native';
 import DawnLogo from '../Components/DawnLogo';
 import newApi from '../Services/LoginApiValues';
 import {CustomToast} from '../utils/customToast';
+import { colorA } from '../utils/colors';
 
 const videoA = require('../Assets/video/casual.mp4');
 const VideoB = require('../Assets/video/formal.mp4');
@@ -86,7 +87,7 @@ const TipoDeRostro = ({route}) => {
     }
   };
 
-  const colorA = type => {
+  const ColorA = type => {
     if (colorCheckA) {
       return setcolorCheckA(false);
     }
@@ -189,7 +190,7 @@ const TipoDeRostro = ({route}) => {
 
   useEffect(() => {
     if (route?.params?.data === 'ovalado') {
-      colorA('ovalado');
+      ColorA('ovalado');
     }
     if (route?.params?.data === 'rectangular') {
       colorB('rectangular');
@@ -237,11 +238,11 @@ const TipoDeRostro = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckA ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckA ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
-              colorA('ovalado');
+              ColorA('ovalado');
             }}>
             <Image
               source={imagenA}
@@ -262,7 +263,7 @@ const TipoDeRostro = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckB ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckB ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => colorB('rectangular')}>
@@ -284,7 +285,7 @@ const TipoDeRostro = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckC ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckC ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => colorC('redondo')}>
@@ -305,7 +306,7 @@ const TipoDeRostro = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckD ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckD ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => colorD('alargado')}>
@@ -323,7 +324,7 @@ const TipoDeRostro = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckE ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckE ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => colorE('triangulo')}>
@@ -341,7 +342,7 @@ const TipoDeRostro = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckF ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckF ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => colorF('trianguloInvertido')}>
@@ -359,7 +360,7 @@ const TipoDeRostro = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckG ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckG ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => colorG('diamante')}>
@@ -381,9 +382,9 @@ const TipoDeRostro = ({route}) => {
           position: 'absolute',
           bottom:
           Dimensions.get('window').height > 810
-            ? Platform.OS === 'ios'? 15 : 40
+            ? Platform.OS === 'ios'? 15 : 10
             : Dimensions.get('window').height < 780 && Dimensions.get('window').height < 740
-            ? Platform.OS === 'ios'? 15 : 35
+            ? Platform.OS === 'ios'? 15 : 15
             : 15,
           display: 'flex',
           flexDirection: 'row',
@@ -425,17 +426,6 @@ const TipoDeRostro = ({route}) => {
               alignSelf: 'flex-end',
               alignItems: 'center',
               justifyContent: 'flex-end',
-              padding: 3,
-              // backgroundColor: '#F9AD47',
-              borderRadius: 20,
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 6,
-              },
-              shadowOpacity: 0.37,
-              shadowRadius: 7.49,
-              elevation: 12,
             }}>
             <Text style={{color: 'transparent'}}>Finalizar</Text>
             <Icon

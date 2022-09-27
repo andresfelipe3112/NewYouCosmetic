@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Tab} from '../Components/Tab';
 import {useNavigation} from '@react-navigation/native';
 import {DetailComponentVertical} from '../Components/DetailComponentVertical';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, Platform, StyleSheet, Text, View} from 'react-native';
 import {
   FlatList,
   ScrollView,
@@ -14,6 +14,7 @@ import {Icon} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {Title} from '../Components/Title';
 import newApi from '../Services/LoginApiValues';
+import { colorA } from '../utils/colors';
 
 export const AllProducts = ({route}: any) => {
   const data = route?.params;
@@ -71,7 +72,7 @@ export const AllProducts = ({route}: any) => {
           width: Dimensions.get('window').width,
           alignSelf: 'center',
           height: 65,
-          marginTop: 5,
+          marginTop: Platform.OS === 'ios' ? 40 : 5,
           paddingLeft:10,
         }}>    
             <View style={{
@@ -92,7 +93,7 @@ export const AllProducts = ({route}: any) => {
             alignItems: 'center',
             justifyContent: 'flex-end',
             padding: 3,
-            backgroundColor: '#F9AD47',
+            backgroundColor: colorA,
             borderRadius: 20,
             margin: 5,
             shadowColor: '#000',
@@ -164,7 +165,8 @@ export const AllProducts = ({route}: any) => {
               }}>
               <Text
                 style={{
-                  backgroundColor: '#F9AD47',
+                  backgroundColor: colorA,
+                  color:'white',
                   fontWeight: 'bold',
                   borderRadius: 5,
                   padding: 2,

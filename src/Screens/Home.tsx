@@ -13,6 +13,7 @@ import {FloatingAction} from 'react-native-floating-action';
 import newApi from '../Services/LoginApiValues';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RBSheet from 'react-native-rbs';
+import { colorA } from '../utils/colors';
 
 const otono = require('../Assets/video/otono.mp4');
 //
@@ -36,14 +37,14 @@ export const Home = ({route}: any) => {
       icon: require('../Assets/Img/add.png'),
       name: 'Agregar Recomendación',
       position: 1,
-      color: '#F9AD47',
+      color: colorA,
     },
     {
       text: 'Refrescar categorías',
       icon: require('../Assets/Img/refresh2.png'),
       name: 'Refrescar categorías',
       position: 2,
-      color: '#F9AD47',
+      color: colorA,
     },
     // {
     //   text: 'Cerrar sesión',
@@ -157,11 +158,12 @@ export const Home = ({route}: any) => {
           }}>
           <Text
             style={{
-              backgroundColor: '#F9AD47',
+              backgroundColor: colorA,
               fontWeight: 'bold',
               borderRadius: 5,
               padding: 2,
               margin: 2,
+              color:'white'
             }}>
             Patrocinado
           </Text>
@@ -196,13 +198,13 @@ export const Home = ({route}: any) => {
                     styles.category,
                     {
                       backgroundColor:
-                        indexShader === index ? '#2F2F2F' : '#E0DEE1',
+                        indexShader === index ? '#2F2F2F' : '#B7B3B8',
                     },
                   ]}>
                   <Text
                     style={[
                       styles.textCategory,
-                      {color: indexShader === index ? 'white' : 'gray'},
+                      {color: indexShader === index ? 'white' : 'white'},
                     ]}>
                     {categoria}
                   </Text>
@@ -238,8 +240,8 @@ export const Home = ({route}: any) => {
         showBackground={true}
         actions={actions}
         buttonSize={55}
-        color={'#F9AD47'}
-        distanceToEdge={{vertical: 70, horizontal: 15}}
+        color={colorA}
+        distanceToEdge={{vertical:Platform.OS === 'ios' ? 88 : 70, horizontal: 15}}
         onPressItem={name => {
           if (name === 'Agregar Recomendación') {
             navigation.navigate('CategoriesPush');

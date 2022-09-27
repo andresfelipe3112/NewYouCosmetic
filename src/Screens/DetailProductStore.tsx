@@ -139,7 +139,6 @@ export const DetailProductStore = ({route}: any) => {
           <Image
             style={{
               width: Dimensions.get('window').width * 0.28,
-              height: 110,
               borderRadius: 15,
               marginLeft: 10,
             }}
@@ -342,12 +341,13 @@ export const DetailProductStore = ({route}: any) => {
     <>
       <ImageBackground
         source={{uri: imageBackground}}
-        resizeMode="contain"
+        resizeMode='stretch'
         style={{
           position: 'absolute',
           width: '110%',
           height: '110%',
           margin: -40,
+          backgroundColor:'white'
         }}>
         <View
           style={{
@@ -418,7 +418,7 @@ export const DetailProductStore = ({route}: any) => {
         containerStyle={{
           width: 30,
           position: 'absolute',
-          top: Platform.OS === 'ios'? 40 : 10,
+          top: Platform.OS === 'ios'? 50 : 10,
           backgroundColor: 'white',
           borderRadius: 20,
           padding: 5,

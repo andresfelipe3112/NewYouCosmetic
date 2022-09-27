@@ -25,6 +25,7 @@ import ImagePicker from 'react-native-image-picker';
 import {CustomToast} from '../utils/customToast';
 import {Picker} from '@react-native-picker/picker';
 import newApi from '../Services/LoginApiValues';
+import { colorA, colorB } from '../utils/colors';
 
 interface Action {
   title: string;
@@ -246,7 +247,7 @@ export default function LargoDeCuello({route}) {
               width: '70%',
               height: 51,
               display: 'flex',
-              backgroundColor: '#F9AD47',
+              backgroundColor:colorA,
               justifyContent: 'center',
               borderRadius: 40,
               marginBottom: 5,
@@ -444,7 +445,7 @@ const styles = StyleSheet.create({
     fontFamily: 'FredokaOne',
   },
   inputOptions: {
-    backgroundColor: '#F8C67F',
+    backgroundColor: colorB,
     width: '70%',
     marginVertical: 4,
     borderRadius: 20,

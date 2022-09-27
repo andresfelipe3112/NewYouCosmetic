@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
   Pressable,
+  Platform,
 } from 'react-native';
 //@ts-ignore
 import Video from 'react-native-video';
@@ -19,6 +20,7 @@ import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import DawnLogo from '../Components/DawnLogo';
 import newApi from '../Services/LoginApiValues';
+import { colorA } from '../utils/colors';
 
 const videoA = require('../Assets/video/casual.mp4');
 const VideoB = require('../Assets/video/formal.mp4');
@@ -50,7 +52,7 @@ const StyleOption = ({route}) => {
       const resp = await newApi.post('users/style', {style: response});
       !route?.params?.actualizar &&
         (await newApi.get('products/first-category'));
-      !route?.params?.actualizar && navigation.navigate('Root');
+      !route?.params?.actualizar && navigation.replace('Root');
       console.log('idDressApi', resp.data);
       // if (resp) {
       // }
@@ -59,7 +61,7 @@ const StyleOption = ({route}) => {
     }
   };
 
-  const colorA = () => {
+  const ColorA = () => {
     if (colorCheckA) {
       return setcolorCheckA(false);
     }
@@ -118,7 +120,7 @@ const StyleOption = ({route}) => {
 
   useEffect(() => {
     if (route?.params?.data === 'style1') {
-      colorA();
+      ColorA();
       setResponse('style');
     }
     if (route?.params?.data === 'style2') {
@@ -182,15 +184,16 @@ const StyleOption = ({route}) => {
             justifyContent: 'center',
             width: Dimensions.get('window').width,
             marginBottom: 100,
+
           }}>
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckA ? '#F9AD47' : 'transparent'},
+              {backgroundColor: colorCheckA ? colorA : 'transparent'},
             ]}
             //@ts-ignore
             onPress={() => {
-              colorA();
+              ColorA();
               setResponse('style1');
             }}>
             <Image
@@ -211,7 +214,7 @@ const StyleOption = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckB ? '#F9AD47' : 'transparent'},
+              {backgroundColor: colorCheckB ? colorA : 'transparent'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -236,7 +239,7 @@ const StyleOption = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckC ? '#F9AD47' : 'transparent'},
+              {backgroundColor: colorCheckC ? colorA : 'transparent'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -260,7 +263,7 @@ const StyleOption = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckD ? '#F9AD47' : 'transparent'},
+              {backgroundColor: colorCheckD ? colorA : 'transparent'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -284,7 +287,7 @@ const StyleOption = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckE ? '#F9AD47' : 'transparent'},
+              {backgroundColor: colorCheckE ? colorA: 'transparent'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -362,13 +365,14 @@ const StyleOption = ({route}) => {
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
+              marginRight:4
             }}>
             <Text style={{color: 'transparent'}}>Siguiente</Text>
             <Icon
               name="check"
               type="evilicon"
               color="#7C8499"
-              size={50}
+              size={48}
               tvParallaxProperties={undefined}
             />
           </TouchableOpacity>
@@ -412,7 +416,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     opacity: 0.6,
     display: 'flex',
-    marginTop: 30,
+    marginTop: Platform.OS === 'ios'? 60 : 30,
   },
   text: {
     fontSize: 15,
@@ -426,7 +430,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#F9AD47',
+    borderColor: 'white',
     borderWidth: 1,
     margin: 10,
   },

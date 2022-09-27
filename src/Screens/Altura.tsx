@@ -22,6 +22,7 @@ import ImagePicker from 'react-native-image-picker';
 import {CustomToast} from '../utils/customToast';
 import {Picker} from '@react-native-picker/picker';
 import newApi from '../Services/LoginApiValues';
+import { colorA } from '../utils/colors';
 
 interface Action {
   title: string;
@@ -149,6 +150,7 @@ export default function Altura({route}) {
               style={{borderRadius: 20, fontWeight: 'bold', fontSize: 40}}>
               {age.map((item, key) => (
                 <Picker.Item
+                 color='white'
                   key={key}
                   label={item}
                   value={
@@ -195,6 +197,7 @@ export default function Altura({route}) {
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
+              marginRight:8
             }}>
             <Text style={{color: 'white'}}>Siguiente</Text>
             <Icon
@@ -263,7 +266,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     marginTop: -20,
-    backgroundColor: '#F9AD47',
+    backgroundColor: colorA,
     borderRadius: 30,
   },
   button: {

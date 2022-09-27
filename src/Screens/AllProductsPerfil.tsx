@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Tab} from '../Components/Tab';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {DetailComponentVertical} from '../Components/DetailComponentVertical';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, Platform, StyleSheet, Text, View} from 'react-native';
 import {
   FlatList,
   ScrollView,
@@ -104,10 +104,11 @@ export const AllProductsPerfil = ({route}: any) => {
       /> */}
       <View
         style={{
-          height: 50,
+          height: Platform.OS === 'ios' ? 70 : 50,
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor:'white',
+          paddingTop:Platform.OS === 'ios' ? 50 : 0,
         }}>
         <Text
         style={{ fontSize:17, color: 'black'}}

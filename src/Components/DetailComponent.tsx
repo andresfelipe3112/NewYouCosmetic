@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Dimensions, ScrollView, TouchableOpacity, View} from 'react-native';
 import {Button, Icon, Image, Text} from 'react-native-elements';
+import { colorA } from '../utils/colors';
 
 export const DetailComponent = ({productoObj, title, status = ''}: any) => {
   const navigation = useNavigation();
@@ -58,11 +59,11 @@ export const DetailComponent = ({productoObj, title, status = ''}: any) => {
                   title: title,
                 })
               }>
-              <Text style={{color: '#F9AD47'}}>{`Ver todos`}</Text>
+              <Text style={{color: colorA}}>{`Ver todos`}</Text>
               <Icon
                 name="chevron-forward-outline"
                 type="ionicon"
-                color="#F9AD47"
+                color={colorA}
                 size={19}
               />
             </TouchableOpacity>

@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const DawnLogo = ({ text, render, colorVideoText}: any) => {
 
-    const dawnLogo = require('../Assets/Img/down.png');
+    const dawnLogo = require('../Assets/Img/downPurple.png');
     const speed = 500;
 
     let height = useRef(new Animated.Value(0)).current;

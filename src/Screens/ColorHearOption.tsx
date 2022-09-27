@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
   Pressable,
+  Platform,
 } from 'react-native';
 //@ts-ignore
 import Video from 'react-native-video';
@@ -19,6 +20,7 @@ import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import DawnLogo from '../Components/DawnLogo';
 import newApi from '../Services/LoginApiValues';
+import { colorA } from '../utils/colors';
 
 const videoA = require('../Assets/video/casual.mp4');
 const VideoB = require('../Assets/video/formal.mp4');
@@ -62,7 +64,7 @@ const ColorHearOption = ({route}) => {
     }
   };
 
-  const colorA = () => {
+  const ColorA = () => {
     if (colorCheckA) {
       return setcolorCheckA(false);
     }
@@ -138,7 +140,7 @@ const ColorHearOption = ({route}) => {
 
   useEffect(() => {
     if (route?.params?.data === 'tipo1') {
-      colorA();
+      ColorA();
       setResponse('tipo1');
     }
     if (route?.params?.data === 'tipo2') {
@@ -188,11 +190,11 @@ const ColorHearOption = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckA ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckA ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
-              colorA();
+              ColorA();
               setResponse('tipo1');
             }}>
             <Image
@@ -212,7 +214,7 @@ const ColorHearOption = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckB ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckB ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -236,7 +238,7 @@ const ColorHearOption = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckC ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckC ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -257,7 +259,7 @@ const ColorHearOption = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckD ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckD ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -278,7 +280,7 @@ const ColorHearOption = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckE ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckE ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -299,7 +301,7 @@ const ColorHearOption = ({route}) => {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: colorCheckF ? '#F9AD47' : 'white'},
+              {backgroundColor: colorCheckF ? colorA : 'white'},
             ]}
             //@ts-ignore
             onPress={() => {
@@ -425,7 +427,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     opacity: 0.6,
     display: 'flex',
-    marginTop: 30,
+    marginTop: Platform.OS === 'ios'? 60 : 30,
     marginBottom: 15,
   },
   text: {

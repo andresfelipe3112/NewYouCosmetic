@@ -17,6 +17,7 @@ import {Image} from 'react-native-elements/dist/image/Image';
 import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import newApi from '../Services/LoginApiValues';
+import { colorA } from '../utils/colors';
 
 const invierno = require('../Assets/video/invierno.mp4');
 const otono = require('../Assets/video/otono.mp4');
@@ -171,8 +172,8 @@ const Seasons = ({route}) => {
             style={[
               styles.button,
               {
-                backgroundColor: colorCheckVerano ? '#F9AD47' : 'transparent',
-                borderColor: colorCheckVerano ? '#F9AD47' : 'white',
+                backgroundColor: colorCheckVerano ? colorA : 'transparent',
+                borderColor: colorCheckVerano ? colorA : 'white',
               },
             ]}
             //@ts-ignore
@@ -197,8 +198,8 @@ const Seasons = ({route}) => {
             style={[
               styles.button,
               {
-                backgroundColor: colorCheckOtono ? '#F9AD47' : 'transparent',
-                borderColor: colorCheckOtono ? '#F9AD47' : 'white',
+                backgroundColor: colorCheckOtono ? colorA : 'transparent',
+                borderColor: colorCheckOtono ? colorA : 'white',
               },
             ]}
             //@ts-ignore
@@ -224,9 +225,9 @@ const Seasons = ({route}) => {
               styles.button,
               {
                 backgroundColor: colorCheckPrimavera
-                  ? '#F9AD47'
+                  ? colorA
                   : 'transparent',
-                borderColor: colorCheckPrimavera ? '#F9AD47' : 'white',
+                borderColor: colorCheckPrimavera ? colorA : 'white',
               },
             ]}
             //@ts-ignore
@@ -251,8 +252,8 @@ const Seasons = ({route}) => {
             style={[
               styles.button,
               {
-                backgroundColor: colorCheckInvierno ? '#F9AD47' : 'transparent',
-                borderColor: colorCheckInvierno ? '#F9AD47' : 'white',
+                backgroundColor: colorCheckInvierno ? colorA : 'transparent',
+                borderColor: colorCheckInvierno ? colorA : 'white',
               },
             ]}
             //@ts-ignore
@@ -366,7 +367,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     borderRadius: 25,
     opacity: 0.6,
-    marginTop: Platform.OS === 'ios'? "15%" : 0
+      marginTop: Platform.OS === 'ios'? 60 : 30,
   },
   text: {
     fontSize: 15,
@@ -384,8 +385,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   containerStyle: {
-    width: 130,
-    height: 110,
+    width: 135,
+    height: 115,
     margin: 15,
     borderRadius: 15,
     shadowColor: '#000',

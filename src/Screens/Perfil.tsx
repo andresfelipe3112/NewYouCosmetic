@@ -4,6 +4,7 @@ import {DetailComponent} from '../Components/DetailComponent';
 import {Tab} from '../Components/Tab';
 import {
   Dimensions,
+  Platform,
   ScrollView,
   TextInput,
   TouchableOpacity,
@@ -13,6 +14,7 @@ import {Icon, Image, Text} from 'react-native-elements';
 import {ComponentImag} from '../Components/ComponentImag';
 import LinearGradient from 'react-native-linear-gradient';
 import newApi from '../Services/LoginApiValues';
+import { colorA } from '../utils/colors';
 
 export const Perfil = () => {
   const imageA = require('../Assets/Img/ropaA.jpg');
@@ -44,7 +46,7 @@ export const Perfil = () => {
         width: '100%',
         height: '100%',
         display: 'flex',
-        paddingTop:100,
+        paddingTop:Platform.OS === 'ios' ? 150: 100,
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: 'white',
@@ -60,13 +62,14 @@ export const Perfil = () => {
           top: 15,
           color: 'black',
           fontSize: 18,
+          marginTop:Platform.OS === 'ios' ? 50 : 0
         }}>
         Mis Datos
       </Text>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={{
-            position: 'absolute', top: 10, left: 15
+            position: 'absolute', top: Platform.OS === 'ios' ? 50 : 10, left: 15
             }}>
         <View
           style={{
@@ -103,8 +106,9 @@ export const Perfil = () => {
           alignSelf: 'center',
           textAlign: 'center',
           marginTop: 5,
-          backgroundColor: 'black',
+          backgroundColor: colorA,
           borderRadius: 30,
+          padding:Platform.OS === 'ios' ? 13 : 5
         }}>
         <Text
           style={{
@@ -131,7 +135,8 @@ export const Perfil = () => {
           color: 'white',
           fontWeight: 'bold',
           fontSize: 16,
-          backgroundColor: 'black',
+          backgroundColor: colorA,
+          padding:Platform.OS === 'ios' ? 13 : 5
         }}>
         <Text style={{color: 'white', fontWeight: 'bold', fontSize: 14}}>
           {user.email}

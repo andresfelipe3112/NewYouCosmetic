@@ -21,6 +21,7 @@ import {
 } from '@react-native-google-signin/google-signin';
 import newApi from '../../Services/LoginApiValues';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { colorA } from '../../utils/colors';
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -41,9 +42,11 @@ export default function LoginScreen() {
 
   useEffect(() => {
     GoogleSignin.configure({
+      // webClientId:
+      //   '434136853035-q3c0iuhbp4bvacoo8ntk3a3plkg4256j.apps.googleusercontent.com', // release
       androidClientId:
-        '434136853035-5ldqda3vf9e5nbkun5hnppjd684mtckl.apps.googleusercontent.com',
-        iosClientId:'434136853035-6riujmakt7ut2a0pbjckmok5cimpssch.apps.googleusercontent.com'
+        '434136853035-q3c0iuhbp4bvacoo8ntk3a3plkg4256j.apps.googleusercontent.com',
+       iosClientId:'434136853035-6riujmakt7ut2a0pbjckmok5cimpssch.apps.googleusercontent.com'
     });
   }, []);
 
@@ -200,11 +203,16 @@ export default function LoginScreen() {
             width: Dimensions.get('window').width * 0.8,
             alignSelf: 'center',
             marginBottom: 20,
-            marginTop: Platform.OS === 'ios' ? Dimensions.get('window').height > 750 ? 160 : 110 : 110,
+            marginTop: Platform.OS === 'ios' ? Dimensions.get('window').height > 750 ? 100 : 110 : 110,
           }}>
-          <Text style={styles.textTitle}>
+          {/* <Text style={styles.textTitle}>
             Inicia sesión en tu cuenta de NewYou
-          </Text>
+          </Text> */}
+         <Image
+                    resizeMode='contain'
+                    style={{width: Dimensions.get('window').width * 0.5, height:150, alignSelf: 'center'}}
+                    source={require('../../Assets/Img/logo_NY.png')}
+                  />
         </View>
         {errors.Gmail && (
           <Text style={styles.textError}>El usuario es requerido.</Text>
@@ -384,7 +392,7 @@ export default function LoginScreen() {
               marginTop: -5,
             }}>
             ¿Necesitas una cuenta?{' '}
-            <Text style={{textDecorationLine: 'underline'}}>Registrate</Text>
+            <Text style={{textDecorationLine: 'underline'}}>Regístrate</Text>
           </Text>
         </TouchableOpacity>
       </ScrollView>
@@ -407,7 +415,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.9,
     height: 55,
     marginVertical:5,
-    backgroundColor: '#FFA31E',
+    backgroundColor: colorA,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -435,7 +443,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 18,
-    backgroundColor: '#F9AD47',
+    backgroundColor: colorA,
     borderColor: 'white',
     shadowColor: '#000',
     shadowOffset: {
@@ -444,7 +452,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5,
   },
   buttonFacebook: {
